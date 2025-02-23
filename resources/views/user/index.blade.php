@@ -75,10 +75,10 @@
                                         <select name="role" id="role" class="form-control" required>
                                             <option value="super_admin">Super Admin</option>
                                             <option value="admin">Admin</option>
-                                            <option value="dis_admin">Admin</option>
-                                            <option value="upo_admin">Admin</option>
-                                            <option value="uni_admin">Admin</option>
-                                            <option value="ward_admin">Admin</option>
+                                            <option value="dis_admin">District Admin</option>
+                                            <option value="upo_admin">Upozila Admin</option>
+                                            <option value="uni_admin">Union Admin</option>
+                                            <option value="ward_admin">Ward Admin</option>
 
                                         </select>
                                     </div>
@@ -116,18 +116,14 @@
                                     <td>{{ ucfirst($user->role) }}</td>
                                     <td>
                                         <!-- Edit Button -->
-                                        @if($user->role === 'vendor' || $user->role === 'admin')
                                         <button class="btn btn-sm btn-primary edit-btn" data-id="{{ $user->id }}">Edit</button>
-                                        @endif
 
                                         <!-- Delete Button -->
-                                        @if($user->role === 'vendor' || $user->role === 'admin')
                                         <form action="" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
                                         </form>
-                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -157,7 +153,7 @@
             $(`tbody tr[data-role="${role}"]`).show();
 
             // Show "Add New" button and hide registration form for vendors and admins
-            if (role === 'vendor' || role === 'admin') {
+            if (role === 'super_admin' || role === 'admin' || role === 'dis_admin' || role === 'upo_admin' || role === 'uni_admin' || role === 'ward_admin' ) {
                 $('#add-new-section').show();
                 $('#registration-form').hide(); // Hide registration form
             } else {
