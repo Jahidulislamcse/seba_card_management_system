@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
+use App\Http\Controllers\SuperAdmin\SuperAdminUserController;
 use App\Http\Controllers\UnionAdmin\UnionAdminDashboardController;
 use App\Http\Controllers\UpozilaAdmin\UpozilaAdminDashboardController;
 use App\Http\Controllers\WardAdmin\WardAdminDashboardController;
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['role:super_admin'])->group(function () {
     Route::get('/dashboard/super-admin', [SuperAdminDashboardController::class, 'index']);
+    Route::get('user/list', [SuperAdminUserController::class, 'userList'])->name('user.list');
 });
 
 Route::middleware(['role:admin'])->group(function () {
