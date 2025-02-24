@@ -1,3 +1,5 @@
+@extends('dashboard')
+@section('main')
 <div class="page-inner">
     <div class="page-header">
         <ul class="breadcrumbs mb-3">
@@ -153,7 +155,7 @@
             $(`tbody tr[data-role="${role}"]`).show();
 
             // Show "Add New" button and hide registration form for vendors and admins
-            if (role === 'super_admin' || role === 'admin' || role === 'dis_admin' || role === 'upo_admin' || role === 'uni_admin' || role === 'ward_admin' ) {
+            if (role === 'super_admin' || role === 'admin' || role === 'dis_admin' || role === 'upo_admin' || role === 'uni_admin' || role === 'ward_admin') {
                 $('#add-new-section').show();
                 $('#registration-form').hide(); // Hide registration form
             } else {
@@ -258,3 +260,4 @@
         });
     });
 </script>
+@endsection
