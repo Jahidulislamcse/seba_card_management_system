@@ -109,6 +109,19 @@
                 },
                 time: 1000,
             });
+
+            $.notify({
+                icon: 'icon-bell',
+                message: '{{ session('
+                errors ') }}',
+            }, {
+                type: 'errors',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                time: 1000,
+            });
         });
     </script>
     @endif

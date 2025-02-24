@@ -10,3 +10,20 @@ const USER_ROLE_WARD_ADMIN = 'ward_admin';
 //status
 const STATUS_APPROVE = 'approve';
 const STATUS_PENDING = 'pending';
+
+//gender
+const GENDER_MALE ='male';
+const GENDER_FEMALE ='female';
+const ALL_GENDER = [GENDER_MALE, GENDER_FEMALE];
+
+//religion
+const ALL_RELIGION = [
+    'islam',
+    'hindu',
+    'christian',
+    'buddhist',
+    'jewish',
+    'other'
+];
+
+const FILE_STORE_PATH ='uploads';

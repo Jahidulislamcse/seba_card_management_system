@@ -7,7 +7,7 @@
             <div class="card-body">
                 <!-- Toggle Buttons -->
                 <div class="mb-4">
-                    <button class="btn btn-primary " data-role="super_admin">Create</button>
+                    <a href="{{route('ward.new-members.create')}}" class="btn btn-primary ">Create</a>
 
                 </div>
 
