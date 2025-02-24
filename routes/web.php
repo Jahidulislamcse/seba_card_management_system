@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\WardAdmin\AddNewMemberController;
+use App\Http\Controllers\WardAdmin\NewMemberController;
 use App\Http\Controllers\SuperAdmin\SuperAdminUserController;
 use App\Http\Controllers\WardAdmin\WardAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
@@ -52,6 +52,6 @@ Route::middleware(['role:uni_admin'])->group(function () {
 
 Route::middleware(['role:ward_admin'])->prefix('ward-admin')->name('ward.')->group(function () {
     Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/add-new-members', AddNewMemberController::class);
+    Route::resource('/new-members', NewMemberController::class);
 });
 require __DIR__.'/auth.php';

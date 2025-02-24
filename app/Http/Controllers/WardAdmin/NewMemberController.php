@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\WardAdmin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class AddNewMemberController extends Controller
+class NewMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    {   $customers = Customer::latest()->get();
+        return view('word-admin.new-members.index',compact('customers'));
     }
 
     /**

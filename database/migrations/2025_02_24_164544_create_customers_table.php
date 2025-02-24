@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('union')->nullable();
             $table->string('ward')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('status')->default(STATUS_PENDING);
             $table->timestamps();
         });
     }

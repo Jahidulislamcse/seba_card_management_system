@@ -76,7 +76,11 @@
     <div class="container-fluid">
         @include('word-admin.layouts._header')
 
-        @yield('content')
+        <div class="row">
+            <div class="col-md-12">
+                @yield('content')
+            </div>
+        </div>
 
         @include('word-admin.layouts._footer')
     </div>
@@ -87,6 +91,9 @@
 
     <!-- Sweet Alert -->
     <script src="{{ asset('backend/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+
+    <!-- Datatables -->
+    <script src="{{ asset('backend/js/plugin/datatables/datatables.min.js') }}"></script>
     @if (session('success'))
     <script>
         $(document).ready(function() {
@@ -105,6 +112,12 @@
         });
     </script>
     @endif
+    <script>
+        $(document).ready(function() {
+            $("#basic-datatables").DataTable({});
+
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

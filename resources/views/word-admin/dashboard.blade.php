@@ -21,7 +21,7 @@
 <div class="icon-section">
     <div class="icon-box"><i class="fas fa-id-card"></i><br>এড কার্ড</div>
     <div class="icon-box" >
-        <a href="{{ route('ward.add-new-members.create')}}"> <i class="fas fa-user-plus"></i><br>নতুন সদস্য</a>
+        <a href="{{ route('ward.new-members.index')}}"> <i class="fas fa-user-plus"></i><br>নতুন সদস্য</a>
     </div>
     <div class="icon-box"><i class="fas fa-clock"></i><br>সময় তালিকা</div>
     <div class="icon-box"><i class="fas fa-check-circle"></i><br>কার্ড চেকিং</div>
@@ -30,6 +30,14 @@
     <div class="icon-box"><i class="fas fa-id-card-alt"></i><br>ওয়াই কার্ড তালিকা</div>
     <div class="icon-box"><i class="fas fa-chart-bar"></i><br>রিপোর্ট</div>
     <div class="icon-box"><i class="fas fa-mobile-alt"></i><br>মোবাইল রিচার্জ</div>
-    <div class="icon-box"><i class="fas fa-sign-out-alt"></i><br>লগ আউট</div>
+    <div class="icon-box">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a  href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                this.closest('form').submit();">    <i class="fas fa-sign-out-alt"></i><br>লগ আউট</a>
+        </form>
+
+    </div>
 </div>
 @endsection
