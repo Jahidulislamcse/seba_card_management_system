@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <!-- Fonts and icons -->
+        <script src="{{ asset('backend/js/plugin/webfont/webfont.min.js') }}"></script>
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -77,7 +81,30 @@
         @include('word-admin.layouts._footer')
     </div>
 
+        <!--   Core JS Files   -->
+        <script src="{{ asset('backend/js/core/jquery-3.7.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="{{ asset('backend/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+    @if (session('success'))
+    <script>
+        $(document).ready(function() {
+            $.notify({
+                icon: 'icon-bell',
+                message: '{{ session('
+                success ') }}',
+            }, {
+                type: 'success',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                time: 1000,
+            });
+        });
+    </script>
+    @endif
     @stack('scripts')
 </body>
 </html>

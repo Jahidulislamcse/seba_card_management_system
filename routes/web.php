@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
-use App\Http\Controllers\LocationController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\WardAdmin\AddNewMemberController;
 use App\Http\Controllers\SuperAdmin\SuperAdminUserController;
+use App\Http\Controllers\WardAdmin\WardAdminDashboardController;
+use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
 use App\Http\Controllers\UnionAdmin\UnionAdminDashboardController;
 use App\Http\Controllers\UpozilaAdmin\UpozilaAdminDashboardController;
-use App\Http\Controllers\WardAdmin\WardAdminDashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -49,7 +50,8 @@ Route::middleware(['role:uni_admin'])->group(function () {
     Route::get('/dashboard/union-admin', [UnionAdminDashboardController::class, 'index']);
 });
 
-Route::middleware(['role:ward_admin'])->prefix('ward-admin')->group(function () {
-    Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('ward.dashboard');
+Route::middleware(['role:ward_admin'])->prefix('ward-admin')->name('ward.')->group(function () {
+    Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/add-new-members', AddNewMemberController::class);
 });
 require __DIR__.'/auth.php';
