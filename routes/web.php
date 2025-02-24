@@ -26,11 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('user/list', [SuperAdminUserController::class, 'userList'])->name('user.list');
 Route::get('/get-districts/{division_id}', [LocationController::class, 'getDistricts']);
 
 Route::middleware(['role:super_admin'])->group(function () {
     Route::get('/dashboard/super-admin', [SuperAdminDashboardController::class, 'index']);
-    Route::get('user/list', [SuperAdminUserController::class, 'userList'])->name('user.list');
 });
 
 Route::middleware(['role:admin'])->group(function () {
