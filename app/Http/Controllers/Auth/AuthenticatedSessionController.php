@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
             // Redirect based on user type
             $userRole = auth()->user()->role;
 
-            if ($userRole === USER_ROLE_SUPER_ADMIN) {
+            if ($userRole === USER_ROLE_SUPER_ADMIN || is_null($userRole)) {
                 return redirect()->intended(route('dashboard', absolute: false));
             } elseif ($userRole === USER_ROLE_WARD_ADMIN) {
                 return redirect()->intended(route('ward.dashboard', absolute: false));
