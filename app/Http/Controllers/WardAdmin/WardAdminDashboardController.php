@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class WardAdminDashboardController extends Controller
 {
-    //
+    public function index(){
+        dd('dashboard');
+    }
 }

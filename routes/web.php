@@ -49,7 +49,7 @@ Route::middleware(['role:uni_admin'])->group(function () {
     Route::get('/dashboard/union-admin', [UnionAdminDashboardController::class, 'index']);
 });
 
-Route::middleware(['role:ward_admin'])->group(function () {
-    Route::get('/dashboard/ward-admin', [WardAdminDashboardController::class, 'index']);
+Route::middleware(['role:ward_admin'])->prefix('ward-admin')->group(function () {
+    Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('ward.dashboard');
 });
 require __DIR__.'/auth.php';

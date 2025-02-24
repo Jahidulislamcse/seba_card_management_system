@@ -18,8 +18,10 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'role' => USER_ROLE_SUPER_ADMIN,
         ]);
 
+        $this->call(WordAdminSeeder::class);
         $this->call(DivisionSeeder::class);
         $this->call(DistrictSeeder::class);
 
