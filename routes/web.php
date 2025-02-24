@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\SuperAdminUserController;
@@ -24,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/get-districts/{division_id}', [LocationController::class, 'getDistricts']);
 
 Route::middleware(['role:super_admin'])->group(function () {
     Route::get('/dashboard/super-admin', [SuperAdminDashboardController::class, 'index']);

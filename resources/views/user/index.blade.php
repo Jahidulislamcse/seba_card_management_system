@@ -106,19 +106,24 @@
                                     </div>
                                 </div>
 
-                                <!-- Division -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="division">Division</label>
-                                        <input type="text" name="division" id="division" class="form-control">
+                                        <select name="division" id="division" class="form-control" required>
+                                            <option value="">Select Division</option>
+                                            @foreach($division as $div)
+                                            <option value="{{ $div->id }}">{{ $div->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
-                                <!-- District -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="district">District</label>
-                                        <input type="text" name="district" id="district" class="form-control" required>
+                                        <select name="district" id="district" class="form-control" required>
+                                            <option value="">Select District</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -251,6 +256,40 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    document.getElementById('phone').addEventListener('input', function(e) {
+        // Remove any character that is not a number or '+'
+        this.value = this.value.replace(/[^0-9+]/g, '');
+
+        // Ensure it always starts with '+'
+        if (!this.value.startsWith('+')) {
+            this.value = '+' + this.value.replace(/\+/g, ''); // Removes extra '+'
+        }
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#division').change(function() {
+            var divisionId = $(this).val();
+            if (divisionId) {
+                $.ajax({
+                    url: '/get-districts/' + divisionId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#district').empty().append('<option value="">Select District</option>');
+                        $.each(data, function(key, value) {
+                            $('#district').append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#district').empty().append('<option value="">Select District</option>');
+            }
+        });
+    });
+</script>
+
+<script>
     $(document).ready(function() {
         // Show all users by default
         $('tbody tr').show();
@@ -362,6 +401,7 @@
                 error: function(xhr, status, error) {
                     console.error('Error fetching user data:', error);
                 }
+
             });
         });
 
@@ -371,15 +411,5 @@
         });
     });
 </script>
-<script>
-    document.getElementById('phone').addEventListener('input', function(e) {
-        // Remove any character that is not a number or '+'
-        this.value = this.value.replace(/[^0-9+]/g, '');
 
-        // Ensure it always starts with '+'
-        if (!this.value.startsWith('+')) {
-            this.value = '+' + this.value.replace(/\+/g, ''); // Removes extra '+'
-        }
-    });
-</script>
 @endsection
