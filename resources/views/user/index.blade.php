@@ -38,39 +38,18 @@
 
                     <!-- Registration Form (Hidden by Default) -->
                     <div id="registration-form" class="mb-4" style="display: none;">
-                        <form id="user-registration-form" action="" method="POST">
+                        <form id="user-registration-form" action="" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
+                                <!-- Name -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="text" name="name" id="name" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" id="email" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" name="phone" id="phone" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="district">District</label>
-                                        <input type="text" name="district" id="district" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" name="password" id="password" class="form-control" required>
-                                    </div>
-                                </div>
+
+                                <!-- Role -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="role">Role</label>
@@ -81,16 +60,148 @@
                                             <option value="upo_admin">Upozila Admin</option>
                                             <option value="uni_admin">Union Admin</option>
                                             <option value="ward_admin">Ward Admin</option>
-
                                         </select>
                                     </div>
                                 </div>
+
+                                <!-- Father's Name -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="father">Father's Name</label>
+                                        <input type="text" name="father" id="father" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- Birth Date -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="birth_date">Birth Date</label>
+                                        <input type="date" name="birth_date" id="birth_date" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- NID -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nid">NID</label>
+                                        <input type="text" name="nid" id="nid" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="tel" name="phone" id="phone" class="form-control" required
+                                            pattern="^\+[0-9]{8,15}$"
+                                            title="Phone number must start with + and contain only numbers (8-15 digits)">
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <!-- Division -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="division">Division</label>
+                                        <input type="text" name="division" id="division" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- District -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="district">District</label>
+                                        <input type="text" name="district" id="district" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <!-- Upozila -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="upozila">Upozila</label>
+                                        <input type="text" name="upozila" id="upozila" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- Union -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="union">Union</label>
+                                        <input type="text" name="union" id="union" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- Ward -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ward">Ward</label>
+                                        <input type="text" name="ward" id="ward" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- Photo -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="photo">Photo</label>
+                                        <input type="file" name="photo" id="photo" class="form-control-file">
+                                    </div>
+                                </div>
+
+                                <!-- NID Front -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nid_front">NID Front</label>
+                                        <input type="file" name="nid_front" id="nid_front" class="form-control-file">
+                                    </div>
+                                </div>
+
+                                <!-- NID Back -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nid_back">NID Back</label>
+                                        <input type="file" name="nid_back" id="nid_back" class="form-control-file">
+                                    </div>
+                                </div>
+
+                                <!-- CV -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cv">CV</label>
+                                        <input type="file" name="cv" id="cv" class="form-control-file">
+                                    </div>
+                                </div>
+
+                                <!-- Certificate -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="certificate">Certificate</label>
+                                        <input type="file" name="certificate" id="certificate" class="form-control-file">
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <!-- Submit & Cancel Buttons -->
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary">Register</button>
                                     <button type="button" id="cancel-registration" class="btn btn-secondary">Cancel</button>
                                 </div>
                             </div>
                         </form>
+
                     </div>
 
                     <!-- Users Table -->
@@ -258,6 +369,17 @@
         $(document).on('click', '.cancel-edit', function() {
             $('.edit-form').remove(); // Remove the edit form
         });
+    });
+</script>
+<script>
+    document.getElementById('phone').addEventListener('input', function(e) {
+        // Remove any character that is not a number or '+'
+        this.value = this.value.replace(/[^0-9+]/g, '');
+
+        // Ensure it always starts with '+'
+        if (!this.value.startsWith('+')) {
+            this.value = '+' + this.value.replace(/\+/g, ''); // Removes extra '+'
+        }
     });
 </script>
 @endsection
