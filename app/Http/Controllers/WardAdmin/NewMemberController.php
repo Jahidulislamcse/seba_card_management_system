@@ -198,6 +198,20 @@ class NewMemberController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $customer =  Customer::query()
+            ->with(['family_members'])
+            ->find($id);
+        if(!is_null($customer->avatar)){
+            $this->fileUploadService->delete($customer->avatar);
+        }
+        if(!is_null($customer->nid_front)){
+            $this->fileUploadService->delete($customer->nid_front);
+        }
+        if(!is_null($customer->nid_back)){
+            $this->fileUploadService->delete($customer->nid_back);
+        }
+        $customer->family_members()->delete();
+        $customer->delete();
+        return redirect()->route('ward.new-members.index')->with('success','New Member Deleted Successfully');
     }
 }

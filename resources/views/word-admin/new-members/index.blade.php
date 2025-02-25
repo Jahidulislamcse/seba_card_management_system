@@ -51,7 +51,7 @@
                                             <a href="{{route('ward.new-members.edit', $customer->id)}}" class="btn btn-sm btn-primary edit-btn" >Edit</a>
 
                                             <!-- Delete Button -->
-                                            <form action="" method="POST" style="display: inline-block;">
+                                            <form action="{{route('ward.new-members.destroy', $customer->id)}}" method="POST" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
