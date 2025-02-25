@@ -31,27 +31,40 @@ Route::get('user/list', [SuperAdminUserController::class, 'userList'])->name('us
 Route::get('/get-districts/{division_id}', [LocationController::class, 'getDistricts']);
 
 Route::middleware(['role:super_admin'])->group(function () {
-    Route::get('/dashboard/super-admin', [SuperAdminDashboardController::class, 'index']);
+    Route::prefix('super-admin')->name('super.admin.')->group(function () {
+        Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
+    });
 });
 
 Route::middleware(['role:admin'])->group(function () {
-    Route::get('/dashboard/admin', [AdminDashboardController::class, 'index']);
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+    });
+
 });
 
 Route::middleware(['role:dis_admin'])->group(function () {
-    Route::get('/dashboard/district-admin', [DistrictAdminDashboardController::class, 'index']);
+    Route::prefix('district')->name('district.')->group(function () {
+        Route::get('/dashboard', [DistrictAdminDashboardController::class, 'index']);
+    });
 });
 
 Route::middleware(['role:upo_admin'])->group(function () {
-    Route::get('/dashboard/upozila-admin', [UpozilaAdminDashboardController::class, 'index']);
+    Route::prefix('upozila')->name('upozila.')->group(function () {
+        Route::get('/dashboard', [UpozilaAdminDashboardController::class, 'index']);
+    });
 });
 
 Route::middleware(['role:uni_admin'])->group(function () {
-    Route::get('/dashboard/union-admin', [UnionAdminDashboardController::class, 'index']);
+    Route::prefix('union')->name('union.')->group(function () {
+        Route::get('/dashboard', [UnionAdminDashboardController::class, 'index']);
+    });
 });
 
 Route::middleware(['role:ward_admin'])->prefix('ward-admin')->name('ward.')->group(function () {
-    Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/new-members', NewMemberController::class);
+    Route::prefix('ward')->name('ward.')->group(function () {
+        Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
+        Route::resource('/new-members', NewMemberController::class);
+    });
 });
 require __DIR__.'/auth.php';
