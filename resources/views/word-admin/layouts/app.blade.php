@@ -131,6 +131,53 @@
 
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            const form = $('#search-filter-form');
+            form.on('submit', function(e) {
+                e.preventDefault();
+                const url = form.attr('action'); // Form action URL
+                const data = form.serialize(); // Serialize form data
+                // console.log(data);
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: data,
+                    success: function(response) {
+                        $('#data-container').html(response); // Update the table
+                    },
+                    error: function() {
+                        alert('Something went wrong. Please try again.');
+                    },
+                });
+            });
+
+            // Trigger form submit on dropdown change
+            $('#per_page, #order_by').on('change', function() {
+                form.submit();
+            });
+            $('#search').on('keyup', function() {
+                form.submit();
+            });
+
+        });
+
+
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            const url = $(this).attr('href');
+            const formData = $('#search-filter-form').serialize(); // Serialize form data
+
+            // Merge the pagination URL with the current form data
+            const ajaxUrl = url.includes('?') ? `${url}&${formData}` : `${url}?${formData}`;
+
+            $.get(ajaxUrl, function(response) {
+                $('#data-container').html(response);
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

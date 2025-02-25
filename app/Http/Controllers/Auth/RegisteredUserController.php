@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\District;
+use App\Models\Division;
+use App\Models\Union;
+use App\Models\Upazila;
 use App\Models\User;
+use App\Models\Ward;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +24,16 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $data = [
+            'users' => User::all(),
+            'division' => Division::all(),
+            'district' => District::all(),
+            'upazila' => Upazila::all(),
+            'union' => Union::all(),
+            'ward' => Ward::all(),
+        ];
+
+        return view('auth.register',$data);
     }
 
     /**

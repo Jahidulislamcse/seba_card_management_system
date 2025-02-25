@@ -215,6 +215,7 @@
 
                     <!-- Users Table -->
                     <div class="table-responsive">
+
                         <table id="basic-datatables" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -252,6 +253,7 @@
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -259,6 +261,8 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
     document.getElementById('phone').addEventListener('input', function(e) {
         // Remove any character that is not a number or '+'
@@ -442,14 +446,12 @@
                             </td>
                         </tr>
                     `;
-
                     // Insert the edit form below the current row
                     $row.after(editForm);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching user data:', error);
                 }
-
             });
         });
 

@@ -161,7 +161,6 @@
             $(document).on('click', '#delete', function(e) {
                 e.preventDefault();
                 var link = $(this).attr("href");
-
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -211,8 +210,6 @@
                                         'Your image has been deleted.',
                                         'success'
                                     );
-
-
                                     $('#' + containerId).fadeOut(function() {
                                         $(this).remove();
                                     });

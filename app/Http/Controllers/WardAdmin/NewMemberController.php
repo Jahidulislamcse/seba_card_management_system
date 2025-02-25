@@ -23,9 +23,27 @@ class NewMemberController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {   $customers = Customer::latest()->get();
-        return view('word-admin.new-members.index',compact('customers'));
+    public function index(Request $request)
+    {
+        $perPage = $request->get('per_page', 10);
+        $search = $request->get('search');
+        $orderBy = $request->get('order_by', 'asc'); // Default to 'asc'
+        $orderByColumn = 'name';
+        $orderByDirection = $orderBy;
+
+        $customers = Customer::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")->orWhere('gender', 'LIKE', "%{$search}%");
+            })
+            ->orderBy($orderByColumn, $orderByDirection)
+            ->paginate($perPage);
+
+        if ($request->ajax()) {
+            return view('word-admin.new-members.member_table', compact('customers'))->render();
+        }
+        return view('word-admin.new-members.index', [
+            'customers' => $customers,
+        ]);
     }
 
     /**
