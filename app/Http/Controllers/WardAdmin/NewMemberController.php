@@ -24,7 +24,11 @@ class NewMemberController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   $customers = Customer::latest()->get();
+    {
+        setPageMeta('List  New Member');
+        $customers = Customer::latest()
+        ->whereDate('created_at', today())
+        ->get();
         return view('word-admin.new-members.index',compact('customers'));
     }
 
@@ -33,6 +37,7 @@ class NewMemberController extends Controller
      */
     public function create()
     {
+        setPageMeta('Create New Member');
         $data = [
             'division' => Division::all(),
             'district' => District::all(),
