@@ -38,7 +38,7 @@
 
                     <!-- Registration Form (Hidden by Default) -->
                     <div id="registration-form" class="mb-4" style="display: none;">
-                        <form id="user-registration-form" action="" method="POST" enctype="multipart/form-data">
+                        <form id="user-registration-form" action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <!-- Name -->
@@ -131,7 +131,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="upozila">Upozila</label>
-                                        <input type="text" name="upozila" id="upozila" class="form-control">
+                                        <select name="upozila" id="upozila" class="form-control" required>
+                                            <option value="">Select Upozila</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -139,7 +141,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="union">Union</label>
-                                        <input type="text" name="union" id="union" class="form-control">
+                                        <select name="union" id="union" class="form-control" required>
+                                            <option value="">Select Union</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -268,6 +272,7 @@
 </script>
 <script>
     $(document).ready(function() {
+        // Fetch districts based on division selection
         $('#division').change(function() {
             var divisionId = $(this).val();
             if (divisionId) {
@@ -280,14 +285,57 @@
                         $.each(data, function(key, value) {
                             $('#district').append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
+                        $('#upozila').empty().append('<option value="">Select Upozila</option>'); // Reset upozila dropdown
                     }
                 });
             } else {
                 $('#district').empty().append('<option value="">Select District</option>');
+                $('#upozila').empty().append('<option value="">Select Upozila</option>');
+            }
+        });
+
+        // Fetch upozilas based on district selection
+        $('#district').change(function() {
+            var districtId = $(this).val();
+            if (districtId) {
+                $.ajax({
+                    url: '/get-upozilas/' + districtId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#upozila').empty().append('<option value="">Select Upozila</option>');
+                        $.each(data, function(key, value) {
+                            $('#upozila').append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#upozila').empty().append('<option value="">Select Upozila</option>');
+            }
+        });
+
+        // Fetch Union based on upozila selection
+        $('#upozila').change(function() {
+            var upozilaId = $(this).val();
+            if (upozilaId) {
+                $.ajax({
+                    url: '/get-unions/' + upozilaId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#union').empty().append('<option value="">Select union</option>');
+                        $.each(data, function(key, value) {
+                            $('#union').append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#union').empty().append('<option value="">Select union</option>');
             }
         });
     });
 </script>
+
 
 <script>
     $(document).ready(function() {
