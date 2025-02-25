@@ -29,6 +29,7 @@ class NewMemberController extends Controller
         setPageMeta('List  New Member');
         $customers = Customer::latest()
         ->whereDate('created_at', today())
+        ->with(['division'])
         ->get();
         return view('word-admin.new-members.index',compact('customers'));
     }

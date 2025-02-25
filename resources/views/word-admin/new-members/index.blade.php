@@ -4,7 +4,7 @@
 <div class="page-inner">
 
     <div class="row justify-content-center">
-        
+
         <div class="col-md-10">
             <div class="card">
                 <div class="card-body">
@@ -22,6 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>SN</th>
+                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Gender</th>
                                     <th>Religion</th>
@@ -36,12 +37,15 @@
                                     @foreach ($customers as $key => $customer)
                                     <tr >
                                         <td>{{ $key + 1 }}</td>
+                                        <td><img src="{{ $customer->avatar_url }}" alt="Customer Avatar" width="50"></td>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->gender }}</td>
                                         <td>{{ $customer->religion }}</td>
                                         <td>{{ $customer->occupation }}</td>
-                                        <td>Divisions</td>
-                                        <td>Divisions</td>
+                                        <td>{{$customer?->division?->name}}</td>
+                                        <td>
+                                            {!! $customer->status_html() !!}
+                                        </td>
                                         <td>
                                             <!-- Edit Button -->
                                             <button class="btn btn-sm btn-primary edit-btn" data-id="{{ $customer->id }}">Edit</button>
