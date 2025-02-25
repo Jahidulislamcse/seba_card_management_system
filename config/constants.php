@@ -10,6 +10,8 @@ const USER_ROLE_WARD_ADMIN = 'ward_admin';
 //status
 const STATUS_APPROVE = 'approve';
 const STATUS_PENDING = 'pending';
+const STATUS_INACTIVE = 'inactive';
+const STATUS_ACTIVE = 'active';
 
 //gender
 const GENDER_MALE ='male';

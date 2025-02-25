@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\FileUploadService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WardAdmin\NewMemberRequest;
 
 class NewMemberController extends Controller
 {
@@ -51,8 +52,10 @@ class NewMemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(NewMemberRequest $request)
     {
+        $data = $request->validated();
+
         try {
             DB::beginTransaction();
 
@@ -68,9 +71,10 @@ class NewMemberController extends Controller
                 'occupation',
                 'division_id',
                 'district_id',
-                'upozila',
-                'union',
+                'upozila_id',
+                'union_id',
                 'ward',
+                'status',
             ]);
             // dd($customerData, $request->all());
             if(isset($request->avatar)){
@@ -83,12 +87,16 @@ class NewMemberController extends Controller
             if(isset($request->nid_back)){
                 $customerData['nid_back'] = $this->fileUploadService->uploadFile($request,'nid_back',FILE_STORE_PATH);
             }
+            $customerData['user_id'] = auth()->user()->id;
             $customer = Customer::create($customerData);
-            $customer->family_members()->createMany($request->family_members);
+            if(isset($data['family_members'])){
+
+                $customer->family_members()->createMany($request->family_members);
+            }
 
             DB::commit();
             return redirect()->route('ward.new-members.index')->with('success','New Member Created Successfully');
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('errors',$e->getMessage());
 

@@ -1,6 +1,7 @@
     <!--   Core JS Files   -->
     <script src="{{ asset('backend/js/core/jquery-3.7.1.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('backend/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('backend/js/core/bootstrap.min.js') }}"></script>
 
     <!-- parsley -->
     <script src="{{ asset('libs/parsleyjs/parsley.min.js') }}"></script>
@@ -11,7 +12,7 @@
 
     <script src="{{ asset('libs/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('libs/sweetalert/sweetalert.min.js') }}"></script>
-    
+
     <script>
 
         toastr.options =
