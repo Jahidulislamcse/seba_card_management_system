@@ -34,12 +34,15 @@
             toastr.warning("{{ session('warning') }}");
         @endif
 
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                toastr.error("{{ $error }}");
-            @endforeach
-        @endif
+
     </script>
+    @if ($errors->any())
+            <script>
+                @foreach ($errors->all() as $error)
+                    toastr.error("{{ $error }}");
+                @endforeach
+            </script>
+        @endif
 
     <script>
         $(document).ready(function() {

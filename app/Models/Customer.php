@@ -8,12 +8,20 @@ class Customer extends Model
 {
     protected $guarded = ['id'];
 
-    protected $appends = ['avatar_url'];
+    protected $appends = ['avatar_url','nid_front_url','nid_back_url'];
 
 
     public function getAvatarUrlAttribute()
     {
         return getStorageImage($this->avatar, true);
+    }
+    public function getNidFrontUrlAttribute()
+    {
+        return getStorageImage($this->nid_front, true);
+    }
+    public function getNidBackUrlAttribute()
+    {
+        return getStorageImage($this->nid_back, true);
     }
 
     public function family_members(){

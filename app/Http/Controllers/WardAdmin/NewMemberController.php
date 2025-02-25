@@ -118,15 +118,79 @@ class NewMemberController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        setPageMeta('Edit New Member');
+        $customer =  Customer::query()
+        ->with(['family_members'])
+        ->find($id);
+        $data = [
+            'division' => Division::all(),
+            'district' => District::where('division_id',$customer->division_id)->select('id','name')->get(),
+            'upazila' => Upazila::where('district_id',$customer->district_id)->select('id','name')->get(),
+            'union' => Union::where('upazilla_id',$customer->upazila_id)->select('id','name')->get(),
+            'ward' => Ward::where('union_id',$customer->union_id)->select('id','name')->get(),
+            'data' =>$customer
+        ];
+        // dd($data);
+        return view('word-admin.new-members.edit',$data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(NewMemberRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+        // dd('$data', $data);
+        try {
+            DB::beginTransaction();
+
+            $customer =  Customer::query()
+            ->with(['family_members'])
+            ->find($id);
+
+            $customerData = $request->only([
+                'name',
+                'father_name',
+                'mother_name',
+                'date_of_birth',
+                'nid_number',
+                'phone',
+                'gender',
+                'religion',
+                'occupation',
+                'division_id',
+                'district_id',
+                'upozila_id',
+                'union_id',
+                'ward',
+                'status',
+            ]);
+
+            if(isset($request->avatar)){
+                $customerData['avatar'] = $this->fileUploadService->uploadFile($request,'avatar',FILE_STORE_PATH,$customer->avatar);
+            }
+
+            if(isset($request->nid_front)){
+                $customerData['nid_front'] = $this->fileUploadService->uploadFile($request,'nid_front',FILE_STORE_PATH,$customer->nid_front);
+            }
+            if(isset($request->nid_back)){
+                $customerData['nid_back'] = $this->fileUploadService->uploadFile($request,'nid_back',FILE_STORE_PATH,$customer->nid_back);
+            }
+            $customerData['user_id'] = auth()->user()->id;
+            $customer = Customer::updateOrCreate(['id'=>$id],$customerData);
+
+            if(isset($data['family_members'])){
+                $customer->family_members()->delete();
+                $customer->family_members()->createMany($request->family_members);
+            }
+
+            DB::commit();
+            return redirect()->route('ward.new-members.index')->with('success','New Member Updated Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('errors',$e->getMessage());
+
+        }
     }
 
     /**

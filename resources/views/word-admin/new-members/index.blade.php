@@ -48,7 +48,7 @@
                                         </td>
                                         <td>
                                             <!-- Edit Button -->
-                                            <button class="btn btn-sm btn-primary edit-btn" data-id="{{ $customer->id }}">Edit</button>
+                                            <a href="{{route('ward.new-members.edit', $customer->id)}}" class="btn btn-sm btn-primary edit-btn" >Edit</a>
 
                                             <!-- Delete Button -->
                                             <form action="" method="POST" style="display: inline-block;">
