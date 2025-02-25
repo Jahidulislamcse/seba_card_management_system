@@ -29,18 +29,20 @@ Route::middleware('auth')->group(function () {
 
 Route::get('user/list', [SuperAdminUserController::class, 'userList'])->name('user.list');
 Route::get('/get-districts/{division_id}', [LocationController::class, 'getDistricts']);
+Route::get('/get-upozilas/{district_id}', [LocationController::class, 'getUpozilas']);
+Route::get('/get-unions/{upozila_id}', [LocationController::class, 'getUnions']);
 
-Route::middleware(['role:super_admin'])->group(function () {
-    Route::prefix('super-admin')->name('super.admin.')->group(function () {
-        Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
-    });
+
+
+Route::middleware(['role:super_admin'])->group(function () {});
+Route::prefix('super-admin')->name('super.admin.')->group(function () {
+    Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
 });
 
 Route::middleware(['role:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index']);
     });
-
 });
 
 Route::middleware(['role:dis_admin'])->group(function () {
@@ -61,13 +63,11 @@ Route::middleware(['role:uni_admin'])->group(function () {
     });
 });
 
-Route::middleware(['role:ward_admin'])->group(function () {
-
-});
+Route::middleware(['role:ward_admin'])->group(function () {});
 
 Route::prefix('ward')->name('ward.')->group(function () {
-        Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
-        Route::resource('/new-members', NewMemberController::class);
-    });
-    
-require __DIR__.'/auth.php';
+    Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/new-members', NewMemberController::class);
+});
+
+require __DIR__ . '/auth.php';
