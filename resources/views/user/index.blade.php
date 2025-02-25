@@ -38,7 +38,7 @@
 
                     <!-- Registration Form (Hidden by Default) -->
                     <div id="registration-form" class="mb-4" style="display: none;">
-                        <form id="user-registration-form" action="" method="POST" enctype="multipart/form-data">
+                        <form id="user-registration-form" action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <!-- Name -->

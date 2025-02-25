@@ -5,12 +5,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\WardAdmin\NewMemberController;
-use App\Http\Controllers\SuperAdmin\SuperAdminUserController;
 use App\Http\Controllers\WardAdmin\WardAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
 use App\Http\Controllers\UnionAdmin\UnionAdminDashboardController;
 use App\Http\Controllers\UpozilaAdmin\UpozilaAdminDashboardController;
 use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,7 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('user/list', [SuperAdminUserController::class, 'userList'])->name('user.list');
+Route::get('user/list', [UserController::class, 'userList'])->name('user.list');
+Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
 Route::get('/get-districts/{division_id}', [LocationController::class, 'getDistricts']);
 Route::get('/get-upozilas/{district_id}', [LocationController::class, 'getUpozilas']);
 Route::get('/get-unions/{upozila_id}', [LocationController::class, 'getUnions']);
