@@ -237,8 +237,8 @@
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->district }}</td>
+                                    <td>{{ $user->role }}</td>
                                     <td>{{ $user->status }}</td>
-                                    <td>{{ ucfirst($user->role) }}</td>
                                     <td>
                                         <!-- Edit Button -->
                                         <button class="btn btn-sm btn-primary edit-btn" data-id="{{ $user->id }}">Edit</button>
