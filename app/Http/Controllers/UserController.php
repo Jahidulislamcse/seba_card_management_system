@@ -140,23 +140,21 @@ class UserController extends Controller
         return view('user.edit', compact('user', 'divisions'));
     }
 
-
     public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string',
-            'phone' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
             'status' => 'required|string',
-
         ]);
 
-        $user = User::findOrFail($id);
         $user->update($request->all());
 
         return redirect()->back()->with('message', 'User updated successfully!');
     }
+
 
     public function destroy($id)
     {
@@ -171,8 +169,7 @@ class UserController extends Controller
     {
         $user= User::where('id', $id)->first();
         $user->update(['status' => 'approved']);
-
-
+        
         $message = "Dear {$user->name}, your admin account has been approved! ";
         $message .= "Email: {$user->email} ";
         $message .= "Password: {$user->raw_password} ";
