@@ -10,6 +10,9 @@ class Customer extends Model
 
     protected $appends = ['avatar_url','nid_front_url','nid_back_url'];
 
+    protected $casts = [
+        'date_of_birth' => 'json',
+    ];
 
     public function getAvatarUrlAttribute()
     {

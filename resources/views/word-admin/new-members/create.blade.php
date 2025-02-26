@@ -1,12 +1,14 @@
 @extends('word-admin.layouts.app')
 
 @section('content')
-<form class="member-add-form" action="#" method="POST">
+<form class="member-add-form"  action="{{ route('ward.new-members.store') }}" method="POST" enctype="multipart/form-data" >
+    @csrf
     <h6 class="text-center fw-bold">নতুন সদস‌্য ফরম </h6>
     <button type="button" class="profile-photo">
-        <img src="{{asset('assets/img/profile.png')}}" alt="profile icon">
-        <input type="file" name="profile-inp" class="profile-inp">
+        <img src="{{asset('assets/img/profile.png')}}" alt="profile icon" id="profile-image">
+        <input type="file" name="avatar" class="profile-inp" id="profile-input" style="display: none;">
     </button>
+
 
     <!-- verify button -->
     <label class="input-label" for="card-no">কার্ড নং (Choice)</label>
@@ -14,7 +16,7 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="card-no">
             <img src="{{asset('assets/img/card.png')}}" alt="card icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="card-no" id="card-no" placeholder="354656" require>
+        <input type="text"  maxlength="40" class="input-box form-control shadow-none"name="card_no" id="card-no" placeholder="354656" required>
     </div>
 
     <label class="input-label" for="duration">মেয়াদ (বছর সি‌লেক্ট 1,2,3,4 5,10)</label>
@@ -22,13 +24,17 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="duration">
             <img src="{{asset('assets/img//term.png')}}" alt="term icon">
         </span>
-        <select class="input-box select-box" name="duration" id="duration">
-            <option value="1 Year">১ বছর</option>
-            <option value="2 Year">২ বছর</option>
-            <option value="3 Year">৩ বছর</option>
-            <option value="4 Year">৪ বছর</option>
-            <option value="5 Year">৫ বছর</option>
-            <option value="10 Year">১০ বছর</option>
+        <select class="input-box select-box" name="duration_year" id="duration" >
+            <option value="১">১ বছর</option>
+            <option value="২">২ বছর</option>
+            <option value="৩">৩ বছর</option>
+            <option value="৪">৪ বছর</option>
+            <option value="৫">৫ বছর</option>
+            <option value="৬">৬ বছর</option>
+            <option value="৭">৭ বছর</option>
+            <option value="৮">৮ বছর</option>
+            <option value="৯">৯ বছর</option>
+            <option value="10">১০ বছর</option>
         </select>
     </div>
 
@@ -37,7 +43,7 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="name" id="name" placeholder="নাম (বাংলা)" require>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="name" id="name" placeholder="নাম (বাংলা)" required>
     </div>
 
     <label class="input-label" for="father_name">পিতার নাম (বাংলা)</label>
@@ -45,7 +51,7 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="father_name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="father_name" id="father_name" placeholder="পিতার নাম (বাংলা)" require>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="father_name" id="father_name" placeholder="পিতার নাম (বাংলা)" required>
     </div>
 
     <label class="input-label" for="mother_name">মাতার নাম (বাংলা)</label>
@@ -53,7 +59,7 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="mother_name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="mother_name" id="mother_name" placeholder="মাতার নাম (বাংলা)" require>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="mother_name" id="mother_name" placeholder="মাতার নাম (বাংলা)" required>
     </div>
 
     <label class="input-label" for="birth-date">জন্ম তা‌রিখ </label>
@@ -63,134 +69,31 @@
         </span>
         <div class="birth-date">
             <!-- month -->
-            <select>
-                <option value="জানুয়ারি">জানুয়ারি</option>
-                <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
-                <option value="মার্চ">মার্চ</option>
-                <option value="এপ্রিল">এপ্রিল</option>
-                <option value="মে">মে</option>
-                <option value="জুন">জুন</option>
-                <option value="জুলাই">জুলাই</option>
-                <option value="আগস্ট">আগস্ট</option>
-                <option value="সেপ্টেম্বর">সেপ্টেম্বর</option>
-                <option value="অক্টোবর">অক্টোবর</option>
-                <option value="নভেম্বর">নভেম্বর</option>
-                <option value="ডিসেম্বর">ডিসেম্বর</option>
+            <select name="date_of_birth[month]" id="date_of_birth_month">
+                @foreach (ENGLISH_MONTHS as $value)
+                <option value="{{$value}}">{{$value}}</option>
+                @endforeach
+
             </select>
 
             <!-- day -->
-            <select>
-                <option value="১">১</option>
-                <option value="২">২</option>
-                <option value="৩">৩</option>
-                <option value="৪">৪</option>
-                <option value="৫">৫</option>
-                <option value="৬">৬</option>
-                <option value="৭">৭</option>
-                <option value="৮">৮</option>
-                <option value="৯">৯</option>
-                <option value="১০" selected>১০</option>
-                <option value="১১">১১</option>
-                <option value="১২">১২</option>
-                <option value="১৩">১৩</option>
-                <option value="১৪">১৪</option>
-                <option value="১৫">১৫</option>
-                <option value="১৬">১৬</option>
-                <option value="১৭">১৭</option>
-                <option value="১৮">১৮</option>
-                <option value="১৯">১৯</option>
-                <option value="২০">২০</option>
-                <option value="২১">২১</option>
-                <option value="২২">২২</option>
-                <option value="২৩">২৩</option>
-                <option value="২৪">২৪</option>
-                <option value="২৫">২৫</option>
-                <option value="২৬">২৬</option>
-                <option value="২৭">২৭</option>
-                <option value="২৮">২৮</option>
-                <option value="২৯">২৯</option>
-                <option value="৩০">৩০</option>
-                <option value="৩১">৩১</option>
-            </select>
+            <select name="date_of_birth[day]">
+                @foreach (ENGLISH_DAYS as $value)
+                <option value="{{$value}}">{{$value}}</option>
+                @endforeach
 
+            </select>
+            @php
+                $currentYear = date('Y');
+                $startYear = 1950;
+                $years = range($currentYear, $startYear);
+            @endphp
             <!-- year -->
-            <select class="year-select">
-                <option value="২০২৫">২০২৫</option>
-                <option value="২০২৪">২০২৪</option>
-                <option value="২০২৩">২০২৩</option>
-                <option value="২০২২">২০২২</option>
-                <option value="২০২১">২০২১</option>
-                <option value="২০২০">২০২০</option>
-                <option value="২০১৯">২০১৯</option>
-                <option value="২০১৮">২০১৮</option>
-                <option value="২০১৭">২০১৭</option>
-                <option value="২০১৬">২০১৬</option>
-                <option value="২০১৫">২০১৫</option>
-                <option value="২০১৪">২০১৪</option>
-                <option value="২০১৩">২০১৩</option>
-                <option value="২০১২">২০১২</option>
-                <option value="২০১১">২০১১</option>
-                <option value="২০১০">২০১০</option>
-                <option value="২০০৯">২০০৯</option>
-                <option value="২০০৮">২০০৮</option>
-                <option value="২০০৭">২০০৭</option>
-                <option value="২০০৬">২০০৬</option>
-                <option value="২০০৫">২০০৫</option>
-                <option value="২০০৪">২০০৪</option>
-                <option value="২০০৩">২০০৩</option>
-                <option value="২০০২">২০০২</option>
-                <option selected value="২০০১">২০০১</option>
-                <option value="২০০০">২০০০</option>
-                <option value="১৯৯৯">১৯৯৯</option>
-                <option value="১৯৯৮">১৯৯৮</option>
-                <option value="১৯৯৭">১৯৯৭</option>
-                <option value="১৯৯৬">১৯৯৬</option>
-                <option value="১৯৯৫">১৯৯৫</option>
-                <option value="১৯৯৪">১৯৯৪</option>
-                <option value="১৯৯৩">১৯৯৩</option>
-                <option value="১৯৯২">১৯৯২</option>
-                <option value="১৯৯১">১৯৯১</option>
-                <option value="১৯৯০">১৯৯০</option>
-                <option value="১৯৮৯">১৯৮৯</option>
-                <option value="১৯৮৮">১৯৮৮</option>
-                <option value="১৯৮৭">১৯৮৭</option>
-                <option value="১৯৮৬">১৯৮৬</option>
-                <option value="১৯৮৫">১৯৮৫</option>
-                <option value="১৯৮৪">১৯৮৪</option>
-                <option value="১৯৮৩">১৯৮৩</option>
-                <option value="১৯৮২">১৯৮২</option>
-                <option value="১৯৮১">১৯৮১</option>
-                <option value="১৯৮০">১৯৮০</option>
-                <option value="১৯৭৯">১৯৭৯</option>
-                <option value="১৯৭৮">১৯৭৮</option>
-                <option value="১৯৭৭">১৯৭৭</option>
-                <option value="১৯৭৬">১৯৭৬</option>
-                <option value="১৯৭৫">১৯৭৫</option>
-                <option value="১৯৭৪">১৯৭৪</option>
-                <option value="১৯৭৩">১৯৭৩</option>
-                <option value="১৯৭২">১৯৭২</option>
-                <option value="১৯৭১">১৯৭১</option>
-                <option value="১৯৭০">১৯৭০</option>
-                <option value="১৯৬৯">১৯৬৯</option>
-                <option value="১৯৬৮">১৯৬৮</option>
-                <option value="১৯৬৭">১৯৬৭</option>
-                <option value="১৯৬৬">১৯৬৬</option>
-                <option value="১৯৬৫">১৯৬৫</option>
-                <option value="১৯৬৪">১৯৬৪</option>
-                <option value="১৯৬৩">১৯৬৩</option>
-                <option value="১৯৬২">১৯৬২</option>
-                <option value="১৯৬১">১৯৬১</option>
-                <option value="১৯৬০">১৯৬০</option>
-                <option value="১৯৫৯">১৯৫৯</option>
-                <option value="১৯৫৮">১৯৫৮</option>
-                <option value="১৯৫৭">১৯৫৭</option>
-                <option value="১৯৫৬">১৯৫৬</option>
-                <option value="১৯৫৫">১৯৫৫</option>
-                <option value="১৯৫৪">১৯৫৪</option>
-                <option value="১৯৫৩">১৯৫৩</option>
-                <option value="১৯৫২">১৯৫২</option>
-                <option value="১৯৫১">১৯৫১</option>
-                <option value="১৯৫০">১৯৫০</option>
+            <select class="year-select" name="date_of_birth[year]">
+                @foreach ($years as $value)
+                <option value="{{$value}}">{{$value}}</option>
+                @endforeach
+
             </select>
         </div>
     </div>
@@ -200,17 +103,19 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="id_no">
             <img src="{{asset('assets/img/card.png')}}" alt="card icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="id_no" id="id_no" placeholder="আইডি নং" require>
-    </div>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="nid_number" id="id_no" placeholder="আইডি নং" required>
+    </div>`
 
     <label class="input-label" for="gender">পুরুষ ম‌হিলা (Select)</label>
     <div class="input-group mb-2">
         <span class="input-box-icon select-group input-group-text rounded-end-0" id="gender">
             <img src="{{asset('assets/img/gender.png')}}" alt="gender icon">
         </span>
-        <select class="input-box select-box" name="gender" id="gender">
-            <option value="male">পুরুষ </option>
-            <option value="female">ম‌হিলা </option>
+        <select class="input-box select-box" name="gender" id="gender" required>
+            @foreach (ALL_GENDER_BANGLA as $value)
+                <option value="{{ $value }}">{{ ($value) }}</option>
+            @endforeach
+
         </select>
     </div>
 
@@ -219,20 +124,19 @@
         <span class="input-box-icon select-group input-group-text rounded-end-0" id="religion">
             <img src="{{asset('assets/img/religion.png')}}" alt="religion icon">
         </span>
-        <select class="input-box select-box" name="religion" id="religion">
-            <option value="ইসলাম">ইসলাম </option>
-            <option value="সনাতন">সনাতন </option>
-            <option value="বৈাদ্ধ">বৈাদ্ধ </option>
-            <option value="খ্রিস্টান">খ্রিস্টান </option>
+        <select class="input-box select-box" name="religion" id="religion" required>
+            @foreach (ALL_RELIGION_BANGLA as $value)
+                <option value="{{ $value }}">{{ ($value) }}</option>
+            @endforeach
         </select>
     </div>
 
-    <label class="input-label" for="work">পেশা</label>
+    <label class="input-label" for="occupation">পেশা</label>
     <div class="input-group mb-2">
-        <span class="input-box-icon input-group-text rounded-end-0" id="work">
+        <span class="input-box-icon input-group-text rounded-end-0" id="occupation">
             <img src="{{asset('assets/img/occupation.png')}}" alt="occupation icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="work" id="work" placeholder="পেশা" require>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="occupation" id="occupation" placeholder="পেশা" required>
     </div>
 
     <label class="input-label" for="division">বিভাগ</label>
@@ -240,7 +144,13 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="division">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="division" id="division" placeholder="বিভাগ" require>
+
+        <select name="division_id" id="division" class="input-box select-box" required>
+            <option value="">নির্বাচন করুন বিভাগ</option>
+            @foreach ($division as $div)
+                <option value="{{ $div->id }}">{{ $div->name }}</option>
+            @endforeach
+        </select>
     </div>
 
     <label class="input-label" for="dristrick">জেলা</label>
@@ -248,7 +158,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="dristrick" id="dristrick" placeholder="জেলা" require>
+        {{-- <input type="text" maxlength="40" class="input-box form-control shadow-none" name="dristrick" id="dristrick" placeholder="জেলা" required> --}}
+        <select name="district_id" id="district" class="input-box select-box" required>
+            <option value="">জেলা নির্বাচন করুন</option>
+        </select>
     </div>
 
     <label class="input-label" for="Upazilla">উপ‌জেলা</label>
@@ -256,7 +169,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="Upazilla" id="Upazilla" placeholder="উপ‌জেলা" require>
+        {{-- <input type="text" maxlength="40" class="input-box form-control shadow-none" name="Upazilla" id="Upazilla" placeholder="উপ‌জেলা" required> --}}
+        <select name="upozila_id" id="upozila" class="input-box select-box" required>
+            <option value="">উপজেলা নির্বাচন করুন</option>
+        </select>
     </div>
 
     <label class="input-label" for="Union">ইউনিয়ন</label>
@@ -264,7 +180,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="Union">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="Union" id="Union" placeholder="ইউনিয়ন" require>
+        {{-- <input type="text" maxlength="40" class="input-box form-control shadow-none" name="Union" id="Union" placeholder="ইউনিয়ন" required> --}}
+        <select name="union_id" id="union" class="input-box select-box" >
+            <option value="">ইউনিয়ন নির্বাচন করুন</option>
+        </select>
     </div>
 
     <label class="input-label" for="word">ওয়ার্ড</label>
@@ -272,7 +191,7 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="word">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="word" id="word" placeholder="ওয়ার্ড" require>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="ward" id="word" placeholder="ওয়ার্ড" required>
     </div>
 
     <label class="input-label" for="post-code">পোস্ট কোড </label>
@@ -280,7 +199,7 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="post-code">
             <img src="{{asset('assets/img/post code.png')}}" alt="post code icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="post-code" id="post-code" placeholder="পোস্ট কোড " require>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="post_code" id="post-code" placeholder="পোস্ট কোড " required>
     </div>
 
     <label class="input-label" for="mobile_no">মোবাইল নং </label>
@@ -288,8 +207,9 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
             <img src="{{asset('assets/img/number.png')}}" alt="number icon">
         </span>
-        <input type="number" maxlength="40" class="input-box form-control shadow-none" name="mobile_no" id="mobile_no" placeholder="01402860617..." require>
+        <input type="number" maxlength="40" class="input-box form-control shadow-none" name="phone" id="mobile_no" placeholder="01402860617..." required>
     </div>
+
 
     <div id="familyContainer">
         <div id="familyMember" class="mt-4">
@@ -300,7 +220,7 @@
                 <span class="input-box-icon input-group-text">
                     <img src="{{asset('assets/img/name.png')}}" alt="name icon">
                 </span>
-                <input type="text" class="input-box form-control shadow-none" name="family_name" placeholder="নাম (বাংলা)">
+                <input type="text" class="input-box form-control shadow-none"  name="family_members[0][name]" placeholder="নাম (বাংলা)">
             </div>
 
             <label class="input-label">বয়স</label>
@@ -308,7 +228,7 @@
                 <span class="input-box-icon input-group-text">
                     <img src="{{asset('assets/img/old.png')}}" alt="old icon">
                 </span>
-                <input type="text" class="input-box form-control shadow-none" name="family_old" placeholder="বয়স">
+                <input type="text" class="input-box form-control shadow-none" name="family_members[0][age]" placeholder="বয়স">
             </div>
 
             <label class="input-label">পুরুষ মহিলা (Select)</label>
@@ -316,10 +236,22 @@
                 <span class="input-box-icon select-group input-group-text">
                     <img src="{{asset('assets/img/gender.png')}}" alt="gender icon">
                 </span>
-                <select class="input-box select-box" name="family_gender">
-                    <option value="male">পুরুষ</option>
-                    <option value="female">মহিলা</option>
+                <select name="family_members[0][gender]" id="gender"
+                class="input-box select-box"  required>
+                    <option value="">Select One</option>
+                    @foreach (ALL_GENDER_BANGLA as $value)
+                        <option value="{{ $value }}">{{ ucwords($value) }}
+                        </option>
+                    @endforeach
                 </select>
+
+            </div>
+            <label class="input-label">সম্পর্ক (বাংলা)</label>
+            <div class="input-group mb-2">
+                <span class="input-box-icon input-group-text">
+                    <img src="{{asset('assets/img/name.png')}}" alt="name icon">
+                </span>
+                <input type="text" class="input-box form-control shadow-none"  name="family_members[0][relationship]" placeholder="সম্পর্ক (বাংলা)">
             </div>
         </div>
     </div>
@@ -343,8 +275,9 @@
     <script>
         $(document).ready(function() {
             // Fetch districts based on division selection
-            $('#division').change(function() {
+            $(document).on('change','#division',function() {
                 var divisionId = $(this).val();
+                console.log('divisionId',divisionId)
                 if (divisionId) {
                     $.ajax({
                         url: '/get-districts/' + divisionId,
@@ -352,24 +285,25 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#district').empty().append(
-                                '<option value="">Select District</option>');
+                                '<option value="">নির্বাচন করুন জেলা</option>');
                             $.each(data, function(key, value) {
                                 $('#district').append('<option value="' + value.id +
                                     '">' + value.name + '</option>');
                             });
                             $('#upozila').empty().append(
-                                '<option value="">Select Upozila</option>'
+                                '<option value="">উপজেলা নির্বাচন করুন</option>'
                                 ); // Reset upozila dropdown
                         }
                     });
                 } else {
-                    $('#district').empty().append('<option value="">Select District</option>');
-                    $('#upozila').empty().append('<option value="">Select Upozila</option>');
+                    $('#district').empty().append('<option value="">নির্বাচন করুন জেলা</option>');
+                    $('#upozila').empty().append('<option value="">উপজেলা নির্বাচন করুন</option>');
                 }
             });
 
             // Fetch upozilas based on district selection
-            $('#district').change(function() {
+
+            $(document).on('change','#district',function() {
                 var districtId = $(this).val();
                 if (districtId) {
                     $.ajax({
@@ -378,7 +312,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#upozila').empty().append(
-                                '<option value="">Select Upozila</option>');
+                                '<option value="">উপজেলা নির্বাচন করুন</option>');
                             $.each(data, function(key, value) {
                                 $('#upozila').append('<option value="' + value.id +
                                     '">' + value.name + '</option>');
@@ -386,12 +320,13 @@
                         }
                     });
                 } else {
-                    $('#upozila').empty().append('<option value="">Select Upozila</option>');
+                    $('#upozila').empty().append('<option value="">উপজেলা নির্বাচন করুন</option>');
                 }
             });
 
             // Fetch Union based on upozila selection
-            $('#upozila').change(function() {
+            $(document).on('change','#upozila',function() {
+
                 var upozilaId = $(this).val();
                 if (upozilaId) {
                     $.ajax({
@@ -400,7 +335,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#union').empty().append(
-                            '<option value="">Select union</option>');
+                            '<option value="">ইউনিয়ন নির্বাচন করুন</option>');
                             $.each(data, function(key, value) {
                                 $('#union').append('<option value="' + value.id + '">' +
                                     value.name + '</option>');
@@ -408,55 +343,47 @@
                         }
                     });
                 } else {
-                    $('#union').empty().append('<option value="">Select union</option>');
+                    $('#union').empty().append('<option value="">ইউনিয়ন নির্বাচন করুন</option>');
                 }
             });
 
-            var index = 0;
-            $(document).on('click', '#add_family_member_btn', function(e) {
-                e.preventDefault();
-                index = index + 1
-                let member_list = $('.member_list').length
-                let html = `
-                <div class="col-md-12 border border-primary p-2 my-2 member_list" >
-                    <h4>Family Member ${member_list+1}</h4>
-                    <div class="row" >
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" name="family_members[${index}][name]" id="name" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date_of_birth">Date Of Birth</label>
-                                <input type="date" name="family_members[${index}][date_of_birth]" id="date_of_birth" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="gender">Gender <span class="text-danger">*</span></label>
-                                <select name="family_members[${index}][gender]" id="gender" class="form-control" required>
-                                    <option value="">Select One</option>
-                                    @foreach (ALL_GENDER as $value)
-                                    <option value="{{ $value }}">{{ ucwords($value) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="relationship">Relationship</label>
-                                <input type="text" name="family_members[${index}][relationship]" id="relationship" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger " type="button" onclick="$(this).parent().remove()" style="    float: right;">Delete </button>
-                </div>
-            `
-                $("#add_family_members_section").append(html)
-                console.log('click', html)
-            })
+            let memberIndex = 1; // Start from 1 since the first one is already there
+
+            function addFamilyMember() {
+                let newMember = $('#familyMember').first().clone(); // Clone the first family member div
+                newMember.find('input, select').each(function () {
+                    let nameAttr = $(this).attr('name');
+                    if (nameAttr) {
+                        $(this).attr('name', nameAttr.replace(/\d+/, memberIndex)); // Update index
+                        $(this).val(''); // Clear previous values
+                    }
+                });
+
+                newMember.find('.member-title b').text('পরিবারের সদস্য তথ্য ' + (memberIndex + 1) + ':'); // Update title
+                $('#familyContainer').append(newMember); // Append to container
+                memberIndex++; // Increment index
+            }
+
+            $('.add-more-btn').on('click', function () {
+                addFamilyMember();
+            });
+
+             // Trigger file input when the image is clicked
+            $('#profile-image').on('click', function() {
+                $('#profile-input').click();
+            });
+
+            // Handle file selection and update the image
+            $('#profile-input').on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#profile-image').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
     </script>
 @endpush

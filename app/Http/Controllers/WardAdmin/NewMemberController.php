@@ -39,7 +39,7 @@ class NewMemberController extends Controller
      */
     public function create()
     {
-        setPageMeta('Create New Member');
+        setPageMeta('Add New Member');
         $data = [
             'division' => Division::all(),
             'district' => District::all(),
@@ -61,12 +61,13 @@ class NewMemberController extends Controller
             DB::beginTransaction();
 
             $customerData = $request->only([
+                'card_no',
+                'duration_year',
                 'name',
                 'father_name',
                 'mother_name',
                 'date_of_birth',
                 'nid_number',
-                'phone',
                 'gender',
                 'religion',
                 'occupation',
@@ -75,6 +76,8 @@ class NewMemberController extends Controller
                 'upozila_id',
                 'union_id',
                 'ward',
+                'post_code',
+                'phone',
                 'status',
             ]);
             // dd($customerData, $request->all());
@@ -90,13 +93,14 @@ class NewMemberController extends Controller
             }
             $customerData['user_id'] = auth()->user()->id;
             $customer = Customer::create($customerData);
+            // dd('customer', $customer);
             if(isset($data['family_members'])){
 
                 $customer->family_members()->createMany($request->family_members);
             }
 
             DB::commit();
-            return redirect()->route('ward.new-members.index')->with('success','New Member Created Successfully');
+            return redirect()->back()->with('success','New Member Created Successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('errors',$e->getMessage());

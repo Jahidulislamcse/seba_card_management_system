@@ -1,12 +1,13 @@
     <!--   Core JS Files   -->
+    <script src="{{ asset('backend/js/core/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.js')}}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="https://kit.fontawesome.com/696233e01c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <script src="{{ asset('backend/js/core/jquery-3.7.1.min.js') }}"></script>
+
     <!-- parsley -->
-    <script src="{{ asset('libs/parsleyjs/parsley.min.js') }}"></script>
+    {{-- <script src="{{ asset('libs/parsleyjs/parsley.min.js') }}"></script> --}}
     <!-- Select2 -->
     <script src="{{ asset('libs/select2/js/select2.min.js') }}"></script>
     <!-- Datatables -->
@@ -21,6 +22,7 @@
             if ($("#basic-datatables").length) {
                 $("#basic-datatables").DataTable({});
             }
+
         });
     </script>
 
