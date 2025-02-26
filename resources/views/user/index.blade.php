@@ -236,7 +236,7 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->district->name }}</td>
+                                    <td>{{ $user->district->name ?? '' }}</td>
                                     <td>{{ ucfirst($user->role) }}</td>
                                     <td>{{ $user->status }}</td>
 

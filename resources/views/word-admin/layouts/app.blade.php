@@ -76,7 +76,7 @@
                 e.preventDefault();
                 const url = form.attr('action'); // Form action URL
                 const data = form.serialize(); // Serialize form data
-                // console.log(data);
+                console.log(data);
 
                 $.ajax({
                     url: url,
