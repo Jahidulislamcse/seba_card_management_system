@@ -133,20 +133,19 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string',
-            'phone' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
             'status' => 'required|string',
-            
         ]);
 
-        $user = User::findOrFail($id);
         $user->update($request->all());
 
         return redirect()->back()->with('message', 'User updated successfully!');
     }
+
 
     public function destroy($id)
     {
