@@ -16,7 +16,13 @@
     <script src="{{ asset('libs/toastr/toastr.min.js') }}"></script>
     <!-- SweetAlert -->
     <script src="{{ asset('libs/sweetalert/sweetalert.min.js') }}"></script>
-
+    @if ($errors->any())
+    <script>
+            @foreach ($errors->all() as $error)
+                toastr.error(@json($error));
+            @endforeach
+        </script>
+    @endif
     <script>
         $(document).ready(function () {
             if ($("#basic-datatables").length) {
@@ -65,12 +71,6 @@
         @endif
     </script>
 
-    @if ($errors->any())
-        <script>
-            @foreach ($errors->all() as $error)
-                toastr.error(@json($error));
-            @endforeach
-        </script>
-    @endif
+
 
     @stack('scripts')
