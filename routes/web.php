@@ -29,6 +29,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('user/list', [UserController::class, 'userList'])->name('user.list');
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
 Route::get('/get-districts/{division_id}', [LocationController::class, 'getDistricts']);
 Route::get('/get-upozilas/{district_id}', [LocationController::class, 'getUpozilas']);
 Route::get('/get-unions/{upozila_id}', [LocationController::class, 'getUnions']);

@@ -19,4 +19,9 @@ class District extends Model
     {
         return $this->hasMany(Upazila::class, 'district_id');
     }
+
+    public  function users()
+    {
+        return $this->hasMany(User::class, 'district_id');
+    }
 }

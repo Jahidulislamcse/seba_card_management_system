@@ -20,4 +20,9 @@ class Upazila extends Model
     {
         return $this->hasMany(Union::class, 'upazila_id');
     }
+
+    public  function users()
+    {
+        return $this->hasMany(User::class, 'upazila_id');
+    }
 }

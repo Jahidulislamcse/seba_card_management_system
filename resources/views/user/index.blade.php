@@ -26,7 +26,7 @@
                         <button class="btn btn-primary toggle-btn" data-role="super_admin">Super Admin</button>
                         <button class="btn btn-primary toggle-btn" data-role="admin">Admin</button>
                         <button class="btn btn-primary toggle-btn" data-role="dis_admin">District Admin</button>
-                        <button class="btn btn-primary toggle-btn" data-role="upo_admin">Upozila Admin</button>
+                        <button class="btn btn-primary toggle-btn" data-role="upo_admin">Upazila Admin</button>
                         <button class="btn btn-primary toggle-btn" data-role="uni_admin">Union Admin</button>
                         <button class="btn btn-primary toggle-btn" data-role="ward_admin">Ward Admin</button>
                     </div>
@@ -223,7 +223,7 @@
                                     <th>Name</th>
                                     <th>Phone</th>
                                     <th>Email</th>
-                                    <th>Address</th>
+                                    <th>District</th>
                                     <th>Role</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -236,15 +236,16 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->district }}</td>
-                                    <td>{{ $user->role }}</td>
+                                    <td>{{ $user->district->name }}</td>
+                                    <td>{{ ucfirst($user->role) }}</td>
                                     <td>{{ $user->status }}</td>
+
                                     <td>
                                         <!-- Edit Button -->
-                                        <button class="btn btn-sm btn-primary edit-btn" data-id="{{ $user->id }}">Edit</button>
+                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
 
                                         <!-- Delete Button -->
-                                        <form action="" method="POST" style="display: inline-block;">
+                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
@@ -263,7 +264,6 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 
 <script>
     document.getElementById('phone').addEventListener('input', function(e) {
@@ -384,83 +384,6 @@
             $('#add-new-section').show();
         });
 
-        // Edit Button Click Event
-        $('.edit-btn').click(function() {
-            const userId = $(this).data('id');
-            const editUrl = ``; // Route to fetch user data
-            const $row = $(this).closest('tr'); // Get the current row
-
-            // Remove any existing edit forms
-            $('.edit-form').remove();
-
-            // Fetch user data via AJAX
-            $.ajax({
-                url: editUrl,
-                method: 'GET',
-                success: function(response) {
-                    // Create the edit form HTML
-                    const editForm = `
-                        <tr class="edit-form">
-                            <td colspan="7">
-                                <form action="" method="POST" class="p-3 bg-light">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-name">Name</label>
-                                                <input type="text" name="name" id="edit-name" class="form-control" value="${response.name}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-email">Email</label>
-                                                <input type="email" name="email" id="edit-email" class="form-control" value="${response.email}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-phone">Phone</label>
-                                                <input type="text" name="phone" id="edit-phone" class="form-control" value="${response.phone_number}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-address">Address</label>
-                                                <input type="text" name="address" id="edit-address" class="form-control" value="${response.address}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-role">Role</label>
-                                                <select name="role" id="edit-role" class="form-control" required>
-                                                    <option value="vendor" ${response.role === 'vendor' ? 'selected' : ''}>Vendor</option>
-                                                    <option value="admin" ${response.role === 'admin' ? 'selected' : ''}>Admin</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                            <button type="button" class="btn btn-secondary cancel-edit">Cancel</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-                    `;
-                    // Insert the edit form below the current row
-                    $row.after(editForm);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching user data:', error);
-                }
-            });
-        });
-
-        // Cancel Edit Button Click Event
-        $(document).on('click', '.cancel-edit', function() {
-            $('.edit-form').remove(); // Remove the edit form
-        });
     });
 </script>
 

@@ -20,4 +20,8 @@ class Union extends Model
         return $this->hasMany(Ward::class, 'union_id');
     }
 
+    public  function users()
+    {
+        return $this->hasMany(User::class, 'union_id');
+    }
 }

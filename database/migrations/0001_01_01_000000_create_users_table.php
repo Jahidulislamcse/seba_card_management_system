@@ -14,18 +14,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('status')->default('pending');
             $table->string('role')->nullable();
-            $table->string('role')->default('pending');
             $table->string('father')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('nid')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique();
-            $table->string('division')->nullable();
-            $table->string('district')->nullable();
-            $table->string('upozila')->nullable();
-            $table->string('union')->nullable();
-            $table->string('ward')->nullable();
+            $table->foreignId('division_id')->unsigned()->nullable();
+            $table->foreignId('district_id')->unsigned()->nullable();
+            $table->foreignId('upazila_id')->unsigned()->nullable();
+            $table->foreignId('union_id')->unsigned()->nullable();
+            $table->integer('ward')->nullable();
             $table->string('photo')->nullable();
             $table->string('nid_front')->nullable();
             $table->string('nid_back')->nullable();

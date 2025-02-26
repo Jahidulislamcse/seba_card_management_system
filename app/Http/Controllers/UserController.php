@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\District;
 use App\Models\Division;
 use App\Models\Union;
@@ -40,11 +41,11 @@ class UserController extends Controller
             'nid' => 'nullable|string|max:20',
             'phone' => 'required',
             'email' => 'required|email|unique:users,email',
-            'division' => 'nullable|exists:divisions,id',
-            'district' => 'nullable|exists:districts,id',
-            'upozila' => 'nullable|exists:upazilas,id',
-            'union' => 'nullable|exists:unions,id',
-            'ward' => 'nullable|string|max:255',
+            'division_id' => 'nullable|exists:divisions,id',
+            'district_id' => 'nullable|exists:districts,id',
+            'upazila_id' => 'nullable|exists:upazilas,id',
+            'union_id' => 'nullable|exists:unions,id',
+            'ward' => 'nullable',
             'photo' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp',
             'nid_front' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp',
             'nid_back' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp',
@@ -104,10 +105,10 @@ class UserController extends Controller
         $data->nid = $request->nid;
         $data->phone = $request->phone;
         $data->email = $request->email;
-        $data->division = $request->division;
-        $data->district = $request->district;
-        $data->upozila = $request->upozila;
-        $data->union = $request->union;
+        $data->division_id = $request->division;
+        $data->district_id = $request->district;
+        $data->upazila_id = $request->upozila;
+        $data->union_id = $request->union;
         $data->ward = $request->ward;
         $data->password = bcrypt($request->password);
 
@@ -119,4 +120,40 @@ class UserController extends Controller
         ]);
     }
 
+
+
+
+    public function edit($id)
+    {
+        $user = User::with('division')->findOrFail($id);
+        $divisions = Division::all(); // Get all divisions for dropdown
+
+        return view('user.edit', compact('user', 'divisions'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => 'required|string',
+            'phone' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'status' => 'required|string',
+            
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+
+        return redirect()->back()->with('message', 'User updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+
+        return redirect()->route('user.list')->with('success', 'User deleted successfully');
+    }
 }
