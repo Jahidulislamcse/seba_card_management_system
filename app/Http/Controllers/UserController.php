@@ -135,16 +135,98 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $request->validate([
+        // Validate request and store the validated data
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string',
             'status' => 'required|string',
+            'father' => 'nullable|string|max:255',
+            'birth_date' => 'nullable|date',
+            'nid' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|max:15',
+            'division_id' => 'nullable|exists:divisions,id',
+            'district_id' => 'nullable|exists:districts,id',
+            'upazila_id' => 'nullable|exists:upazilas,id',
+            'union_id' => 'nullable|exists:unions,id',
+            'ward' => 'nullable|string|max:10',
+            'photo' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp|max:2048',
+            'nid_front' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp|max:2048',
+            'nid_back' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp|max:2048',
+            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:4096',
+            'certificate' => 'nullable|file|mimes:pdf,doc,docx|max:4096',
         ]);
 
-        $user->update($request->all());
+        // Update user fields
+        $user->update($validatedData);
+
+        // Handle photo upload
+        if ($request->hasFile('photo')) {
+            // Delete old file if exists
+            if ($user->photo && file_exists(public_path($user->photo))) {
+                unlink(public_path($user->photo));
+            }
+
+            $image = $request->file('photo');
+            $image_name = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('upload/photos'), $image_name);
+            $user->photo = 'upload/photos/' . $image_name;
+        }
+
+        // Handle NID front upload
+        if ($request->hasFile('nid_front')) {
+            if ($user->nid_front && file_exists(public_path($user->nid_front))) {
+                unlink(public_path($user->nid_front));
+            }
+
+            $nid_front = $request->file('nid_front');
+            $nid_front_name = hexdec(uniqid()) . '.' . $nid_front->getClientOriginalExtension();
+            $nid_front->move(public_path('upload/nid'), $nid_front_name);
+            $user->nid_front = 'upload/nid/' . $nid_front_name;
+        }
+
+        // Handle NID back upload
+        if ($request->hasFile('nid_back')) {
+            if ($user->nid_back && file_exists(public_path($user->nid_back))) {
+                unlink(public_path($user->nid_back));
+            }
+
+            $nid_back = $request->file('nid_back');
+            $nid_back_name = hexdec(uniqid()) . '.' . $nid_back->getClientOriginalExtension();
+            $nid_back->move(public_path('upload/nid'), $nid_back_name);
+            $user->nid_back = 'upload/nid/' . $nid_back_name;
+        }
+
+        // Handle CV upload
+        if ($request->hasFile('cv')) {
+            if ($user->cv && file_exists(public_path($user->cv))) {
+                unlink(public_path($user->cv));
+            }
+
+            $cv = $request->file('cv');
+            $cv_name = hexdec(uniqid()) . '.' . $cv->getClientOriginalExtension();
+            $cv->move(public_path('upload/cv'), $cv_name);
+            $user->cv = 'upload/cv/' . $cv_name;
+        }
+
+        // Handle Certificate upload
+        if ($request->hasFile('certificate')) {
+            if ($user->certificate && file_exists(public_path($user->certificate))) {
+                unlink(public_path($user->certificate));
+            }
+
+            $certificate = $request->file('certificate');
+            $certificate_name = hexdec(uniqid()) . '.' . $certificate->getClientOriginalExtension();
+            $certificate->move(public_path('upload/certificate'), $certificate_name);
+            $user->certificate = 'upload/certificate/' . $certificate_name;
+        }
+
+        // Save updated user data
+        $user->save();
 
         return redirect()->back()->with('message', 'User updated successfully!');
     }
+
+
 
 
     public function destroy($id)
