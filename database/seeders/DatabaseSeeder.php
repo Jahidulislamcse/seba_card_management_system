@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'role' => USER_ROLE_SUPER_ADMIN,
         ]);
 
-        $this->call(WordAdminSeeder::class);
+        $this->call(WardAdminSeeder::class);
         $this->call(DivisionSeeder::class);
         $this->call(DistrictSeeder::class);
         $this->call(UpazilaSeeder::class);

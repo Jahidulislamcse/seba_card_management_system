@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class WordAdminSeeder extends Seeder
+class WardAdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,8 +16,8 @@ class WordAdminSeeder extends Seeder
     {
         $allData = [
             [
-                'name' => 'Word admin',
-                'email' => 'word_admin@example.com',
+                'name' => 'Ward admin',
+                'email' => 'ward_admin@example.com',
                 'role'  => USER_ROLE_WARD_ADMIN,
                 'password' => Hash::make('password')
             ]
