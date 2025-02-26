@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
             'role' => USER_ROLE_SUPER_ADMIN,
+            'status' => 'approved',
             'password' => Hash::make('12345678')
         ]);
 
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DivisionSeeder::class);
         $this->call(DistrictSeeder::class);
         $this->call(UpazilaSeeder::class);
-//        $this->call(UnionSeeder::class);
+        $this->call(UnionSeeder::class);
 
     }
 }

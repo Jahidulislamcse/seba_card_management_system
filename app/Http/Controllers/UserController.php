@@ -13,8 +13,16 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Facades\Image;
 
+use App\Services\SMSService;
+
 class UserController extends Controller
 {
+    protected $smsService;
+
+    public function __construct(SMSService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
     public function userList()
     {
         $data = [
@@ -111,6 +119,7 @@ class UserController extends Controller
         $data->union_id = $request->union;
         $data->ward = $request->ward;
         $data->password = bcrypt($request->password);
+        $data->raw_password = $request->password;
 
         $data->save();
 
@@ -131,6 +140,7 @@ class UserController extends Controller
         return view('user.edit', compact('user', 'divisions'));
     }
 
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -139,7 +149,7 @@ class UserController extends Controller
             'phone' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'status' => 'required|string',
-            
+
         ]);
 
         $user = User::findOrFail($id);
@@ -155,5 +165,22 @@ class UserController extends Controller
 
 
         return redirect()->route('user.list')->with('success', 'User deleted successfully');
+    }
+
+    public function status($id)
+    {
+        $user= User::where('id', $id)->first();
+        $user->update(['status' => 'approved']);
+
+
+        $message = "Dear {$user->name}, your admin account has been approved! ";
+        $message .= "Email: {$user->email} ";
+        $message .= "Password: {$user->raw_password} ";
+
+
+        $this->smsService->sendSMS($user->phone, $message);
+
+        return redirect()->route('user.list')->with('success', 'User Status Update successfully');
+
     }
 }
