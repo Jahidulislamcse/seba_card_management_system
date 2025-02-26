@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\FileUploadService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WardAdmin\NewMemberRequest;
 
 class NewMemberController extends Controller
 {
@@ -23,27 +24,14 @@ class NewMemberController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $perPage = $request->get('per_page', 10);
-        $search = $request->get('search');
-        $orderBy = $request->get('order_by', 'asc'); // Default to 'asc'
-        $orderByColumn = 'name';
-        $orderByDirection = $orderBy;
-
-        $customers = Customer::query()
-            ->when($search, function ($query) use ($search) {
-                $query->where('name', 'LIKE', "%{$search}%")->orWhere('gender', 'LIKE', "%{$search}%");
-            })
-            ->orderBy($orderByColumn, $orderByDirection)
-            ->paginate($perPage);
-
-        if ($request->ajax()) {
-            return view('word-admin.new-members.member_table', compact('customers'))->render();
-        }
-        return view('word-admin.new-members.index', [
-            'customers' => $customers,
-        ]);
+        setPageMeta('List  New Member');
+        $customers = Customer::latest()
+        ->whereDate('created_at', today())
+        ->with(['division'])
+        ->get();
+        return view('word-admin.new-members.index',compact('customers'));
     }
 
     /**
@@ -51,6 +39,7 @@ class NewMemberController extends Controller
      */
     public function create()
     {
+        setPageMeta('Create New Member');
         $data = [
             'division' => Division::all(),
             'district' => District::all(),
@@ -64,8 +53,10 @@ class NewMemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(NewMemberRequest $request)
     {
+        $data = $request->validated();
+
         try {
             DB::beginTransaction();
 
@@ -81,9 +72,10 @@ class NewMemberController extends Controller
                 'occupation',
                 'division_id',
                 'district_id',
-                'upozila',
-                'union',
+                'upozila_id',
+                'union_id',
                 'ward',
+                'status',
             ]);
             // dd($customerData, $request->all());
             if(isset($request->avatar)){
@@ -96,12 +88,16 @@ class NewMemberController extends Controller
             if(isset($request->nid_back)){
                 $customerData['nid_back'] = $this->fileUploadService->uploadFile($request,'nid_back',FILE_STORE_PATH);
             }
+            $customerData['user_id'] = auth()->user()->id;
             $customer = Customer::create($customerData);
-            $customer->family_members()->createMany($request->family_members);
+            if(isset($data['family_members'])){
+
+                $customer->family_members()->createMany($request->family_members);
+            }
 
             DB::commit();
             return redirect()->route('ward.new-members.index')->with('success','New Member Created Successfully');
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('errors',$e->getMessage());
 
@@ -122,15 +118,79 @@ class NewMemberController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        setPageMeta('Edit New Member');
+        $customer =  Customer::query()
+        ->with(['family_members'])
+        ->find($id);
+        $data = [
+            'division' => Division::all(),
+            'district' => District::where('division_id',$customer->division_id)->select('id','name')->get(),
+            'upazila' => Upazila::where('district_id',$customer->district_id)->select('id','name')->get(),
+            'union' => Union::where('upazilla_id',$customer->upazila_id)->select('id','name')->get(),
+            'ward' => Ward::where('union_id',$customer->union_id)->select('id','name')->get(),
+            'data' =>$customer
+        ];
+        // dd($data);
+        return view('word-admin.new-members.edit',$data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(NewMemberRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+        // dd('$data', $data);
+        try {
+            DB::beginTransaction();
+
+            $customer =  Customer::query()
+            ->with(['family_members'])
+            ->find($id);
+
+            $customerData = $request->only([
+                'name',
+                'father_name',
+                'mother_name',
+                'date_of_birth',
+                'nid_number',
+                'phone',
+                'gender',
+                'religion',
+                'occupation',
+                'division_id',
+                'district_id',
+                'upozila_id',
+                'union_id',
+                'ward',
+                'status',
+            ]);
+
+            if(isset($request->avatar)){
+                $customerData['avatar'] = $this->fileUploadService->uploadFile($request,'avatar',FILE_STORE_PATH,$customer->avatar);
+            }
+
+            if(isset($request->nid_front)){
+                $customerData['nid_front'] = $this->fileUploadService->uploadFile($request,'nid_front',FILE_STORE_PATH,$customer->nid_front);
+            }
+            if(isset($request->nid_back)){
+                $customerData['nid_back'] = $this->fileUploadService->uploadFile($request,'nid_back',FILE_STORE_PATH,$customer->nid_back);
+            }
+            $customerData['user_id'] = auth()->user()->id;
+            $customer = Customer::updateOrCreate(['id'=>$id],$customerData);
+
+            if(isset($data['family_members'])){
+                $customer->family_members()->delete();
+                $customer->family_members()->createMany($request->family_members);
+            }
+
+            DB::commit();
+            return redirect()->route('ward.new-members.index')->with('success','New Member Updated Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('errors',$e->getMessage());
+
+        }
     }
 
     /**
@@ -138,6 +198,20 @@ class NewMemberController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $customer =  Customer::query()
+            ->with(['family_members'])
+            ->find($id);
+        if(!is_null($customer->avatar)){
+            $this->fileUploadService->delete($customer->avatar);
+        }
+        if(!is_null($customer->nid_front)){
+            $this->fileUploadService->delete($customer->nid_front);
+        }
+        if(!is_null($customer->nid_back)){
+            $this->fileUploadService->delete($customer->nid_back);
+        }
+        $customer->family_members()->delete();
+        $customer->delete();
+        return redirect()->route('ward.new-members.index')->with('success','New Member Deleted Successfully');
     }
 }

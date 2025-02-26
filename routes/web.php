@@ -39,9 +39,11 @@ Route::get('/get-unions/{upozila_id}', [LocationController::class, 'getUnions'])
 
 
 
-Route::middleware(['role:super_admin'])->group(function () {});
-Route::prefix('super-admin')->name('super.admin.')->group(function () {
-    Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
+Route::middleware(['role:super_admin'])->group(function () {
+    Route::prefix('super-admin')->name('super.admin.')->group(function () {
+        Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
+    });
+
 });
 
 Route::middleware(['role:admin'])->group(function () {
@@ -68,11 +70,13 @@ Route::middleware(['role:uni_admin'])->group(function () {
     });
 });
 
-Route::middleware(['role:ward_admin'])->group(function () {});
+Route::middleware(['role:ward_admin'])->group(function () {
+    Route::prefix('ward')->name('ward.')->group(function () {
+        Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
+        Route::resource('/new-members', NewMemberController::class);
+    });
 
-Route::prefix('ward')->name('ward.')->group(function () {
-    Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/new-members', NewMemberController::class);
 });
+
 
 require __DIR__ . '/auth.php';

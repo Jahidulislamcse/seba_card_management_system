@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('card_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('name');
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
@@ -27,11 +27,11 @@ return new class extends Migration
             $table->string('occupation')->nullable();
             $table->foreignId('division_id')->nullable()->constrained('divisions')->onDelete('cascade');
             $table->foreignId('district_id')->nullable()->constrained('districts')->onDelete('cascade');
-            $table->string('upazila')->nullable();
-            $table->string('union')->nullable();
+            $table->foreignId('upozila_id')->nullable()->constrained('upazilas')->onDelete('cascade');
+            $table->foreignId('union_id')->nullable()->constrained('unions')->onDelete('cascade');
             $table->string('ward')->nullable();
             $table->string('avatar')->nullable();
-            $table->string('status')->default(STATUS_PENDING);
+            $table->string('status')->default(STATUS_ACTIVE);
             $table->timestamps();
         });
     }

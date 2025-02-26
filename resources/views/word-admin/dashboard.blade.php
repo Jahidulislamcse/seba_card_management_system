@@ -41,3 +41,6 @@
     </div>
 </div>
 @endsection
+@push('styles')
+
+@endpush
