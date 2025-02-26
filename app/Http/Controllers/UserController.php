@@ -151,6 +151,13 @@ class UserController extends Controller
         ]);
 
         $user->update($request->all());
+        if($user->status == 'approved'){
+            $password = $user->raw_password ?? "Your set password";
+            $message = "Dear {$user->name}, your admin account has been approved!\n";
+            $message .= "Email: {$user->email}\n";
+            $message .= "Password: {$password}\n";
+            $this->smsService->sendSMS($user->phone, $message);
+        }
 
         return redirect()->back()->with('message', 'User updated successfully!');
     }
@@ -167,12 +174,15 @@ class UserController extends Controller
 
     public function status($id)
     {
-        $user= User::where('id', $id)->first();
+
+        $user= User::findorfail($id);
         $user->update(['status' => 'approved']);
-        
-        $message = "Dear {$user->name}, your admin account has been approved! ";
-        $message .= "Email: {$user->email} ";
-        $message .= "Password: {$user->raw_password} ";
+
+        $password = $user->raw_password ?? "Your set password";
+
+        $message = "Dear {$user->name}, your admin account has been approved!\n";
+        $message .= "Email: {$user->email}\n";
+        $message .= "Password: {$password}\n";
 
 
         $this->smsService->sendSMS($user->phone, $message);

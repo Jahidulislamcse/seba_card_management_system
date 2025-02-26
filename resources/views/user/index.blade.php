@@ -250,7 +250,7 @@
 
 
                                     <td>
-                                        @if($user->status == 'pending')
+                                        @if($user->status === 'pending')
                                         <a href="{{ route('user.status', $user->id) }}" class="btn btn-sm btn-info">Approved</a>
                                         @endif
                                         <!-- Edit Button -->
