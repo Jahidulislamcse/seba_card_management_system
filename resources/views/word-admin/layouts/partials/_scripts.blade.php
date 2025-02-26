@@ -1,7 +1,10 @@
     <!--   Core JS Files   -->
     <script src="{{ asset('backend/js/core/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ asset('backend/js/core/popper.min.js') }}"></script>
-    <script src="{{ asset('backend/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js')}}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="https://kit.fontawesome.com/696233e01c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 
     <!-- parsley -->
     <script src="{{ asset('libs/parsleyjs/parsley.min.js') }}"></script>
@@ -12,7 +15,25 @@
 
     <script src="{{ asset('libs/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('libs/sweetalert/sweetalert.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $("#basic-datatables").DataTable({});
 
+        });
+    </script>
+    <script>
+        var swiper = new Swiper(".FeedBackSwiper", {
+            navigation: {
+                nextEl: ".swiper-btn-next",
+                prevEl: ".swiper-btn-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            keyboard: true
+        });
+    </script>
     <script>
 
         toastr.options =
@@ -44,10 +65,5 @@
             </script>
         @endif
 
-    <script>
-        $(document).ready(function() {
-            $("#basic-datatables").DataTable({});
 
-        });
-    </script>
     @stack('scripts')

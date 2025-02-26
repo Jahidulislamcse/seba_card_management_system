@@ -1,0 +1,37 @@
+.add-card{
+    padding: 15px;
+}
+.amount-entry-form{
+    > label{
+        font-size: 15px;
+        font-weight: 550;
+        color: #383838;
+    }
+    > div{
+        gap: 10px;
+        display: flex;
+        margin-top: 5px;
+        align-items: center;
+        > input{
+            color: #4D4D4D;
+            outline: none;
+            padding: 5px;
+            font-size: 14px;
+            height: 35px;
+            width: 200px;
+            font-family: "Poppins", serif;
+            border: 1px solid #4D4D4D;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    .add-card{
+        padding: 10px;
+    }
+}

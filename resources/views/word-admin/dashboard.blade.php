@@ -1,45 +1,132 @@
 @extends('word-admin.layouts.app')
 
 @section('content')
+<!-- search area start -->
+<form action="#" class="headline">
+    <img src="{{ asset('assets/img/search-.png')}}" alt="search icon">
+    <div class="img-icon">
+        <i class="fa-solid fa-id-card"></i>
+    </div>
+    <input type="text" name="card" id="card" placeholder="কার্ড সার্চ করুন">
+    <img class="search-go-img" src="{{ asset('assets/img/download.png')}}" alt="download icon">
+</form>
+<!-- search area end -->
 
-<div class="search-bar">
-    <input type="text" class="form-control" placeholder="কার্ড পার্ট করুন">
-</div>
-
-<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="https://wowslider.com/sliders/demo-18/data1/images/hongkong1081704.jpg" class="d-block w-100" alt="...">
+<!-- slider area start -->
+<div class="swiper FeedBackSwiper">
+    <div class="swiper-arrow">
+        <div class="swiper-btn-prev">
+            <img src="{{ asset('assets/img/arrow-left.png')}}" alt="Admission care arrow icon">
+        </div>
+        <div class="swiper-btn-next">
+            <img src="{{ asset('assets/img/arrow-right.png')}}" alt="Admission care arrow icon">
         </div>
     </div>
-</div>
-
-<div class="notice-board">
-    <input type="text" class="form-control" placeholder="নোটিশ বোর্ড">
-</div>
-
-<div class="icon-section">
-    <div class="icon-box"><i class="fas fa-id-card"></i><br>এড কার্ড</div>
-    <div class="icon-box" >
-        <a href="{{ route('ward.new-members.index')}}"> <i class="fas fa-user-plus"></i><br>নতুন সদস্য</a>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide FeedBack_slide">
+            <img src="{{ asset('assets/img/slider 1.jpg')}}" alt="slider image">
+        </div>
+        <div class="swiper-slide FeedBack_slide">
+            <img src="{{ asset('assets/img/slider 2.jpg')}}" alt="slider image">
+        </div>
+        <div class="swiper-slide FeedBack_slide">
+            <img src="{{ asset('assets/img/slider 3.jpg')}}" alt="slider image">
+        </div>
     </div>
-    <div class="icon-box"><i class="fas fa-clock"></i><br>সময় তালিকা</div>
-    <div class="icon-box"><i class="fas fa-check-circle"></i><br>কার্ড চেকিং</div>
-    <div class="icon-box"><i class="fas fa-wallet"></i><br>ব্যালেন্স এড</div>
-    <div class="icon-box"><i class="fas fa-file-alt"></i><br>ব্যালেন্স স্টেটমেন্ট</div>
-    <div class="icon-box"><i class="fas fa-id-card-alt"></i><br>ওয়াই কার্ড তালিকা</div>
-    <div class="icon-box"><i class="fas fa-chart-bar"></i><br>রিপোর্ট</div>
-    <div class="icon-box"><i class="fas fa-mobile-alt"></i><br>মোবাইল রিচার্জ</div>
-    <div class="icon-box">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <a  href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                                this.closest('form').submit();">    <i class="fas fa-sign-out-alt"></i><br>লগ আউট</a>
-        </form>
+    <div class="swiper-pagination"></div>
+</div>
+<!-- slider area end -->
 
+<!-- card-menu start -->
+<div class="headline mt-0">
+    <img src="{{ asset('assets/img/notice.png')}}" alt="notice icon">
+    <marquee class="notice-area" behavior="scroll" direction="left">নোটিশ বোর্ড</marquee>
+    <img class="search-go-img" src="{{ asset('assets/img/download.png')}}" alt="">
+</div>
+<!-- balance add & add card alada page hobe -->
+<div class="all-cards">
+    <div class="cards">
+        <a class="card-links" href="AddCard.html">
+            <div>
+                <img src="{{ asset('assets/img/add card.png')}}" alt="add card icon">
+            </div>
+        </a>
+        <p>এড কার্ড</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="{{route('ward.new-members.create')}}">
+            <div>
+                <img src="{{ asset('assets/img/new member.png')}}" alt="new member icon">
+            </div>
+        </a>
+        <p>নতুন সদস‌্য</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="{{route('ward.new-members.index')}}">
+            <div>
+                <img src="{{ asset('assets/img/member list.png')}}" alt="member list icon">
+            </div>
+        </a>
+        <p>সদস‌্য তা‌লিকা</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="CardVerify.html">
+            <div>
+                <img src="{{ asset('assets/img/card.png')}}" alt="card icon">
+            </div>
+        </a>
+        <p>কার্ড ভে‌রিফাই</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="AddBalance.html">
+            <div>
+                <img src="{{ asset('assets/img/add balanced.png')}}" alt="cart icon">
+            </div>
+        </a>
+        <p>ব‌্যা‌লেন্স এড</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="BalanceStatement.html">
+            <div>
+                <img src="{{ asset('assets/img/balance statement.png')}}" alt="balance statement icon">
+            </div>
+        </a>
+        <p>ব‌্যা‌লেন্স স্টেট‌মেন্ট</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="CardList.html">
+            <div>
+                <img src="{{ asset('assets/img/card list.png')}}" alt="card icon">
+            </div>
+        </a>
+        <p>মাই কার্ড তা‌লিকা</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="Report.html">
+            <div>
+                <img src="{{ asset('assets/img/report.png')}}" alt="report icon">
+            </div>
+        </a>
+        <p>রি‌পোর্ট</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="MobileRecharge.html">
+            <div>
+                <img src="{{ asset('assets/img/mobile recherge.png')}}" alt="mobile recherge icon">
+            </div>
+        </a>
+        <p>মোবাইল রিচার্জ</p>
+    </div>
+    <div class="cards">
+        <a class="card-links" href="CashOut.html">
+            <div>
+                <img src="{{ asset('assets/img/cash out.png')}}" alt="cash out icon">
+            </div>
+        </a>
+        <p>ক‌্যাশ আউট</p>
     </div>
 </div>
+<!-- card-menu end -->
 @endsection
 @push('styles')
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class WardAdminDashboardController extends Controller
 {
     public function index(){
+        setPageMeta('Home');
         return view('word-admin.dashboard');
     }
 }
