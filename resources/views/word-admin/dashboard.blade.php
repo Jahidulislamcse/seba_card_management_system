@@ -129,5 +129,5 @@
 <!-- card-menu end -->
 @endsection
 @push('styles')
-
+<link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
 @endpush
