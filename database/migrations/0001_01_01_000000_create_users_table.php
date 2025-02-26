@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('role')->nullable();
+            $table->string('role')->default('pending');
             $table->string('father')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('nid')->nullable();

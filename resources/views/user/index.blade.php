@@ -225,6 +225,7 @@
                                     <th>Email</th>
                                     <th>Address</th>
                                     <th>Role</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -236,6 +237,7 @@
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->district }}</td>
+                                    <td>{{ $user->status }}</td>
                                     <td>{{ ucfirst($user->role) }}</td>
                                     <td>
                                         <!-- Edit Button -->
