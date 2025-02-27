@@ -29,7 +29,7 @@ class NewMemberRequest extends FormRequest
             'father_name' => ['required'],
             'mother_name' => ['required'],
             'date_of_birth' => ['nullable'],
-            'nid_number' => ['nullable'],
+            'nid_number' => ['nullable', 'unique:customers,nid_number,' . $this->new_member],
             'gender' => ['required'],
             'religion' => ['required'],
             'occupation' => ['required'],
@@ -44,7 +44,7 @@ class NewMemberRequest extends FormRequest
             'nid_front'                => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:1024'],
             'nid_back'                => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:1024'],
             'post_code' => ['required'],
-            'phone' => ['required'],
+            'phone' => ['required','unique:customers,phone,' . $this->new_member],
 
             'family_members' => ['required','array'],
             'family_members.*.name' => ['required'],

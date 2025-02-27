@@ -66,3 +66,14 @@ function getDefaultImage()
 {
     return asset('images/default/default.webp');
 }
+
+
+if (!function_exists('monthNumberGenerate')) {
+
+    function  monthNumberGenerate($month)
+    {
+        // Find the index of "September"
+        $index = array_search($month, ENGLISH_MONTHS);
+        return $index+1;
+    }
+}

@@ -26,6 +26,19 @@
                 $('form').parsley();
             }
 
+            $('#total-select-paginate').on('change', function () {
+                var selectedTotal = $(this).val();
+
+                // Get the current URL and query parameters
+                var url = new URL(window.location.href);
+
+                // Update or add the 'total' query parameter
+                url.searchParams.set('total', selectedTotal);
+
+                // Redirect to the new URL
+                window.location.href = url.toString();
+            });
+
         });
     </script>
 

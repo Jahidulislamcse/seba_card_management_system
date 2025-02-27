@@ -26,12 +26,16 @@ class NewMemberController extends Controller
      */
     public function index(Request $request)
     {
+         // Get the 'total' query parameter from the request
+        $total = $request->query('total', 10); // Default to 10 if not provided
+
         setPageMeta('Member List');
         $customers = Customer::latest()
-        ->whereDate('created_at', today())
         ->with(['division'])
-        ->get();
-        return view('word-admin.new-members.index',compact('customers'));
+        ->paginate($total);
+          // Append the 'total' query parameter to the pagination links
+        $customers->appends(['total' => $total]);
+        return view('word-admin.new-members.index',compact('customers','total'));
     }
 
     /**

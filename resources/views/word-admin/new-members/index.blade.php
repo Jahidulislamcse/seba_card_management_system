@@ -1,55 +1,55 @@
 @extends('word-admin.layouts.app')
 
 @section('content')
-<div class="page-inner">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <form id="search-filter-form" method="GET"
-                  class="d-flex justify-content-between align-items-center m-3">
-                <div class="d-flex align-items-center">
-                    <select name="per_page" id="per_page" class="form-control form-control-sm"
-                            style="width: auto;">
-                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10
-                        </option>
-                        <option value="15" {{ request('per_page') == 15 ? 'selected' : '' }}>15
-                        </option>
-                        <option value="20" {{ request('per_page') == 20 ? 'selected' : '' }}>20
-                        </option>
-                        <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50
-                        </option>
-                    </select>
-                </div>
-                <div class="d-flex align-items-center">
-                    <select name="order_by" id="order_by" class="form-control form-control-sm"
-                            style="width: auto; margin-left: 10px;">
-                        <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>Name
-                            (A-Z)</option>
-                        <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>
-                            Name (Z-A)</option>
-                    </select>
-                </div>
-                <div class="d-flex align-items-center">
-                    <div class="input-group">
-                        <input type="text" id="search" name="search"
-                               class="form-control form-control" placeholder="Enter keyword...">
-                    </div>
-                </div>
-            </form>
-            <div class="card">
-                <div class="card-body">
-                    <!-- Toggle Buttons -->
-                    <div class="mb-4">
-                        <a href="{{route('ward.new-members.create')}}" class="btn btn-primary ">Create</a>
-                    </div>
-                    <!-- Users Table -->
-                    <div class="table-responsive">
-                        <div id="data-container">
-                            @include('word-admin.new-members.member_table')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- user table -->
+    <h6 class="all-user">মোট - ৮৭৯০ জন</h6>
+    <form action="#" class="search-user-area">
+        <input type="text" name="search-user" id="search-user" placeholder="mobile number/id">
+        <button type="submit" class="button">Submit</button>
+    </form>
+    <div class="user-table">
+        <table class="all-user-table table">
+            <thead>
+                <tr>
+                    <th>ক্রমিক নং</th>
+                    <th>ছবি</th>
+                    <th>নাম ও আইডি</th>
+                    <th>মোবাইল নং</th>
+
+                    <th>জন্ম তা‌রিখ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (count($customers) > 0)
+                    @foreach ($customers as $key => $customer)
+                        {{-- {{dd($customer->dateOfBirth())}} --}}
+                        <tr>
+                            <td class="serial_no">{{ $loop->iteration }}</td>
+                            <td class="user-picture">
+                                <img src="{{ $customer->avatar_url }}" alt="{{ $customer->name }}">
+                            </td>
+                            <td class="user-name-id">
+                                <h6>{{ $customer->name }}</h6>
+                                <p>{{ $customer->card_no }}</p>
+                            </td>
+                            <td class="user-number">{{ $customer->phone }}</td>
+
+                            <td class="user-date">{{ $customer->dateOfBirth() }}</td>
+                        </tr>
+                    @endforeach
+                @endif
+
+
+
+            </tbody>
+        </table>
     </div>
-</div>
+    {!! $customers->links('vendor.pagination.bootstrap-5', ['total' => $total]) !!}
+
+    <!-- user table -->
 @endsection
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/MemberList.css') }}">
+@endpush
+@push('scripts')
+@endpush

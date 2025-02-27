@@ -11,7 +11,7 @@
 
 
     <!-- verify button -->
-    <label class="input-label" for="card-no">কার্ড নং (Choice)</label>
+    <label class="input-label" for="card-no">কার্ড নং (Choice) <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="card-no">
             <img src="{{asset('assets/img/card.png')}}" alt="card icon">
@@ -22,21 +22,21 @@
         @enderror
     </div>
 
-    <label class="input-label" for="duration">মেয়াদ (বছর সি‌লেক্ট 1,2,3,4 5,10)</label>
+    <label class="input-label" for="duration">মেয়াদ (বছর সি‌লেক্ট 1,2,3,4 5,10)  <span class="text-danger">*</span></label>
     <div class="input-group select-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="duration">
             <img src="{{asset('assets/img//term.png')}}" alt="term icon">
         </span>
-        <select class="input-box select-box" name="duration_year" id="duration" >
+        <select class="input-box select-box" name="duration_year" id="duration" required >
             <option value="১">১ বছর</option>
             <option value="২">২ বছর</option>
             <option value="৩">৩ বছর</option>
             <option value="৪">৪ বছর</option>
             <option value="৫">৫ বছর</option>
-            <option value="৬">৬ বছর</option>
+            {{-- <option value="৬">৬ বছর</option>
             <option value="৭">৭ বছর</option>
             <option value="৮">৮ বছর</option>
-            <option value="৯">৯ বছর</option>
+            <option value="৯">৯ বছর</option> --}}
             <option value="10">১০ বছর</option>
         </select>
         @error('duration_year')
@@ -44,7 +44,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="name">নাম (বাংলা)</label>
+    <label class="input-label" for="name">নাম (বাংলা)  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
@@ -55,7 +55,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="father_name">পিতার নাম (বাংলা)</label>
+    <label class="input-label" for="father_name">পিতার নাম (বাংলা)  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="father_name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
@@ -66,7 +66,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="mother_name">মাতার নাম (বাংলা)</label>
+    <label class="input-label" for="mother_name">মাতার নাম (বাংলা)  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="mother_name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
@@ -77,7 +77,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="birth-date">জন্ম তা‌রিখ </label>
+    <label class="input-label" for="birth-date">জন্ম তা‌রিখ  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon select-group input-group-text rounded-end-0" id="birth-date">
             <img src="{{asset('assets/img/date.png')}}" alt="date icon">
@@ -122,7 +122,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="id_no">আইডি নং </label>
+    <label class="input-label" for="id_no">আইডি নং  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="id_no">
             <img src="{{asset('assets/img/card.png')}}" alt="card icon">
@@ -133,7 +133,7 @@
         @enderror
     </div>`
 
-    <label class="input-label" for="gender">পুরুষ ম‌হিলা (Select)</label>
+    <label class="input-label" for="gender">পুরুষ ম‌হিলা (Select)  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon select-group input-group-text rounded-end-0" id="gender">
             <img src="{{asset('assets/img/gender.png')}}" alt="gender icon">
@@ -149,7 +149,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="religion">ধর্ম (Select)</label>
+    <label class="input-label" for="religion">ধর্ম (Select)  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon select-group input-group-text rounded-end-0" id="religion">
             <img src="{{asset('assets/img/religion.png')}}" alt="religion icon">
@@ -164,7 +164,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="occupation">পেশা</label>
+    <label class="input-label" for="occupation">পেশা  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="occupation">
             <img src="{{asset('assets/img/occupation.png')}}" alt="occupation icon">
@@ -175,7 +175,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="division">বিভাগ</label>
+    <label class="input-label" for="division">বিভাগ  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="division">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
@@ -192,7 +192,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="dristrick">জেলা</label>
+    <label class="input-label" for="dristrick">জেলা  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
@@ -206,7 +206,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="Upazilla">উপ‌জেলা</label>
+    <label class="input-label" for="Upazilla">উপ‌জেলা  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
@@ -220,7 +220,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="Union">ইউনিয়ন</label>
+    <label class="input-label" for="Union">ইউনিয়ন </label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="Union">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
@@ -234,7 +234,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="word">ওয়ার্ড</label>
+    <label class="input-label" for="word">ওয়ার্ড  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="word">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
@@ -245,7 +245,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="post-code">পোস্ট কোড </label>
+    <label class="input-label" for="post-code">পোস্ট কোড  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="post-code">
             <img src="{{asset('assets/img/post code.png')}}" alt="post code icon">
@@ -256,7 +256,7 @@
         @enderror
     </div>
 
-    <label class="input-label" for="mobile_no">মোবাইল নং </label>
+    <label class="input-label" for="mobile_no">মোবাইল নং  <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
             <img src="{{asset('assets/img/number.png')}}" alt="number icon">
