@@ -13,8 +13,16 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Facades\Image;
 
+use App\Services\SMSService;
+
 class UserController extends Controller
 {
+    protected $smsService;
+
+    public function __construct(SMSService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
     public function userList()
     {
         $data = [
@@ -111,6 +119,7 @@ class UserController extends Controller
         $data->union_id = $request->union;
         $data->ward = $request->ward;
         $data->password = bcrypt($request->password);
+        $data->raw_password = $request->password;
 
         $data->save();
 
@@ -142,6 +151,13 @@ class UserController extends Controller
         ]);
 
         $user->update($request->all());
+        if($user->status == 'approved'){
+            $password = $user->raw_password ?? "Your set password";
+            $message = "Dear {$user->name}, your admin account has been approved!\n";
+            $message .= "Email: {$user->email}\n";
+            $message .= "Password: {$password}\n";
+            $this->smsService->sendSMS($user->phone, $message);
+        }
 
         return redirect()->back()->with('message', 'User updated successfully!');
     }
@@ -154,5 +170,24 @@ class UserController extends Controller
 
 
         return redirect()->route('user.list')->with('success', 'User deleted successfully');
+    }
+
+    public function status($id)
+    {
+
+        $user= User::findorfail($id);
+        $user->update(['status' => 'approved']);
+
+        $password = $user->raw_password ?? "Your set password";
+
+        $message = "Dear {$user->name}, your admin account has been approved!\n";
+        $message .= "Email: {$user->email}\n";
+        $message .= "Password: {$password}\n";
+
+
+        $this->smsService->sendSMS($user->phone, $message);
+
+        return redirect()->route('user.list')->with('success', 'User Status Update successfully');
+
     }
 }

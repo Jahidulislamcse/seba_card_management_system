@@ -32,6 +32,8 @@ Route::post('/user/store', [UserController::class, 'store'])->name('user.store')
 Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::put('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
 Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::get('user/{id}/status', [UserController::class, 'status'])->name('user.status');
+
 
 Route::get('/get-districts/{division_id}', [LocationController::class, 'getDistricts']);
 Route::get('/get-upozilas/{district_id}', [LocationController::class, 'getUpozilas']);
