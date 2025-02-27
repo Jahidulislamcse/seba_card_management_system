@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->string('avatar')->nullable();
+            $table->string('card_no');
+            $table->string('duration_year');
             $table->string('name');
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
-            $table->string('date_of_birth')->nullable();
+            $table->json('date_of_birth')->nullable();
             $table->string('nid_number')->nullable();
             $table->string('nid_front')->nullable();
             $table->string('nid_back')->nullable();
-            $table->string('phone')->nullable();
             $table->string('gender')->nullable();
             $table->string('religion')->nullable();
             $table->string('occupation')->nullable();
@@ -30,8 +32,9 @@ return new class extends Migration
             $table->foreignId('upozila_id')->nullable()->constrained('upazilas')->onDelete('cascade');
             $table->foreignId('union_id')->nullable()->constrained('unions')->onDelete('cascade');
             $table->string('ward')->nullable();
-            $table->string('avatar')->nullable();
-            $table->string('status')->default(STATUS_ACTIVE);
+            $table->string('post_code')->nullable();
+            $table->string('phone')->unique();
+            $table->string('status')->nullable()->default(STATUS_ACTIVE);
             $table->timestamps();
         });
     }

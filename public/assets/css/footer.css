@@ -1,0 +1,69 @@
+.fixed-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Super-admin-footer{
+
+    background-color: rgb(216, 161, 7);
+    box-shadow: 0px -9px 15px rgb(216, 161, 7, .5); /* Upore shadow */
+    > a{
+        >p{
+            color:  #272727;
+        }
+    }
+}
+footer{
+    width: 35%;
+    color: rgb(211, 211, 218);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #073265;
+    box-shadow: 0px -9px 15px rgb(7, 50, 101, .5); /* Upore shadow */
+    > a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        cursor: pointer;
+        text-decoration: none;
+        > img{
+            height: 20px;
+        }
+        >p{
+            color: aliceblue;
+            font-size: 15px;
+            margin-top: 5px;
+            margin-bottom: 0px;
+            font-weight: 600;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    footer{
+        width: 50%;
+    }
+}
+@media (max-width: 992px) {
+    footer{
+        width: 55%;
+    }
+}
+@media (max-width: 850px) {
+    footer{
+        width: 100%;
+    }
+}
+@media (max-width: 500px) {
+    footer{
+        > a{
+            >p{
+                color: aliceblue;
+                font-size: 13px;
+            }
+        }
+    }
+}

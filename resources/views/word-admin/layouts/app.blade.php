@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{{ getPageMeta('title') }} | {{  config('app.name') }}</title>
     @include('word-admin.layouts.partials._styles')
-
 </head>
 <body>
-    <div class="container-fluid">
-        @include('word-admin.layouts.partials._header')
+    <div class="container">
+        <div class="content">
+            <!-- header start -->
+            @include('word-admin.layouts.partials._header')
+            <!-- header end -->
 
-        <div class="row">
-            <div class="col-md-12">
-                @include('word-admin.layouts.partials._breadcrumb')
-                @yield('content')
-            </div>
+            @yield('content')
+
+            <!-- footer start -->
+            @include('word-admin.layouts.partials._footer')
+            <!-- footer end -->
         </div>
-
-        @include('word-admin.layouts.partials._footer')
     </div>
+
     @include('word-admin.layouts.partials._scripts')
 
         <!--   Core JS Files   -->

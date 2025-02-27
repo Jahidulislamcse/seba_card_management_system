@@ -23,28 +23,32 @@ class NewMemberRequest extends FormRequest
     {
         // dd(request()->all());
         return [
+            'card_no' => ['required'],
+            'duration_year' => ['required'],
             'name' => ['required'],
             'father_name' => ['required'],
             'mother_name' => ['required'],
-            'date_of_birth' => ['required','date'],
+            'date_of_birth' => ['nullable'],
             'nid_number' => ['nullable'],
-            'phone' => ['required'],
             'gender' => ['required'],
             'religion' => ['required'],
             'occupation' => ['required'],
+
             'division_id' =>  ['required', 'exists:divisions,id'],
             'district_id' =>  ['required', 'exists:districts,id'],
             'upozila_id' =>  ['required', 'exists:upazilas,id'],
             'union_id' =>  ['nullable', 'exists:unions,id'],
             'ward' =>  ['nullable'],
-            'status' => ['required'],
+            'status' => ['nullable'],
             'avatar'                => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:1024'],
             'nid_front'                => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:1024'],
             'nid_back'                => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:1024'],
+            'post_code' => ['required'],
+            'phone' => ['required'],
 
             'family_members' => ['required','array'],
             'family_members.*.name' => ['required'],
-            'family_members.*.date_of_birth' => ['required','date'],
+            'family_members.*.age' => ['required'],
             'family_members.*.gender' => ['required'],
             'family_members.*.relationship' => ['required'],
         ];

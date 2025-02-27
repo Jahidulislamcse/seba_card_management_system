@@ -1,0 +1,19 @@
+select {
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 100px !important;
+    border: 1px solid #073265;
+    font-size: 14.5px;
+    font-weight: 500 !important;
+    color: #073265 !important;
+    outline: none;
+    border-radius: 5px;
+}
+.report-table{
+    min-width: 500px;
+    > tbody > tr > td{
+        font-family: "Poppins", serif;
+        font-size: 12px;
+    }
+}

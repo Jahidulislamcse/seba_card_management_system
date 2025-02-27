@@ -1,270 +1,283 @@
 @extends('word-admin.layouts.app')
 
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card  my-4">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h3>New Member Registration</h3>
-                    </div>
-                    <!-- Registration Form (Hidden by Default) -->
-                    <div id="registration-form" class="mb-4">
-                        <form id="user-registration-form" action="{{ route('ward.new-members.store') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <!-- Name -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" id="name" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="father_name">Father Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="father_name" id="father_name" class="form-control"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="mother_name">Mother Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="mother_name" id="mother_name" class="form-control"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="date_of_birth">Date Of Birth <span class="text-danger">*</span></label>
-                                        <input type="date" name="date_of_birth" id="date_of_birth" class="form-control"
-                                            required>
-                                    </div>
-                                </div>
+<form class="member-add-form"  action="{{ route('ward.new-members.store') }}" method="POST" enctype="multipart/form-data" >
+    @csrf
+    <h6 class="text-center fw-bold">নতুন সদস‌্য ফরম </h6>
+    <button type="button" class="profile-photo">
+        <img src="{{asset('assets/img/profile.png')}}" alt="profile icon" id="profile-image">
+        <input type="file" name="avatar" class="profile-inp" id="profile-input" style="display: none;">
+    </button>
 
 
-                                <!-- NID -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nid_number">NID</label>
-                                        <input type="text" name="nid_number" id="nid_number" class="form-control">
-                                    </div>
-                                </div>
+    <!-- verify button -->
+    <label class="input-label" for="card-no">কার্ড নং (Choice)</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="card-no">
+            <img src="{{asset('assets/img/card.png')}}" alt="card icon">
+        </span>
+        <input type="text"  maxlength="40" class="input-box form-control shadow-none"name="card_no" id="card-no" placeholder="354656" required>
+    </div>
 
-                                <!-- Phone -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="phone">Phone <span class="text-danger">*</span></label>
-                                        <input type="tel" name="phone" id="phone" class="form-control" required
-                                            pattern="^\+[0-9]{8,15}$"
-                                            title="Phone number must start with + and contain only numbers (8-15 digits)">
-                                    </div>
-                                </div>
+    <label class="input-label" for="duration">মেয়াদ (বছর সি‌লেক্ট 1,2,3,4 5,10)</label>
+    <div class="input-group select-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="duration">
+            <img src="{{asset('assets/img//term.png')}}" alt="term icon">
+        </span>
+        <select class="input-box select-box" name="duration_year" id="duration" >
+            <option value="১">১ বছর</option>
+            <option value="২">২ বছর</option>
+            <option value="৩">৩ বছর</option>
+            <option value="৪">৪ বছর</option>
+            <option value="৫">৫ বছর</option>
+            <option value="৬">৬ বছর</option>
+            <option value="৭">৭ বছর</option>
+            <option value="৮">৮ বছর</option>
+            <option value="৯">৯ বছর</option>
+            <option value="10">১০ বছর</option>
+        </select>
+    </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="gender">Gender <span class="text-danger">*</span></label>
-                                        <select name="gender" id="gender" class="form-control" required>
-                                            <option value="">Select One</option>
-                                            @foreach (ALL_GENDER as $value)
-                                                <option value="{{ $value }}">{{ ucwords($value) }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="religion">Religion <span class="text-danger">*</span></label>
-                                        <select name="religion" id="religion" class="form-control" required>
-                                            <option value="">Select One</option>
-                                            @foreach (ALL_RELIGION as $value)
-                                                <option value="{{ $value }}">{{ ucwords($value) }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="occupation">Occupation <span class="text-danger">*</span></label>
-                                        <input type="text" name="occupation" id="occupation" class="form-control"
-                                            required>
-                                    </div>
-                                </div>
+    <label class="input-label" for="name">নাম (বাংলা)</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="name">
+            <img src="{{asset('assets/img/name.png')}}" alt="name icon">
+        </span>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="name" id="name" placeholder="নাম (বাংলা)" required>
+    </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="division">Division <span class="text-danger">*</span></label>
-                                        <select name="division_id" id="division" class="form-control" required>
-                                            <option value="">Select Division</option>
-                                            @foreach ($division as $div)
-                                                <option value="{{ $div->id }}">{{ $div->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+    <label class="input-label" for="father_name">পিতার নাম (বাংলা)</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="father_name">
+            <img src="{{asset('assets/img/name.png')}}" alt="name icon">
+        </span>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="father_name" id="father_name" placeholder="পিতার নাম (বাংলা)" required>
+    </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="district">District <span class="text-danger">*</span></label>
-                                        <select name="district_id" id="district" class="form-control" required>
-                                            <option value="">Select District</option>
-                                        </select>
-                                    </div>
-                                </div>
+    <label class="input-label" for="mother_name">মাতার নাম (বাংলা)</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="mother_name">
+            <img src="{{asset('assets/img/name.png')}}" alt="name icon">
+        </span>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="mother_name" id="mother_name" placeholder="মাতার নাম (বাংলা)" required>
+    </div>
 
-                                <!-- Upozila -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="upozila">Upozila  <span class="text-danger">*</span></label>
-                                        <select name="upozila_id" id="upozila" class="form-control" required>
-                                            <option value="">Select Upozila</option>
-                                        </select>
-                                    </div>
-                                </div>
+    <label class="input-label" for="birth-date">জন্ম তা‌রিখ </label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon select-group input-group-text rounded-end-0" id="birth-date">
+            <img src="{{asset('assets/img/date.png')}}" alt="date icon">
+        </span>
+        <div class="birth-date">
+            <!-- month -->
+            <select name="date_of_birth[month]" id="date_of_birth_month">
+                @foreach (ENGLISH_MONTHS as $value)
+                <option value="{{$value}}">{{$value}}</option>
+                @endforeach
 
-                                <!-- Union -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="union">Union</label>
-                                        <select name="union_id" id="union" class="form-control">
-                                            <option value="">Select Union</option>
-                                        </select>
-                                    </div>
-                                </div>
+            </select>
 
+            <!-- day -->
+            <select name="date_of_birth[day]">
+                @foreach (ENGLISH_DAYS as $value)
+                <option value="{{$value}}">{{$value}}</option>
+                @endforeach
 
-                                <!-- Ward -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="ward">Ward</label>
-                                        <input type="text" name="ward" id="ward" class="form-control">
-                                    </div>
-                                </div>
+            </select>
+            @php
+                $currentYear = date('Y');
+                $startYear = 1950;
+                $years = range($currentYear, $startYear);
+            @endphp
+            <!-- year -->
+            <select class="year-select" name="date_of_birth[year]">
+                @foreach ($years as $value)
+                <option value="{{$value}}">{{$value}}</option>
+                @endforeach
 
-                                <!-- Photo -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="avatar">Avatar</label>
-                                        <input type="file" name="avatar" id="avatar" class="form-control">
-                                    </div>
-                                </div>
-
-                                <!-- NID Front -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nid_front">NID Front</label>
-                                        <input type="file" name="nid_front" id="nid_front" class="form-control">
-                                    </div>
-                                </div>
-
-                                <!-- NID Back -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nid_back">NID Back</label>
-                                        <input type="file" name="nid_back" id="nid_back" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="d-block mb-3 col-md-12">Status <span class="error">*</span></label>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="status_yes"
-                                                    value="{{STATUS_ACTIVE}}" name="status" checked=""
-                                                    data-parsley-multiple="status">
-                                                <label class="form-check-label" for="status_yes">
-                                                    Active
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="status_no"
-                                                    value="{{ STATUS_INACTIVE }}" name="status" data-parsley-multiple="status">
-                                                <label class="form-check-label" for="status_no">
-                                                    Inactive
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-
-                                <div class="col-md-12 my-2">
-                                    <div class="d-flex justify-content-between my-2">
-                                        <h3>Family Members</h3>
-                                        <button class="btn btn-success " id="add_family_member_btn">Add </button>
-                                    </div>
-                                    <div class="row" id="add_family_members_section">
-                                        <div class="col-md-12 border border-primary p-2 member_list">
-                                            <h4>Family Member 1</h4>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="name">Name</label>
-                                                        <input type="text" name="family_members[0][name]"
-                                                            id="name" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="date_of_birth">Date Of Birth</label>
-                                                        <input type="date" name="family_members[0][date_of_birth]"
-                                                            id="date_of_birth" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="gender">Gender <span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="family_members[0][gender]" id="gender"
-                                                            class="form-control" required>
-                                                            <option value="">Select One</option>
-                                                            @foreach (ALL_GENDER as $value)
-                                                                <option value="{{ $value }}">{{ ucwords($value) }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="relationship">Relationship</label>
-                                                        <input type="text" name="family_members[0][relationship]"
-                                                            id="relationship" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button type="button"  onclick="$(this).parent().remove()"  class="btn btn-danger " style="    float: right;">Delete </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Submit & Cancel Buttons -->
-                                <div class="col-md-12 my-4">
-                                    <button type="submit" class="btn btn-primary">Create</button>
-                                    <a href="{{ route('ward.new-members.index') }}" type="button"
-                                        id="cancel-registration" class="btn btn-secondary">Cancel</a>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-
+            </select>
         </div>
     </div>
+
+    <label class="input-label" for="id_no">আইডি নং </label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="id_no">
+            <img src="{{asset('assets/img/card.png')}}" alt="card icon">
+        </span>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="nid_number" id="id_no" placeholder="আইডি নং" required>
+    </div>`
+
+    <label class="input-label" for="gender">পুরুষ ম‌হিলা (Select)</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon select-group input-group-text rounded-end-0" id="gender">
+            <img src="{{asset('assets/img/gender.png')}}" alt="gender icon">
+        </span>
+        <select class="input-box select-box" name="gender" id="gender" required>
+            @foreach (ALL_GENDER_BANGLA as $value)
+                <option value="{{ $value }}">{{ ($value) }}</option>
+            @endforeach
+
+        </select>
+    </div>
+
+    <label class="input-label" for="religion">ধর্ম (Select)</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon select-group input-group-text rounded-end-0" id="religion">
+            <img src="{{asset('assets/img/religion.png')}}" alt="religion icon">
+        </span>
+        <select class="input-box select-box" name="religion" id="religion" required>
+            @foreach (ALL_RELIGION_BANGLA as $value)
+                <option value="{{ $value }}">{{ ($value) }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <label class="input-label" for="occupation">পেশা</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="occupation">
+            <img src="{{asset('assets/img/occupation.png')}}" alt="occupation icon">
+        </span>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="occupation" id="occupation" placeholder="পেশা" required>
+    </div>
+
+    <label class="input-label" for="division">বিভাগ</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="division">
+            <img src="{{asset('assets/img/city.png')}}" alt="city icon">
+        </span>
+
+        <select name="division_id" id="division" class="input-box select-box" required>
+            <option value="">নির্বাচন করুন বিভাগ</option>
+            @foreach ($division as $div)
+                <option value="{{ $div->id }}">{{ $div->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <label class="input-label" for="dristrick">জেলা</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
+            <img src="{{asset('assets/img/city.png')}}" alt="city icon">
+        </span>
+        {{-- <input type="text" maxlength="40" class="input-box form-control shadow-none" name="dristrick" id="dristrick" placeholder="জেলা" required> --}}
+        <select name="district_id" id="district" class="input-box select-box" required>
+            <option value="">জেলা নির্বাচন করুন</option>
+        </select>
+    </div>
+
+    <label class="input-label" for="Upazilla">উপ‌জেলা</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
+            <img src="{{asset('assets/img/city.png')}}" alt="city icon">
+        </span>
+        {{-- <input type="text" maxlength="40" class="input-box form-control shadow-none" name="Upazilla" id="Upazilla" placeholder="উপ‌জেলা" required> --}}
+        <select name="upozila_id" id="upozila" class="input-box select-box" required>
+            <option value="">উপজেলা নির্বাচন করুন</option>
+        </select>
+    </div>
+
+    <label class="input-label" for="Union">ইউনিয়ন</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="Union">
+            <img src="{{asset('assets/img/city.png')}}" alt="city icon">
+        </span>
+        {{-- <input type="text" maxlength="40" class="input-box form-control shadow-none" name="Union" id="Union" placeholder="ইউনিয়ন" required> --}}
+        <select name="union_id" id="union" class="input-box select-box" >
+            <option value="">ইউনিয়ন নির্বাচন করুন</option>
+        </select>
+    </div>
+
+    <label class="input-label" for="word">ওয়ার্ড</label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="word">
+            <img src="{{asset('assets/img/city.png')}}" alt="city icon">
+        </span>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="ward" id="word" placeholder="ওয়ার্ড" required>
+    </div>
+
+    <label class="input-label" for="post-code">পোস্ট কোড </label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="post-code">
+            <img src="{{asset('assets/img/post code.png')}}" alt="post code icon">
+        </span>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="post_code" id="post-code" placeholder="পোস্ট কোড " required>
+    </div>
+
+    <label class="input-label" for="mobile_no">মোবাইল নং </label>
+    <div class="input-group mb-2">
+        <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
+            <img src="{{asset('assets/img/number.png')}}" alt="number icon">
+        </span>
+        <input type="number" maxlength="40" class="input-box form-control shadow-none" name="phone" id="mobile_no" placeholder="01402860617..." required>
+    </div>
+
+
+    <div id="familyContainer">
+        <div id="familyMember" class="mt-4">
+            <label class="input-label member-title"><b>পরিবারের সদস্য তথ্য ১:</b></label>
+
+            <label class="input-label">নাম (বাংলা)</label>
+            <div class="input-group mb-2">
+                <span class="input-box-icon input-group-text">
+                    <img src="{{asset('assets/img/name.png')}}" alt="name icon">
+                </span>
+                <input type="text" class="input-box form-control shadow-none"  name="family_members[0][name]" placeholder="নাম (বাংলা)">
+            </div>
+
+            <label class="input-label">বয়স</label>
+            <div class="input-group mb-2">
+                <span class="input-box-icon input-group-text">
+                    <img src="{{asset('assets/img/old.png')}}" alt="old icon">
+                </span>
+                <input type="text" class="input-box form-control shadow-none" name="family_members[0][age]" placeholder="বয়স">
+            </div>
+
+            <label class="input-label">পুরুষ মহিলা (Select)</label>
+            <div class="input-group mb-2">
+                <span class="input-box-icon select-group input-group-text">
+                    <img src="{{asset('assets/img/gender.png')}}" alt="gender icon">
+                </span>
+                <select name="family_members[0][gender]" id="gender"
+                class="input-box select-box"  required>
+                    <option value="">Select One</option>
+                    @foreach (ALL_GENDER_BANGLA as $value)
+                        <option value="{{ $value }}">{{ ucwords($value) }}
+                        </option>
+                    @endforeach
+                </select>
+
+            </div>
+            <label class="input-label">সম্পর্ক (বাংলা)</label>
+            <div class="input-group mb-2">
+                <span class="input-box-icon input-group-text">
+                    <img src="{{asset('assets/img/name.png')}}" alt="name icon">
+                </span>
+                <input type="text" class="input-box form-control shadow-none"  name="family_members[0][relationship]" placeholder="সম্পর্ক (বাংলা)">
+            </div>
+        </div>
+    </div>
+
+
+
+    <button onclick="addFamilyMember()" type="button" class="add-more-btn button">
+        <img src="{{asset('assets/img/plus.png')}}" alt="">
+        Add More
+    </button>
+
+    <button type="submit" class="button">Save</button>
+</form>
+
 @endsection
+@push('styles')
+<link rel="stylesheet" href="{{asset('assets/css/NewMember.css')}}">
+
+@endpush
 @push('scripts')
     <script>
         $(document).ready(function() {
             // Fetch districts based on division selection
-            $('#division').change(function() {
+            $(document).on('change','#division',function() {
                 var divisionId = $(this).val();
+                console.log('divisionId',divisionId)
                 if (divisionId) {
                     $.ajax({
                         url: '/get-districts/' + divisionId,
@@ -272,24 +285,25 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#district').empty().append(
-                                '<option value="">Select District</option>');
+                                '<option value="">নির্বাচন করুন জেলা</option>');
                             $.each(data, function(key, value) {
                                 $('#district').append('<option value="' + value.id +
                                     '">' + value.name + '</option>');
                             });
                             $('#upozila').empty().append(
-                                '<option value="">Select Upozila</option>'
+                                '<option value="">উপজেলা নির্বাচন করুন</option>'
                                 ); // Reset upozila dropdown
                         }
                     });
                 } else {
-                    $('#district').empty().append('<option value="">Select District</option>');
-                    $('#upozila').empty().append('<option value="">Select Upozila</option>');
+                    $('#district').empty().append('<option value="">নির্বাচন করুন জেলা</option>');
+                    $('#upozila').empty().append('<option value="">উপজেলা নির্বাচন করুন</option>');
                 }
             });
 
             // Fetch upozilas based on district selection
-            $('#district').change(function() {
+
+            $(document).on('change','#district',function() {
                 var districtId = $(this).val();
                 if (districtId) {
                     $.ajax({
@@ -298,7 +312,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#upozila').empty().append(
-                                '<option value="">Select Upozila</option>');
+                                '<option value="">উপজেলা নির্বাচন করুন</option>');
                             $.each(data, function(key, value) {
                                 $('#upozila').append('<option value="' + value.id +
                                     '">' + value.name + '</option>');
@@ -306,12 +320,13 @@
                         }
                     });
                 } else {
-                    $('#upozila').empty().append('<option value="">Select Upozila</option>');
+                    $('#upozila').empty().append('<option value="">উপজেলা নির্বাচন করুন</option>');
                 }
             });
 
             // Fetch Union based on upozila selection
-            $('#upozila').change(function() {
+            $(document).on('change','#upozila',function() {
+
                 var upozilaId = $(this).val();
                 if (upozilaId) {
                     $.ajax({
@@ -320,7 +335,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#union').empty().append(
-                            '<option value="">Select union</option>');
+                            '<option value="">ইউনিয়ন নির্বাচন করুন</option>');
                             $.each(data, function(key, value) {
                                 $('#union').append('<option value="' + value.id + '">' +
                                     value.name + '</option>');
@@ -328,55 +343,47 @@
                         }
                     });
                 } else {
-                    $('#union').empty().append('<option value="">Select union</option>');
+                    $('#union').empty().append('<option value="">ইউনিয়ন নির্বাচন করুন</option>');
                 }
             });
 
-            var index = 0;
-            $(document).on('click', '#add_family_member_btn', function(e) {
-                e.preventDefault();
-                index = index + 1
-                let member_list = $('.member_list').length
-                let html = `
-                <div class="col-md-12 border border-primary p-2 my-2 member_list" >
-                    <h4>Family Member ${member_list+1}</h4>
-                    <div class="row" >
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" name="family_members[${index}][name]" id="name" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date_of_birth">Date Of Birth</label>
-                                <input type="date" name="family_members[${index}][date_of_birth]" id="date_of_birth" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="gender">Gender <span class="text-danger">*</span></label>
-                                <select name="family_members[${index}][gender]" id="gender" class="form-control" required>
-                                    <option value="">Select One</option>
-                                    @foreach (ALL_GENDER as $value)
-                                    <option value="{{ $value }}">{{ ucwords($value) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="relationship">Relationship</label>
-                                <input type="text" name="family_members[${index}][relationship]" id="relationship" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger " type="button" onclick="$(this).parent().remove()" style="    float: right;">Delete </button>
-                </div>
-            `
-                $("#add_family_members_section").append(html)
-                console.log('click', html)
-            })
+            let memberIndex = 1; // Start from 1 since the first one is already there
+
+            function addFamilyMember() {
+                let newMember = $('#familyMember').first().clone(); // Clone the first family member div
+                newMember.find('input, select').each(function () {
+                    let nameAttr = $(this).attr('name');
+                    if (nameAttr) {
+                        $(this).attr('name', nameAttr.replace(/\d+/, memberIndex)); // Update index
+                        $(this).val(''); // Clear previous values
+                    }
+                });
+
+                newMember.find('.member-title b').text('পরিবারের সদস্য তথ্য ' + (memberIndex + 1) + ':'); // Update title
+                $('#familyContainer').append(newMember); // Append to container
+                memberIndex++; // Increment index
+            }
+
+            $('.add-more-btn').on('click', function () {
+                addFamilyMember();
+            });
+
+             // Trigger file input when the image is clicked
+            $('#profile-image').on('click', function() {
+                $('#profile-input').click();
+            });
+
+            // Handle file selection and update the image
+            $('#profile-input').on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#profile-image').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
     </script>
 @endpush

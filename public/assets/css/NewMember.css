@@ -1,0 +1,101 @@
+.member-add-form{
+    padding: 15px;
+    padding-bottom: 100px;
+}
+.profile-photo{
+    height: 60px;
+    width: 60px;
+    background-color: #073265;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    > img{
+        height: 50px;
+    }
+}
+.profile-inp{
+    display: none;
+}
+.input-label{
+    width: 100%;
+    font-size: 14px;
+    font-weight: 550 !important;
+    color: #343538;
+}
+.input-box-icon{
+    width: 35px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #073265;
+    border: 1px solid #073265;
+    > img{
+        height: 20px;
+        width: 20px;
+        object-fit: contain;
+    }
+}
+.input-box{
+    border: 1px solid #073265;
+    font-size: 14.5px;
+    font-weight: 500 !important;
+    color: #073265 !important;
+    outline: none;
+}
+.select-group{
+    display: flex !important;
+}
+.input-box-icon{
+    width: 10%;
+}
+.select-box{
+    width: 90%;
+    cursor: pointer;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.input-box::placeholder{
+    font-size: 14px;
+    font-weight: 550 !important;
+    color: #073265 !important;
+}
+.birth-date{
+    width: 90%;
+    display: flex;
+    background: #ffffff;
+    > select {
+        padding: 6px !important;
+        font-size: 14px;
+        width: 100%;
+        cursor: pointer;
+        border: 1px solid #073265;
+        font-size: 14.5px;
+        font-weight: 500 !important;
+        color: #073265 !important;
+        outline: none;
+        border-left: none;
+    }
+    > .year-select{
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
+.add-more-btn{
+    display: block;
+    background: #0355ac;
+    margin-bottom: 20px;
+    > img{
+        height: 15px;
+    }
+}
+
+
+/* @media (max-width:550px) {
+    .select-box{
+        width: 88%;
+    }
+} */

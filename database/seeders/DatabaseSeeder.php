@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678')
         ]);
 
-        $this->call(WordAdminSeeder::class);
+        $this->call(WardAdminSeeder::class);
         $this->call(DivisionSeeder::class);
         $this->call(DistrictSeeder::class);
         $this->call(UpazilaSeeder::class);
