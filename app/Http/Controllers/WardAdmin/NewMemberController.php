@@ -26,16 +26,29 @@ class NewMemberController extends Controller
      */
     public function index(Request $request)
     {
-         // Get the 'total' query parameter from the request
-        $total = $request->query('total', 10); // Default to 10 if not provided
+        // Set default values for 'total' and 'search'
+        $total = $request->query('total', 10);
+        $search = $request->query('search');
 
+        // Set page meta
         setPageMeta('Member List');
+
+        // Query customers with optional search filter
         $customers = Customer::latest()
-        ->with(['division'])
-        ->paginate($total);
-          // Append the 'total' query parameter to the pagination links
-        $customers->appends(['total' => $total]);
-        return view('word-admin.new-members.index',compact('customers','total'));
+
+            ->when($search, function ($query) use ($search) {
+                $query->where('nid_number', $search)
+                      ->orWhere('phone', $search);
+            })
+            ->paginate($total);
+
+        // Append query parameters to pagination links
+        $customers->appends([
+            'total' => $total,
+            'search' => $search,
+        ]);
+
+        return view('word-admin.new-members.index', compact('customers', 'total', 'search'));
     }
 
     /**

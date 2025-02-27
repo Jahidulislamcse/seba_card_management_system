@@ -2,9 +2,9 @@
 
 @section('content')
     <!-- user table -->
-    <h6 class="all-user">মোট - ৮৭৯০ জন</h6>
-    <form action="#" class="search-user-area">
-        <input type="text" name="search-user" id="search-user" placeholder="mobile number/id">
+    <h6 class="all-user">মোট - {{$customers->total()}} জন</h6>
+    <form action="{{route('ward.new-members.index')}}" method="GET" class="search-user-area">
+        <input type="text" name="search" id="search-user" placeholder="mobile number/NID" value="{{$search ?? ''}}">
         <button type="submit" class="button">Submit</button>
     </form>
     <div class="user-table">
@@ -22,7 +22,6 @@
             <tbody>
                 @if (count($customers) > 0)
                     @foreach ($customers as $key => $customer)
-                        {{-- {{dd($customer->dateOfBirth())}} --}}
                         <tr>
                             <td class="serial_no">{{ $loop->iteration }}</td>
                             <td class="user-picture">
@@ -30,7 +29,7 @@
                             </td>
                             <td class="user-name-id">
                                 <h6>{{ $customer->name }}</h6>
-                                <p>{{ $customer->card_no }}</p>
+                                <p>{{ $customer->nid_number }}</p>
                             </td>
                             <td class="user-number">{{ $customer->phone }}</td>
 
@@ -38,9 +37,6 @@
                         </tr>
                     @endforeach
                 @endif
-
-
-
             </tbody>
         </table>
     </div>

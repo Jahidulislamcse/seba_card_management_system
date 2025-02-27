@@ -29,7 +29,7 @@ class NewMemberRequest extends FormRequest
             'father_name' => ['required'],
             'mother_name' => ['required'],
             'date_of_birth' => ['nullable'],
-            'nid_number' => ['nullable', 'unique:customers,nid_number,' . $this->new_member],
+            'nid_number' => ['required', 'unique:customers,nid_number,' . $this->new_member],
             'gender' => ['required'],
             'religion' => ['required'],
             'occupation' => ['required'],
