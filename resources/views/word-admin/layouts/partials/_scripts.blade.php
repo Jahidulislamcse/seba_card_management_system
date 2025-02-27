@@ -7,7 +7,7 @@
 
 
     <!-- parsley -->
-    {{-- <script src="{{ asset('libs/parsleyjs/parsley.min.js') }}"></script> --}}
+    <script src="{{ asset('libs/parsleyjs/parsley.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('libs/select2/js/select2.min.js') }}"></script>
     <!-- Datatables -->
@@ -16,17 +16,14 @@
     <script src="{{ asset('libs/toastr/toastr.min.js') }}"></script>
     <!-- SweetAlert -->
     <script src="{{ asset('libs/sweetalert/sweetalert.min.js') }}"></script>
-    @if ($errors->any())
-    <script>
-            @foreach ($errors->all() as $error)
-                toastr.error(@json($error));
-            @endforeach
-        </script>
-    @endif
+
     <script>
         $(document).ready(function () {
             if ($("#basic-datatables").length) {
                 $("#basic-datatables").DataTable({});
+            }
+            if ($("form").length) {
+                $('form').parsley();
             }
 
         });
@@ -70,7 +67,13 @@
             toastr.warning(@json(session('warning')));
         @endif
     </script>
-
+    @if ($errors->any())
+        <script>
+            @foreach ($errors->all() as $error)
+                toastr.error(@json($error));
+            @endforeach
+        </script>
+    @endif
 
 
     @stack('scripts')

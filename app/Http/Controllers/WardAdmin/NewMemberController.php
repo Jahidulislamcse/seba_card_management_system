@@ -26,7 +26,7 @@ class NewMemberController extends Controller
      */
     public function index()
     {
-        setPageMeta('List  New Member');
+        setPageMeta('Member List');
         $customers = Customer::latest()
         ->whereDate('created_at', today())
         ->with(['division'])

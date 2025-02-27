@@ -1,7 +1,7 @@
 @extends('word-admin.layouts.app')
 
 @section('content')
-<form class="member-add-form"  action="{{ route('ward.new-members.store') }}" method="POST" enctype="multipart/form-data" >
+<form class="member-add-form"  action="{{ route('ward.new-members.store') }}" method="POST" enctype="multipart/form-data" data-parsley-validate >
     @csrf
     <h6 class="text-center fw-bold">নতুন সদস‌্য ফরম </h6>
     <button type="button" class="profile-photo">
@@ -16,7 +16,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="card-no">
             <img src="{{asset('assets/img/card.png')}}" alt="card icon">
         </span>
-        <input type="text"  maxlength="40" class="input-box form-control shadow-none"name="card_no" id="card-no" placeholder="354656" required>
+        <input type="text"  maxlength="40" class="input-box form-control shadow-none" name="card_no" id="card-no" placeholder="354656" required>
+        @error('card_no')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="duration">মেয়াদ (বছর সি‌লেক্ট 1,2,3,4 5,10)</label>
@@ -36,6 +39,9 @@
             <option value="৯">৯ বছর</option>
             <option value="10">১০ বছর</option>
         </select>
+        @error('duration_year')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="name">নাম (বাংলা)</label>
@@ -43,7 +49,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="name" id="name" placeholder="নাম (বাংলা)" required>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="name" id="name" placeholder="নাম (বাংলা)" required value="{{ old('name') }}">
+        @error('name')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="father_name">পিতার নাম (বাংলা)</label>
@@ -51,7 +60,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="father_name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="father_name" id="father_name" placeholder="পিতার নাম (বাংলা)" required>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="father_name" id="father_name" placeholder="পিতার নাম (বাংলা)" required value="{{ old('father_name') }}">
+        @error('father_name')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="mother_name">মাতার নাম (বাংলা)</label>
@@ -59,7 +71,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="mother_name">
             <img src="{{asset('assets/img/name.png')}}" alt="name icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="mother_name" id="mother_name" placeholder="মাতার নাম (বাংলা)" required>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="mother_name" id="mother_name" placeholder="মাতার নাম (বাংলা)" required value="{{ old('mother_name') }}">
+        @error('mother_name')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="birth-date">জন্ম তা‌রিখ </label>
@@ -71,7 +86,7 @@
             <!-- month -->
             <select name="date_of_birth[month]" id="date_of_birth_month">
                 @foreach (ENGLISH_MONTHS as $value)
-                <option value="{{$value}}">{{$value}}</option>
+                <option value="{{$value}}" {{old('date_of_birth.month') == $value ? 'selected' : ''}}>{{$value}}</option>
                 @endforeach
 
             </select>
@@ -79,7 +94,7 @@
             <!-- day -->
             <select name="date_of_birth[day]">
                 @foreach (ENGLISH_DAYS as $value)
-                <option value="{{$value}}">{{$value}}</option>
+                <option value="{{$value}}" {{old('date_of_birth.day') == $value ? 'selected' : ''}}>{{$value}}</option>
                 @endforeach
 
             </select>
@@ -91,11 +106,20 @@
             <!-- year -->
             <select class="year-select" name="date_of_birth[year]">
                 @foreach ($years as $value)
-                <option value="{{$value}}">{{$value}}</option>
+                <option value="{{$value}}" {{old('date_of_birth.year') == $value ? 'selected' : ''}}>{{$value}}</option>
                 @endforeach
 
             </select>
         </div>
+        @error('date_of_birth.month')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
+        @error('date_of_birth.day')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
+        @error('date_of_birth.year')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="id_no">আইডি নং </label>
@@ -103,7 +127,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="id_no">
             <img src="{{asset('assets/img/card.png')}}" alt="card icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="nid_number" id="id_no" placeholder="আইডি নং" required>
+        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="nid_number" id="id_no" placeholder="আইডি নং" value="{{old('nid_number')}}" required>
+        @error('nid_number')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>`
 
     <label class="input-label" for="gender">পুরুষ ম‌হিলা (Select)</label>
@@ -113,10 +140,13 @@
         </span>
         <select class="input-box select-box" name="gender" id="gender" required>
             @foreach (ALL_GENDER_BANGLA as $value)
-                <option value="{{ $value }}">{{ ($value) }}</option>
+                <option value="{{ $value }}" {{old('gender') == $value ? 'selected' : ''}}>{{ ($value) }}</option>
             @endforeach
 
         </select>
+        @error('gender')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="religion">ধর্ম (Select)</label>
@@ -126,9 +156,12 @@
         </span>
         <select class="input-box select-box" name="religion" id="religion" required>
             @foreach (ALL_RELIGION_BANGLA as $value)
-                <option value="{{ $value }}">{{ ($value) }}</option>
+                <option value="{{ $value }}" {{old('religion') == $value ? 'selected' : ''}}>{{ ($value) }}</option>
             @endforeach
         </select>
+        @error('religion')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="occupation">পেশা</label>
@@ -136,7 +169,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="occupation">
             <img src="{{asset('assets/img/occupation.png')}}" alt="occupation icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none"name="occupation" id="occupation" placeholder="পেশা" required>
+        <input type="text" maxlength="40" value="{{old('occupation')}}" class="input-box form-control shadow-none"name="occupation" id="occupation" placeholder="পেশা" required>
+        @error('occupation')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="division">বিভাগ</label>
@@ -148,9 +184,12 @@
         <select name="division_id" id="division" class="input-box select-box" required>
             <option value="">নির্বাচন করুন বিভাগ</option>
             @foreach ($division as $div)
-                <option value="{{ $div->id }}">{{ $div->name }}</option>
+                <option value="{{ $div->id }}" {{old('division_id') == $div->id ? 'selected' : ''}}>{{ $div->name }}</option>
             @endforeach
         </select>
+        @error('division_id')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="dristrick">জেলা</label>
@@ -162,6 +201,9 @@
         <select name="district_id" id="district" class="input-box select-box" required>
             <option value="">জেলা নির্বাচন করুন</option>
         </select>
+        @error('district_id')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="Upazilla">উপ‌জেলা</label>
@@ -173,6 +215,9 @@
         <select name="upozila_id" id="upozila" class="input-box select-box" required>
             <option value="">উপজেলা নির্বাচন করুন</option>
         </select>
+        @error('upozila_id')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="Union">ইউনিয়ন</label>
@@ -184,6 +229,9 @@
         <select name="union_id" id="union" class="input-box select-box" >
             <option value="">ইউনিয়ন নির্বাচন করুন</option>
         </select>
+        @error('union_id')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="word">ওয়ার্ড</label>
@@ -191,7 +239,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="word">
             <img src="{{asset('assets/img/city.png')}}" alt="city icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="ward" id="word" placeholder="ওয়ার্ড" required>
+        <input type="text" maxlength="40" value="{{old('ward')}}" class="input-box form-control shadow-none" name="ward" id="word" placeholder="ওয়ার্ড" required>
+        @error('ward')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="post-code">পোস্ট কোড </label>
@@ -199,7 +250,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="post-code">
             <img src="{{asset('assets/img/post code.png')}}" alt="post code icon">
         </span>
-        <input type="text" maxlength="40" class="input-box form-control shadow-none" name="post_code" id="post-code" placeholder="পোস্ট কোড " required>
+        <input type="text" maxlength="40" value="{{old('post_code')}}" class="input-box form-control shadow-none" name="post_code" id="post-code" placeholder="পোস্ট কোড " required>
+        @error('post_code')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
     <label class="input-label" for="mobile_no">মোবাইল নং </label>
@@ -207,7 +261,10 @@
         <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
             <img src="{{asset('assets/img/number.png')}}" alt="number icon">
         </span>
-        <input type="number" maxlength="40" class="input-box form-control shadow-none" name="phone" id="mobile_no" placeholder="01402860617..." required>
+        <input type="number" maxlength="40" value="{{old('phone')}}" class="input-box form-control shadow-none" name="phone" id="mobile_no" placeholder="01402860617..." required>
+        @error('phone')
+        <p class="text-danger m-0">{{ $message }}</p>
+        @enderror
     </div>
 
 
@@ -269,7 +326,13 @@
 @endsection
 @push('styles')
 <link rel="stylesheet" href="{{asset('assets/css/NewMember.css')}}">
-
+<style>
+.parsley-errors-list {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
+    </style>
 @endpush
 @push('scripts')
     <script>
