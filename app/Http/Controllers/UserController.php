@@ -17,12 +17,7 @@ use App\Services\SMSService;
 
 class UserController extends Controller
 {
-    protected $smsService;
 
-    public function __construct(SMSService $smsService)
-    {
-        $this->smsService = $smsService;
-    }
     public function userList()
     {
         $data = [
@@ -172,22 +167,29 @@ class UserController extends Controller
         return redirect()->route('user.list')->with('success', 'User deleted successfully');
     }
 
+    protected $smsService;
+
+    public function __construct(SMSService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
+
     public function status($id)
     {
-
-        $user= User::findorfail($id);
+        $user = User::findOrFail($id);
         $user->update(['status' => 'approved']);
 
         $password = $user->raw_password ?? "Your set password";
-
         $message = "Dear {$user->name}, your admin account has been approved!\n";
         $message .= "Email: {$user->email}\n";
         $message .= "Password: {$password}\n";
 
+        $smsSent = $this->smsService->sendSMS($user->phone, $message);
 
-        $this->smsService->sendSMS($user->phone, $message);
-
-        return redirect()->route('user.list')->with('success', 'User Status Update successfully');
-
+        if ($smsSent) {
+            return redirect()->route('user.list')->with('success', 'User status updated and SMS sent successfully');
+        } else {
+            return redirect()->route('user.list')->with('error', 'User status updated, but SMS sending failed');
+        }
     }
 }
