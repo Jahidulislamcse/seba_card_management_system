@@ -17,6 +17,7 @@
                     <th>মোবাইল নং</th>
 
                     <th>জন্ম তা‌রিখ</th>
+                    <th>কর্ম</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +35,17 @@
                             <td class="user-number">{{ $customer->phone }}</td>
 
                             <td class="user-date">{{ $customer->dateOfBirth() }}</td>
+                            <td class="user-date">
+                                <!-- Edit Button -->
+                                <a href="{{route('ward.new-members.edit', $customer->id)}}" class="btn btn-sm btn-primary edit-btn" ><i class="fa-solid fa-pen-to-square"></i></a>
+
+                                <!-- Delete Button -->
+                                <form action="{{route('ward.new-members.destroy', $customer->id)}}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 @endif

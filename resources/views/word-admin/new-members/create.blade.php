@@ -315,7 +315,7 @@
 
 
 
-    <button onclick="addFamilyMember()" type="button" class="add-more-btn button">
+    <button  type="button" class="add-more-btn button">
         <img src="{{asset('assets/img/plus.png')}}" alt="">
         Add More
     </button>
@@ -427,7 +427,7 @@
                 memberIndex++; // Increment index
             }
 
-            $('.add-more-btn').on('click', function () {
+            $('.add-more-btn').off('click', '.add-more-btn').on('click', function () {
                 addFamilyMember();
             });
 
