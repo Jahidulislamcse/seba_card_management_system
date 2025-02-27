@@ -24,7 +24,7 @@ class NewMemberController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         setPageMeta('Member List');
         $customers = Customer::latest()

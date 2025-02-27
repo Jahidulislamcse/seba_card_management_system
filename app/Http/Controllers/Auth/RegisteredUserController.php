@@ -36,6 +36,20 @@ class RegisteredUserController extends Controller
         return view('auth.register',$data);
     }
 
+    public function adminCreate(): View
+    {
+        $data = [
+            'users' => User::all(),
+            'division' => Division::all(),
+            'district' => District::all(),
+            'upazila' => Upazila::all(),
+            'union' => Union::all(),
+            'ward' => Ward::all(),
+        ];
+
+        return view('auth.auth-register',$data);
+    }
+
     /**
      * Handle an incoming registration request.
      *

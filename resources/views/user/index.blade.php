@@ -236,11 +236,23 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->district->name }}</td>
+                                    <td>{{ $user->district->name ?? '' }}</td>
                                     <td>{{ ucfirst($user->role) }}</td>
-                                    <td>{{ $user->status }}</td>
+                                    <td>
+                                        @if($user->status == 'pending')
+                                            <span class="badge badge-danger">Pending</span>
+                                        @elseif($user->status == 'approved')
+                                            <span class="badge badge-success">Approved</span>
+                                        @else
+                                            <span class="badge badge-secondary">{{ ucfirst($user->status) }}</span>
+                                        @endif
+                                    </td>
+
 
                                     <td>
+                                        @if($user->status === 'pending')
+                                        <a href="{{ route('user.status', $user->id) }}" class="btn btn-sm btn-info">Approved</a>
+                                        @endif
                                         <!-- Edit Button -->
                                         <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
 
