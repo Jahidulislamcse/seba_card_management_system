@@ -27,6 +27,11 @@ class Customer extends Model
         return getStorageImage($this->nid_back, true);
     }
 
+    public function dateOfBirth(){
+        // monthNumberGenerate($this->date_of_birth['month']);
+        return $this->date_of_birth['day'].'/'.monthNumberGenerate($this->date_of_birth['month']).'/'.$this->date_of_birth['year'];
+    }
+
     public function family_members(){
         return $this->hasMany(FamilyMember::class, 'customer_id','id');
     }

@@ -1,55 +1,63 @@
 @extends('word-admin.layouts.app')
 
 @section('content')
-<div class="page-inner">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <form id="search-filter-form" method="GET"
-                  class="d-flex justify-content-between align-items-center m-3">
-                <div class="d-flex align-items-center">
-                    <select name="per_page" id="per_page" class="form-control form-control-sm"
-                            style="width: auto;">
-                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10
-                        </option>
-                        <option value="15" {{ request('per_page') == 15 ? 'selected' : '' }}>15
-                        </option>
-                        <option value="20" {{ request('per_page') == 20 ? 'selected' : '' }}>20
-                        </option>
-                        <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50
-                        </option>
-                    </select>
-                </div>
-                <div class="d-flex align-items-center">
-                    <select name="order_by" id="order_by" class="form-control form-control-sm"
-                            style="width: auto; margin-left: 10px;">
-                        <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>Name
-                            (A-Z)</option>
-                        <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>
-                            Name (Z-A)</option>
-                    </select>
-                </div>
-                <div class="d-flex align-items-center">
-                    <div class="input-group">
-                        <input type="text" id="search" name="search"
-                               class="form-control form-control" placeholder="Enter keyword...">
-                    </div>
-                </div>
-            </form>
-            <div class="card">
-                <div class="card-body">
-                    <!-- Toggle Buttons -->
-                    <div class="mb-4">
-                        <a href="{{route('ward.new-members.create')}}" class="btn btn-primary ">Create</a>
-                    </div>
-                    <!-- Users Table -->
-                    <div class="table-responsive">
-                        <div id="data-container">
-                            @include('word-admin.new-members.member_table')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- user table -->
+    <h6 class="all-user">মোট - {{$customers->total()}} জন</h6>
+    <form action="{{route('ward.new-members.index')}}" method="GET" class="search-user-area">
+        <input type="text" name="search" id="search-user" placeholder="mobile number/NID" value="{{$search ?? ''}}">
+        <button type="submit" class="button">Submit</button>
+    </form>
+    <div class="user-table">
+        <table class="all-user-table table">
+            <thead>
+                <tr>
+                    <th>ক্রমিক নং</th>
+                    <th>ছবি</th>
+                    <th>নাম ও আইডি</th>
+                    <th>মোবাইল নং</th>
+
+                    <th>জন্ম তা‌রিখ</th>
+                    <th>কর্ম</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (count($customers) > 0)
+                    @foreach ($customers as $key => $customer)
+                        <tr>
+                            <td class="serial_no">{{ $loop->iteration }}</td>
+                            <td class="user-picture">
+                                <img src="{{ $customer->avatar_url }}" alt="{{ $customer->name }}">
+                            </td>
+                            <td class="user-name-id">
+                                <h6>{{ $customer->name }}</h6>
+                                <p>{{ $customer->nid_number }}</p>
+                            </td>
+                            <td class="user-number">{{ $customer->phone }}</td>
+
+                            <td class="user-date">{{ $customer->dateOfBirth() }}</td>
+                            <td class="user-date">
+                                <!-- Edit Button -->
+                                <a href="{{route('ward.new-members.edit', $customer->id)}}" class="btn btn-sm btn-primary edit-btn" ><i class="fa-solid fa-pen-to-square"></i></a>
+
+                                <!-- Delete Button -->
+                                <form action="{{route('ward.new-members.destroy', $customer->id)}}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
     </div>
-</div>
+    {!! $customers->links('vendor.pagination.bootstrap-5', ['total' => $total]) !!}
+
+    <!-- user table -->
 @endsection
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/MemberList.css') }}">
+@endpush
+@push('scripts')
+@endpush

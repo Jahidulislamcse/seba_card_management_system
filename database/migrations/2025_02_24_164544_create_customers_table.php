@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->json('date_of_birth')->nullable();
-            $table->string('nid_number')->nullable();
+            $table->string('nid_number')->nullable()->unique();
             $table->string('nid_front')->nullable();
             $table->string('nid_back')->nullable();
             $table->string('gender')->nullable();

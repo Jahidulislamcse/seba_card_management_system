@@ -9,7 +9,7 @@
 <!-- Select2  -->
 <link href="{{ asset('libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- parsleyjs -->
-{{-- <link href="{{ asset('libs/parsleyjs/parsley.css') }}" rel="stylesheet" type="text/css" /> --}}
+<link href="{{ asset('libs/parsleyjs/parsley.css') }}" rel="stylesheet" type="text/css" />
 
 <!-- toastr  -->
 <link href="{{ asset('libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">

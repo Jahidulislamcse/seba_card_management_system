@@ -26,32 +26,29 @@ class NewMemberController extends Controller
      */
     public function index(Request $request)
     {
-        setPageMeta('List  New Member');
-        $perPage = $request->get('per_page', 10);
-        $search = $request->get('search');
-        $orderBy = $request->get('order_by', 'asc'); // Default to 'asc'
-        $orderByColumn = 'name';
-        $orderByDirection = $orderBy;
+        // Set default values for 'total' and 'search'
+        $total = $request->query('total', 10);
+        $search = $request->query('search');
 
-        $customers = Customer::query()
+        // Set page meta
+        setPageMeta('Member List');
+
+        // Query customers with optional search filter
+        $customers = Customer::latest()
+
             ->when($search, function ($query) use ($search) {
-                $query->where('name', 'LIKE', "%{$search}%")->orWhere('gender', 'LIKE', "%{$search}%");
+                $query->where('nid_number', $search)
+                      ->orWhere('phone', $search);
             })
-            ->orderBy($orderByColumn, $orderByDirection)
-            ->paginate($perPage);
+            ->paginate($total);
 
-        if ($request->ajax()) {
-            return view('word-admin.new-members.member_table', compact('customers'))->render();
-        }
-        return view('word-admin.new-members.index', [
-            'customers' => $customers,
+        // Append query parameters to pagination links
+        $customers->appends([
+            'total' => $total,
+            'search' => $search,
         ]);
 
-//        $customers = Customer::latest()
-//        ->whereDate('created_at', today())
-//        ->with(['division'])
-//        ->get();
-//        return view('word-admin.new-members.index',compact('customers'));
+        return view('word-admin.new-members.index', compact('customers', 'total', 'search'));
     }
 
     /**

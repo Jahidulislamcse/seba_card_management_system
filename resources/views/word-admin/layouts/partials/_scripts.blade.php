@@ -7,7 +7,7 @@
 
 
     <!-- parsley -->
-    {{-- <script src="{{ asset('libs/parsleyjs/parsley.min.js') }}"></script> --}}
+    <script src="{{ asset('libs/parsleyjs/parsley.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('libs/select2/js/select2.min.js') }}"></script>
     <!-- Datatables -->
@@ -16,18 +16,28 @@
     <script src="{{ asset('libs/toastr/toastr.min.js') }}"></script>
     <!-- SweetAlert -->
     <script src="{{ asset('libs/sweetalert/sweetalert.min.js') }}"></script>
-    @if ($errors->any())
-    <script>
-            @foreach ($errors->all() as $error)
-                toastr.error(@json($error));
-            @endforeach
-        </script>
-    @endif
+
     <script>
         $(document).ready(function () {
             if ($("#basic-datatables").length) {
                 $("#basic-datatables").DataTable({});
             }
+            if ($("form").length) {
+                $('form').parsley();
+            }
+
+            $('#total-select-paginate').on('change', function () {
+                var selectedTotal = $(this).val();
+
+                // Get the current URL and query parameters
+                var url = new URL(window.location.href);
+
+                // Update or add the 'total' query parameter
+                url.searchParams.set('total', selectedTotal);
+
+                // Redirect to the new URL
+                window.location.href = url.toString();
+            });
 
         });
     </script>
@@ -70,7 +80,13 @@
             toastr.warning(@json(session('warning')));
         @endif
     </script>
-
+    @if ($errors->any())
+        <script>
+            @foreach ($errors->all() as $error)
+                toastr.error(@json($error));
+            @endforeach
+        </script>
+    @endif
 
 
     @stack('scripts')
