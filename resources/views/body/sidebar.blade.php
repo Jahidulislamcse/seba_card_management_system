@@ -43,6 +43,12 @@
                     </a>
                 </li>
 
+                <li class="nav-item ">
+                    <a href="{{ route('cards.list') }}"><i class="fas fa-home"></i>
+                        <p>Cards</p>
+                    </a>
+                </li>
+
                 <li
                     class="nav-item ">
                     <a data-bs-toggle="collapse" href="#hompage">
