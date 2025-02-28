@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocationController;
@@ -45,7 +46,6 @@ Route::middleware(['role:super_admin'])->group(function () {
     Route::prefix('super-admin')->name('super.admin.')->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
     });
-
 });
 
 Route::middleware(['role:admin'])->group(function () {
@@ -77,8 +77,21 @@ Route::middleware(['role:ward_admin'])->group(function () {
         Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
         Route::resource('/new-members', NewMemberController::class);
     });
-
 });
+
+
+Route::controller(CardController::class)
+    ->prefix('cards')
+    ->as('cards.')
+    ->group(function () {
+        Route::get('/', 'index')->name('list');
+        Route::get('/create', 'index')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::delete('delete/{id}', 'destroy')->name('destroy'); // Changed to DELETE
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update/{id}', 'update')->name('update'); // Added {id} parameter
+    });
+
 
 
 require __DIR__ . '/auth.php';

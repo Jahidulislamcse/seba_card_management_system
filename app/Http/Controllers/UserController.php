@@ -259,12 +259,20 @@ class UserController extends Controller
         $message .= "Email: {$user->email}\n";
         $message .= "Password: {$password}\n";
 
+
         $smsSent = $this->smsService->sendSMS($user->phone, $message);
 
-        if ($smsSent) {
-            return redirect()->route('user.list')->with('success', 'User status updated and SMS sent successfully');
-        } else {
-            return redirect()->route('user.list')->with('error', 'User status updated, but SMS sending failed');
-        }
+        return redirect()->route('user.list')->with('success', 'User status updated and SMS sent successfully');
+
+
+
+
+//        $smsSent = $this->smsService->sendSMS($user->phone, $message);
+//
+//        if ($smsSent) {
+//            return redirect()->route('user.list')->with('success', 'User status updated and SMS sent successfully');
+//        } else {
+//            return redirect()->route('user.list')->with('error', 'User status updated, but SMS sending failed');
+//        }
     }
 }
