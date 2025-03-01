@@ -73,8 +73,18 @@ Route::middleware(['role:uni_admin'])->group(function () {
 });
 
 Route::middleware(['role:ward_admin'])->group(function () {
-
+    Route::controller(App\Http\Controllers\WardAdmin\CardController::class)
+        ->prefix('ward-admin-cards')->as('ward_admin.cards.')->group(function () {
+            Route::get('/', 'index')->name('list');
+            Route::get('/create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::delete('delete/{id}', 'destroy')->name('destroy'); // Changed to DELETE
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update/{id}', 'update')->name('update'); // Added {id} parameter
+        });
 });
+
+
 Route::prefix('ward')->name('ward.')->group(function () {
     Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/new-members', NewMemberController::class);
@@ -89,6 +99,10 @@ Route::controller(CardController::class)
         Route::get('edit/{id}', 'edit')->name('edit');
         Route::post('update/{id}', 'update')->name('update'); // Added {id} parameter
     });
+
+
+
+
 
 
 
