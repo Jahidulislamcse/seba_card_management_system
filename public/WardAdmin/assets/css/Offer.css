@@ -1,0 +1,54 @@
+.offer-area{
+    padding: 15px;
+    margin-bottom: 100px;
+}
+.offer{
+    position: relative;
+    padding: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.offer-subject{
+    position: absolute;
+    padding: 5px 15px;
+    margin: 5px;
+    font-size: 14px;
+    font-family: "Poppins", serif;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.offer-img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.expire-date{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > button{
+        font-size: 14px;
+        font-family: "Poppins", serif;
+        margin-top: 10px;
+        border-radius: 100px;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        -ms-border-radius: 100px;
+        -o-border-radius: 100px;
+    }
+}

@@ -9,6 +9,6 @@ class WardAdminDashboardController extends Controller
 {
     public function index(){
         setPageMeta('Home');
-        return view('word-admin.dashboard');
+        return view('WardAdmin.dashboard');
     }
 }

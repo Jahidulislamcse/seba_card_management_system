@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@font-face {
+    font-family: 'Sonali Lipi';
+    src: url('/assets/SolaimanLipi_22-02-2012.ttf') format('truetype');
+}
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgba(0, 0, 11, 0.4);
+    font-family: 'Sonali Lipi', sans-serif;
+}
+.container{
+    min-width: 100%;
+    display: flex;
+    padding: 0% !important;
+    align-items: center;
+    justify-content: center;
+}
+.content{
+    width: 35%;
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+.button{
+    min-width: 80px;
+    padding: 8px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-family: "Poppins", serif;
+    background-color: #073265;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.disable-btn{
+    background-color: rgb(7, 50, 101, .5) !important;
+}
+
+/* table start */
+.user-table{
+    max-width: 100%;
+    overflow-x: scroll;
+}
+.simple-table{
+    > thead > tr > th,
+    > tbody > tr > td{
+        text-align: center;
+    }
+}
+.table{
+    width: 96%;
+    min-width: 500px;
+    margin: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    > thead > tr > th,
+    > tbody > tr > td{
+        padding: 5px;
+        color: #2b2929;
+        font-size: 13px;
+        font-weight: 500;
+        border: 1px solid #073265;
+    }
+    > thead > tr > th{
+        font-weight: bold;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+    }
+}
+/* table end */
+@media (max-width: 1200px) {
+    .content{
+        width: 50%;
+    }
+}
+@media (max-width: 992px) {
+    .content{
+        width: 55%;
+    }
+}
+@media (max-width: 850px) {
+    body{
+          background-color: #ffffff;
+    }
+    .content{
+        width: 100%;
+    }
+}

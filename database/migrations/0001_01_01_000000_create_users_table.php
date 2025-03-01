@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('father')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('nid')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone')->unique()->nullable();
             $table->string('email')->unique();
             $table->foreignId('division_id')->unsigned()->nullable();
             $table->foreignId('district_id')->unsigned()->nullable();
@@ -34,6 +34,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('raw_password')->nullable();
+            $table->decimal('total_balance', 10, 2)->default(0.00); // Partial payment amount
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,0 +1,63 @@
+/* table start */
+.user-table{
+    max-width: 100%;
+    overflow-x: scroll;
+}
+.card-number-table,
+.simple-table{
+    > thead > tr > th,
+    > tbody > tr > td{
+        text-align: center;
+    }
+}
+.table{
+    width: 96%;
+    min-width: 500px;
+    margin: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    > thead > tr > th,
+    > tbody > tr > td{
+        padding: 5px;
+        color: #2b2929;
+        font-size: 13px;
+        font-weight: 500;
+        border: 1px solid #073265;
+    }
+    > thead > tr > th{
+        font-weight: bold;
+        padding: 10px 5px;
+        font-size: 14px;
+        text-align: center;
+    }
+}
+/* table end */
+
+select {
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 100px !important;
+    border: 1px solid #073265;
+    font-size: 14.5px;
+    font-weight: 500 !important;
+    color: #073265 !important;
+    outline: none;
+    border-radius: 5px;
+}
+.report-table{
+    min-width: 500px;
+    > tbody > tr > td{
+        font-family: "Poppins", serif;
+        font-size: 12px;
+    }
+}
+.center-item{
+    text-align: center;
+}
