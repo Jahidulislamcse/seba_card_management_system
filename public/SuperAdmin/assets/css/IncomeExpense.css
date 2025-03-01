@@ -1,0 +1,24 @@
+.account-add-form{
+    padding: 15px;
+    > label{
+        width: 100%;
+        font-size: 14px;
+        font-weight: 550 !important;
+        color: #343538;
+    }
+    > input{
+        width: 100%;
+        border: 1px solid #d8a107;
+        font-size: 14.5px;
+        font-weight: 500 !important;
+        color: #343538 !important;
+        outline: none;
+        padding: 5px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+}
+}

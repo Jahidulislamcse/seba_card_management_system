@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\CardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\WardAdmin\NewMemberController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\SuperAdmin\TransactionController;
 use App\Http\Controllers\WardAdmin\WardAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
 use App\Http\Controllers\UnionAdmin\UnionAdminDashboardController;
 use App\Http\Controllers\UpozilaAdmin\UpozilaAdminDashboardController;
 use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
-use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +46,8 @@ Route::get('/get-unions/{upozila_id}', [LocationController::class, 'getUnions'])
 Route::middleware(['role:super_admin'])->group(function () {
     Route::prefix('super-admin')->name('super.admin.')->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
+        Route::resource('/transactions', TransactionController::class);
+        Route::get('/transaction-number-search/{search}', [TransactionController::class, 'searchNumber']);
     });
 });
 

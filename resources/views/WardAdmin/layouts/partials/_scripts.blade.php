@@ -11,7 +11,7 @@
     <!-- Select2 -->
     <script src="{{ asset('libs/select2/js/select2.min.js') }}"></script>
     <!-- Datatables -->
-    <script src="{{ asset('backend/js/plugin/datatables/datatables.min.js') }}"></script>
+    {{-- <script src="{{ asset('backend/js/plugin/datatables/datatables.min.js') }}"></script> --}}
     <!-- Toastr -->
     <script src="{{ asset('libs/toastr/toastr.min.js') }}"></script>
     <!-- SweetAlert -->
@@ -19,9 +19,9 @@
 
     <script>
         $(document).ready(function () {
-            if ($("#basic-datatables").length) {
-                $("#basic-datatables").DataTable({});
-            }
+            // if ($("#basic-datatables").length) {
+            //     $("#basic-datatables").DataTable({});
+            // }
             if ($("form").length) {
                 $('form').parsley();
             }

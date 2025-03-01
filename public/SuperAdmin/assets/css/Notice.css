@@ -1,0 +1,29 @@
+label{
+    font-size: 15px;
+    font-weight: 550 !important;
+    color: #343538;
+    margin-top: 12px;
+}
+.notice-form{
+    padding: 15px;
+    > input{
+        width: 200px;
+        display: block;
+        border: 1px solid #d8a107;
+        font-size: 14.5px;
+        font-weight: 500 !important;
+        color: #343538 !important;
+        outline: none;
+        padding: 5px;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+   > input::placeholder{
+        font-size: 14px;
+        font-weight: 550 !important;
+        color: #343538 !important;
+    }
+}

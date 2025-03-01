@@ -18,6 +18,18 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $guarded = ['id'];
+    protected $appends = ['photo_url'];
+
+    // ---------------- const ----------------
+    const USER_ROLE_SUPERADMIN = 'superadmin';
+    const USER_ROLE_ADMIN = 'admin';
+    const USER_ROLE_DIS_ADMIN = 'dis_admin';
+    const USER_ROLE_UPO_ADMIN = 'upo_admin';
+    const USER_ROLE_UNI_ADMIN = 'uni_admin';
+    const USER_ROLE_WARD_ADMIN = 'ward_admin';
+
+    const STATUS_PENDING = 'pending';
+    const STATUS_APPROVED = 'approved';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -40,6 +52,12 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    public function getPhotoUrlAttribute()
+    {
+        return !is_null($this->photo) ? asset( $this->photo) : null;
     }
 
     public function upazila()
