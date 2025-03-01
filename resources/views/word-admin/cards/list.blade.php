@@ -1,4 +1,4 @@
-@extends('word-admin.layouts.app')
+@extends('WardAdmin.layouts.app')
 
 @section('content')
     <div class="py-5">
