@@ -15,6 +15,9 @@
     </div>
     <h2>Cards List</h2>
     <button class="btn btn-primary" id="createNewCard">Create Card</button>
+    <div class="mb-3">
+        <input type="text" id="searchCard" class="form-control" placeholder="Search by Card Number">
+    </div>
     <table class="table mt-3">
         <thead>
             <tr>
@@ -24,7 +27,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Status</th>
-                <th>Ward Admin</th>
+                <th>Distributor</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -220,7 +223,7 @@
             } else {
                 $('#single_card_section').show();
                 $('#multiple_card_section').addClass('d-none');
-                $('#card_number').attr('required', 'required'); 
+                $('#card_number').attr('required', 'required');
             }
         });
 
@@ -257,7 +260,23 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+    $('#searchCard').on('keyup', function() {
+        var query = $(this).val().toLowerCase();
 
+        $('#cardTable tr').each(function() {
+            var cardNumber = $(this).find('td:nth-child(2)').text().toLowerCase();
+
+            if (cardNumber.includes(query) || query === '') {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+</script>
 <script>
     $(document).ready(function() {
         $('.toggle-details').click(function() {

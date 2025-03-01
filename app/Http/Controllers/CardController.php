@@ -17,7 +17,7 @@ class CardController extends Controller
     public function index()
     {
         $data = [
-            'cards' => Card::latest()->paginate(10),
+            'cards' => Card::latest()->paginate(20),
             'ward_admins' => User::where('role', 'ward_admin')->get(),
             'division' => Division::all(),
             'district' => District::all(),
