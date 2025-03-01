@@ -44,6 +44,7 @@ class TransactionService extends BaseService
             $user->save();
             $transaction = Transaction::create($data);
             $this->addUserBalance($data['receiver_id'], $data['amount']);
+            $this->sendConfirmSMS($data['sender_id'], $data['receiver_id'], $data['amount']);
             DB::commit();
             return $transaction;
         } catch (\Throwable $e) {
@@ -54,8 +55,21 @@ class TransactionService extends BaseService
 
     public function addUserBalance($id, $amount){
         $user = User::select(['id','total_balance'])->find($id);
-        $user->total_balance += $amount;
+        $user->total_balance = $user->total_balance + (float)$amount;
         $user->save();
+    }
+
+    public function sendConfirmSMS($sender_id, $receiver_id, $amount){
+        try {
+            $sender = User::select(['id', 'name','role'])->find($sender_id);
+            $receiver = User::select(['id', 'name','role','phone'])->find($receiver_id);
+            $message = "Dear {$receiver->name}, your account has been credited with {$amount} by {$sender->name}. Role: " . ucwords(str_replace('_', ' ', $sender->role)) . ". \nPlease check your balance. Thank you!";
+    
+            $smsService = new SMSService();
+            $smsService->sendSMS($receiver->phone, $message);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
 }

@@ -19,7 +19,7 @@ class WardAdminSeeder extends Seeder
                 'name' => 'Ward admin',
                 'email' => 'ward_admin@example.com',
                 'role'  => USER_ROLE_WARD_ADMIN,
-                'password' => Hash::make('password')
+                'password' => Hash::make('12345678')
             ]
         ];
             //word admin create

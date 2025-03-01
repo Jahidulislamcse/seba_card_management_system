@@ -33,7 +33,7 @@
                 </div>
                 <div class="amount">
                     <button class="amount-btn">৳</button>
-                    <p class="amounts">200</p>
+                    <p class="amounts">{{auth()->user()->total_balance}}</p>
                 </div>
             </header>
             <!-- header end -->

@@ -76,12 +76,12 @@ Route::middleware(['role:uni_admin'])->group(function () {
 });
 
 Route::middleware(['role:ward_admin'])->group(function () {
+    Route::prefix('ward')->name('ward.')->group(function () {
+        Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
+        Route::resource('/new-members', NewMemberController::class);
+    });
+});
 
-});
-Route::prefix('ward')->name('ward.')->group(function () {
-    Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/new-members', NewMemberController::class);
-});
 
 Route::controller(CardController::class)
     ->prefix('cards')->as('cards.')->group(function () {
