@@ -53,6 +53,11 @@
                         <p>সেন্ড মা‌নি</p>
                     </a>
                 </li>
+                <li class="nav-item ">
+                    <a href="{{ route('super.admin.rest.balance') }}"><i class="fas fa-home"></i>
+                        <p>বা‌কি হিসাব</p>
+                    </a>
+                </li>
 
                 <li
                     class="nav-item ">

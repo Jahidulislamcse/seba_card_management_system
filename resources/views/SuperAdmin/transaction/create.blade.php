@@ -27,7 +27,7 @@
                         <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon">
                     </a>
                     <div class="profile-details">
-                        <h5>MD Rahitul</h5>
+                        <h5>{{auth()->user()->name}}</h5>
                         <p>Super Admin</p>
                     </div>
                 </div>

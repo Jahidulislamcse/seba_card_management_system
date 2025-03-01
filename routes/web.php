@@ -48,6 +48,7 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
         Route::resource('/transactions', TransactionController::class);
         Route::get('/transaction-number-search/{search}', [TransactionController::class, 'searchNumber']);
+        Route::get('/rest-balances', [TransactionController::class, 'restBalances'])->name('rest.balance');
     });
 });
 

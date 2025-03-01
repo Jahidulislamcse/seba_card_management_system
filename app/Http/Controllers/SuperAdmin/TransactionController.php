@@ -88,4 +88,9 @@ class TransactionController extends Controller
         ->first();
         return response()->json($user);
     }
+
+    public function restBalances(){
+        // $users = User::whereNotIn('role', [User::USER_ROLE_SUPERADMIN, User::USER_ROLE_ADMIN])->where('status', User::STATUS_APPROVED)->get();
+        return view('SuperAdmin.transaction.rest-balances');
+    }
 }

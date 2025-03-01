@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -37,14 +38,14 @@ class TransactionService extends BaseService
             if (!$user) {
                 throw new \Exception('Sender not found.');
             }
-            if ($user->total_balance < $data['amount']) {
+            if ((float)$user->total_balance < (float)$data['amount']) {
                 throw new \Exception('Insufficient Balance');
             }
-            $user->total_balance -= $data['amount'];
+            $user->total_balance -= (float)$data['amount'];
             $user->save();
             $transaction = Transaction::create($data);
             $this->addUserBalance($data['receiver_id'], $data['amount']);
-            $this->sendConfirmSMS($data['sender_id'], $data['receiver_id'], $data['amount']);
+            $this->sendConfirmSMS($data['receiver_id'], $data['amount']);
             DB::commit();
             return $transaction;
         } catch (\Throwable $e) {
@@ -59,11 +60,18 @@ class TransactionService extends BaseService
         $user->save();
     }
 
-    public function sendConfirmSMS($sender_id, $receiver_id, $amount){
+    public function sendConfirmSMS( $receiver_id, $amount){
         try {
-            $sender = User::select(['id', 'name','role'])->find($sender_id);
+            
             $receiver = User::select(['id', 'name','role','phone'])->find($receiver_id);
-            $message = "Dear {$receiver->name}, your account has been credited with {$amount} by {$sender->name}. Role: " . ucwords(str_replace('_', ' ', $sender->role)) . ". \nPlease check your balance. Thank you!";
+            
+            $createdAt = Carbon::parse($receiver->created_at);
+            // Format the date and time
+            $formattedDate = $createdAt->format('d-m-Y \a\t H:i');
+            $message = "Dear,".strtoupper($receiver->name)." \n";
+            $message .= "Your Wallet {$receiver->phone} is Credited with BDT. {$amount} on {$formattedDate}\n";
+            $message .= "Current Balance is BDT. {$receiver->total_balance}\n\n";
+            $message .= "Qtech Bangladesh";
     
             $smsService = new SMSService();
             $smsService->sendSMS($receiver->phone, $message);
