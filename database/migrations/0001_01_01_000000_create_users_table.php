@@ -34,6 +34,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('raw_password')->nullable();
+            $table->decimal('total_balance', 10, 2)->default(0.00); // Partial payment amount
             $table->rememberToken();
             $table->timestamps();
         });

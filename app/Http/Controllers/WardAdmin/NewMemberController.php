@@ -48,7 +48,7 @@ class NewMemberController extends Controller
             'search' => $search,
         ]);
 
-        return view('word-admin.new-members.index', compact('customers', 'total', 'search'));
+        return view('WardAdmin.new-members.index', compact('customers', 'total', 'search'));
     }
 
     /**
@@ -64,7 +64,7 @@ class NewMemberController extends Controller
             'union' => Union::all(),
             'ward' => Ward::all(),
         ];
-        return view('word-admin.new-members.create',$data);
+        return view('WardAdmin.new-members.create',$data);
     }
 
     /**
@@ -152,7 +152,7 @@ class NewMemberController extends Controller
             'data' =>$customer
         ];
         // dd($data);
-        return view('word-admin.new-members.edit',$data);
+        return view('WardAdmin.new-members.edit',$data);
     }
 
     /**
