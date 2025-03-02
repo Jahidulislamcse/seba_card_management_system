@@ -97,7 +97,7 @@
 
             <!-- user table -->
             <div style="width: 85%;margin: 6% auto;">
-                <h5>Collect Payment</h5>
+                <h5>অর্থ সংগ্রহ করা</h5>
                 <form action="{{ route('super-admin.rest-balance.collect.store', $restBalance->id) }}" method="POST">
                     @csrf 
                     <input type="hidden" name="transaction_id" value="{{ $restBalance->id }}" />
