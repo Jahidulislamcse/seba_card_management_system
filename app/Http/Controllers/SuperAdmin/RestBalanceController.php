@@ -4,11 +4,12 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\User;
 use App\Models\Transaction;
+use App\Services\SMSService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SuperAdmin\RestBalanceRequest;
 use App\Services\TransactionService;
+use App\Http\Requests\SuperAdmin\RestBalanceRequest;
 use App\Http\Requests\SuperAdmin\TransactionRequest;
 
 class RestBalanceController extends Controller
@@ -56,7 +57,7 @@ class RestBalanceController extends Controller
         $data = $request->validated();
         try {
             DB::beginTransaction();
-            $restBalance = Transaction::find($data['transaction_id']);
+            $restBalance = Transaction::find($data['transaction_id'])->load(['sender','receiver']);
             $remaining_due = (float) $restBalance->remaining_due ;
             $restBalance->remaining_due -= (float)$data['amount'];
             $restBalance->status = $remaining_due == (float)$data['amount'] ? Transaction::STATUS_COMPLETED : Transaction::STATUS_PARTIAL;
@@ -68,6 +69,18 @@ class RestBalanceController extends Controller
                 'datetime' => $data['datetime'] ,
                 'notes' => $data['notes'] ?? '',
             ]);
+
+            //send sms 
+            $message = "Dear " . strtoupper($restBalance->receiver->name) . ",\n";
+            $message .= "Payment of BDT:" . $data['amount'] . " has been successfully collected by " . $restBalance->sender->name . ".\n";
+            $message .= "Your remaining due balance is BDT:" . $restBalance->remaining_due . ".\n\n";
+            $message .= "Qtech Bangladesh";
+
+            // dd($message, $restBalance->receiver->phone);
+            
+            $smsService = new SMSService();
+            $smsService->sendSMS($restBalance->receiver->phone, $message);
+
             DB::commit();
             return redirect()->route('super-admin.rest-balance.index')->with('success', 'Created Successfully');
             
