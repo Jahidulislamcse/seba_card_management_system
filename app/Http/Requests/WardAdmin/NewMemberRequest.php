@@ -23,7 +23,7 @@ class NewMemberRequest extends FormRequest
     {
         // dd(request()->all());
         return [
-            'card_no' => ['required'],
+            'card_id' => ['required'],
             'duration_year' => ['required'],
             'name' => ['required'],
             'father_name' => ['required'],
@@ -36,7 +36,7 @@ class NewMemberRequest extends FormRequest
 
             'division_id' =>  ['required', 'exists:divisions,id'],
             'district_id' =>  ['required', 'exists:districts,id'],
-            'upozila_id' =>  ['required', 'exists:upazilas,id'],
+            'upazila_id' =>  ['required', 'exists:upazilas,id'],
             'union_id' =>  ['nullable', 'exists:unions,id'],
             'ward' =>  ['nullable'],
             'status' => ['nullable'],

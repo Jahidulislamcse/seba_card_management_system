@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('occupation')->nullable();
             $table->foreignId('division_id')->nullable()->constrained('divisions')->onDelete('cascade');
             $table->foreignId('district_id')->nullable()->constrained('districts')->onDelete('cascade');
-            $table->foreignId('upozila_id')->nullable()->constrained('upazilas')->onDelete('cascade');
+            $table->foreignId('upazila_id')->nullable()->constrained('upazilas')->onDelete('cascade');
             $table->foreignId('union_id')->nullable()->constrained('unions')->onDelete('cascade');
             $table->string('ward')->nullable();
             $table->string('post_code')->nullable();

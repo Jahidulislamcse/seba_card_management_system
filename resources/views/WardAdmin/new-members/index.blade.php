@@ -52,7 +52,6 @@
             </tbody>
         </table>
     </div>
-    {!! $customers->links('vendor.pagination.bootstrap-5', ['total' => $total]) !!}
 
     <!-- user table -->
 @endsection

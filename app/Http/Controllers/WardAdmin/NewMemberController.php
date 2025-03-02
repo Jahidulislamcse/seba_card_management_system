@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\FileUploadService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WardAdmin\NewMemberRequest;
+use App\Models\Card;
 
 class NewMemberController extends Controller
 {
@@ -63,6 +64,7 @@ class NewMemberController extends Controller
             'upazila' => Upazila::all(),
             'union' => Union::all(),
             'ward' => Ward::all(),
+            'cards' => Card::where('assign_id', auth()->id())->where('status', 'active')->get(),
         ];
         return view('WardAdmin.new-members.create',$data);
     }
@@ -78,7 +80,7 @@ class NewMemberController extends Controller
             DB::beginTransaction();
 
             $customerData = $request->only([
-                'card_no',
+                'card_id',
                 'duration_year',
                 'name',
                 'father_name',
@@ -90,7 +92,7 @@ class NewMemberController extends Controller
                 'occupation',
                 'division_id',
                 'district_id',
-                'upozila_id',
+                'upazila_id',
                 'union_id',
                 'ward',
                 'post_code',
@@ -149,7 +151,9 @@ class NewMemberController extends Controller
             'upazila' => Upazila::where('district_id',$customer->district_id)->select('id','name')->get(),
             'union' => Union::where('upazilla_id',$customer->upazila_id)->select('id','name')->get(),
             'ward' => Ward::where('union_id',$customer->union_id)->select('id','name')->get(),
-            'data' =>$customer
+            'data' =>$customer,
+            'cards' => Card::where('assign_id', auth()->id())->where('status', 'active')->get(),
+
         ];
         // dd($data);
         return view('WardAdmin.new-members.edit',$data);
@@ -181,7 +185,7 @@ class NewMemberController extends Controller
                 'occupation',
                 'division_id',
                 'district_id',
-                'upozila_id',
+                'upazila_id',
                 'union_id',
                 'ward',
                 'status',
