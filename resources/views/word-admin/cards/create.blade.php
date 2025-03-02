@@ -57,15 +57,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label>Start Date</label>
-                        <input type="date" name="start_date" class="form-control w-100" required>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label>End Date</label>
-                        <input type="date" name="end_date" class="form-control w-100" required>
-                    </div>
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-success w-20 py-2 mb-2">Save</button>

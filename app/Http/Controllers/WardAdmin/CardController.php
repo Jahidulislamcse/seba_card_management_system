@@ -25,8 +25,6 @@ class CardController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
         if ($validator->fails()) {
@@ -42,8 +40,6 @@ class CardController extends Controller
                 'assign_id' => auth()->id(),
                 'card_number' => $request->card_number,
                 'price' => $request->price,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
                 'status' => 'pending',
             ]);
         } elseif ($request->card_mode == 'multiple') {
@@ -54,8 +50,6 @@ class CardController extends Controller
                         'assign_id' => auth()->id(),
                         'card_number' => $card_number,
                         'price' => $request->price,
-                        'start_date' => $request->start_date,
-                        'end_date' => $request->end_date,
                         'status' => 'pending',
                     ]);
                 }
@@ -75,8 +69,6 @@ class CardController extends Controller
                         'assign_id' => auth()->id(),
                         'card_number' => $cardNumber,
                         'price' => $request->price,
-                        'start_date' => $request->start_date,
-                        'end_date' => $request->end_date,
                         'status' => 'pending',
                     ]);
                     $storedNumbers[] = $cardNumber;
