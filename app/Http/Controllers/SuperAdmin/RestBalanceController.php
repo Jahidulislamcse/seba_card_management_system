@@ -23,10 +23,9 @@ class RestBalanceController extends Controller
         // Set default values for 'total' and 'search'
         $total = $request->query('total', 10);
         $search = $request->query('search');
-        // dd($search);
+    
 
         $restBalances = Transaction::query()
-        
         ->where('type', Transaction::TYPE_DUE)
         ->with(['receiver'])
         ->whereHas('receiver', function ($query) use ($search) {
@@ -45,7 +44,8 @@ class RestBalanceController extends Controller
     }
 
     public function restBalanceDetails($id){
-        return view('SuperAdmin.transaction.rest-balance-collect');
+        $restBalance = Transaction::with(['due_payments'])->find($id);
+        return view('SuperAdmin.transaction.rest-balance-details', compact('restBalance'));
     }
     public function restBalanceCollect($id){
         $restBalance = Transaction::find($id);

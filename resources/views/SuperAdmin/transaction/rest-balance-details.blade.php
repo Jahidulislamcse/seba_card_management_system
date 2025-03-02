@@ -16,6 +16,15 @@
     <!-- toastr  -->
     <link href="{{ asset('libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">
     <title>Sheba Card</title>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collect Form</title>
+    <style>
+    
+    </style>
     
 </head>
 <body>
@@ -39,61 +48,35 @@
             </header>
             <!-- header end -->
 
+            <h6 class="all-user">বা‌কি হিসাব বিস্তারিত (মোট: {{$restBalance->due_payments->count()}})</h6>
             <!-- user table -->
-            <h6 class="all-user">মোট - {{$restBalances->total()}} জন</h6>
-            <form action="{{route('super-admin.rest-balance.index')}}" method="GET" class="search-user-area">
-                <input type="text" name="search" id="search-user" placeholder="mobile number/id" value="{{$search ?? ''}}">
-                <button type="submit" class="button">Submit</button>
-            </form>
-            <div class="user-table">
+            <div class="user-table" style="margin: 10px 0;">
                 <table class="all-user-table table">
                     <thead>
                         <tr>
                             <th>ক্রমিক নং</th>
-                            <th>নাম</th>
-                            <th>আইডি</th>
-                            <th>মোবাইল নং</th>
-                            <th>বাকি পরিমাণ</th>
-                            <th>তা‌রিখ</th>
-                            <th>বিস্তারিত দেখুন</th>
-                            <th>আদায় করুন</th>
+                            <th>পরিমাণ</th>
+                            <th>তারিখ সময়</th>
+                            <th>নোট</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
-                        @if($restBalances->isNotEmpty())
-                            @foreach ($restBalances as $restBalance )
+                        @if($restBalance->due_payments->count() > 0)
+                            @foreach ($restBalance->due_payments->sortByDesc('id') as $due_payment)
                                 <tr>
                                     <td class="serial_no">{{$loop->iteration}}</td>
-                                    <td class="user-name">
-                                        <h6>{{ $restBalance?->receiver->name ?? '' }}</h6>
-                                    
-                                    </td>
-                                    <td class="rest-balance">{{ $restBalance?->receiver->nid ?? '' }}</td>
-                                    <td class="rest-balance">{{$restBalance?->receiver->phone}}</td>
-                                    <td class="rest-balance">{{$restBalance->remaining_due}}</td>
-                                    <td class="view-details-btn">
-                                        <div>
-                                            <a class="details-btn" href="{{route('super-admin.rest-balance.details', $restBalance->id)}}">View Details</a>
-                                        </div>
-                                    </td>
-                                    <td class="collection-btn">
-                                        @if($restBalance->remaining_due != 0)
-                                        <div>
-                                            <a class="collect-btn" href="{{route('super-admin.rest-balance.collect', $restBalance->id)}}">Collect</a>
-                                        </div>
-                                        @endif
-                                    </td>
+                                    <td class="rest-balance">BDT {{$due_payment->amount}}</td>
+                                    <td class="rest-balance">{{$due_payment->datetime_format}}</td>
+                                    <td class="rest-balance">{{$due_payment->notes}}</td>
                                 </tr>
                             @endforeach
-                        
                         @endif
                         
 
                     </tbody>
                 </table>
             </div>
-            <!-- user table -->
-            {!! $restBalances->links('vendor.pagination.bootstrap-5', ['total' => $total]) !!}
 
             <!-- footer start -->
             <div class="fixed-bottom">
