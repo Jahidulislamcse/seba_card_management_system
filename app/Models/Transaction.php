@@ -25,4 +25,11 @@ class Transaction extends Model
     public function receiver(){
         return $this->belongsTo(User::class, 'receiver_id');
     }
+
+    public function due_payments(){
+        return $this->hasMany(DuePayment::class);
+    }
+    public function due_payment(){
+        return $this->hasOne(DuePayment::class);
+    }
 }

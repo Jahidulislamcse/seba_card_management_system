@@ -89,30 +89,4 @@ class TransactionController extends Controller
         return response()->json($user);
     }
 
-    public function restBalances(Request $request){
-        // Set page meta
-        setPageMeta('Balance account');
-        // Set default values for 'total' and 'search'
-        $total = $request->query('total', 10);
-        $search = $request->query('search');
-        // dd($search);
-
-        $restBalances = Transaction::query()
-        ->where('status', Transaction::STATUS_PENDING)
-        ->where('type', Transaction::TYPE_DUE)
-        ->with(['receiver'])
-        ->whereHas('receiver', function ($query) use ($search) {
-            $query->where('phone','like','%' . $search . '%')
-            ->orWhere('nid', 'like', '%' . $search . '%');
-        })
-        ->paginate($total);
-
-        // Append query parameters to pagination links
-        $restBalances->appends([
-            'total' => $total,
-            'search' => $search,
-        ]);
-    
-        return view('SuperAdmin.transaction.rest-balances', compact('restBalances', 'total', 'search'));
-    }
 }

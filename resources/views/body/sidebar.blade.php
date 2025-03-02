@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a href="{{ route('super-admin.rest.balance.index') }}"><i class="fas fa-home"></i>
+                    <a href="{{ route('super-admin.rest-balance.index') }}"><i class="fas fa-home"></i>
                         <p>বা‌কি হিসাব</p>
                     </a>
                 </li>

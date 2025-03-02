@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\WardAdmin\NewMemberController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\SuperAdmin\RestBalanceController;
 use App\Http\Controllers\SuperAdmin\TransactionController;
 use App\Http\Controllers\WardAdmin\WardAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
@@ -48,7 +49,16 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
         Route::resource('/transactions', TransactionController::class);
         Route::get('/transaction-number-search/{search}', [TransactionController::class, 'searchNumber']);
-        Route::get('/rest-balances', [TransactionController::class, 'restBalances'])->name('rest.balance.index');
+
+        Route::controller(RestBalanceController::class)
+        ->prefix('rest-balance')->as('rest-balance.')->group(function () {
+            Route::get('/', 'restBalances')->name('index');
+            Route::get('/{id}/details', 'restBalanceDetails')->name('details');
+            Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
+            Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
+            
+        });
+        
     });
 });
 
