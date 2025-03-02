@@ -85,6 +85,7 @@ Route::middleware(['role:ward_admin'])->group(function () {
             Route::delete('delete/{id}', 'destroy')->name('destroy'); // Changed to DELETE
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::post('update/{id}', 'update')->name('update'); // Added {id} parameter
+            Route::get('/verify', 'verify')->name('verify');
         });
 });
 

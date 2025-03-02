@@ -22,6 +22,11 @@ class CardController extends Controller
         return view('word-admin.cards.create');
     }
 
+    public function verify()
+    {
+        return view('word-admin.cards.verify');
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
