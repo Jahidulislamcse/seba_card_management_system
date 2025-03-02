@@ -15,6 +15,9 @@
     </div>
     <h2>Cards List</h2>
     <button class="btn btn-primary" id="createNewCard">Create Card</button>
+    <div class="mb-3">
+        <input type="text" id="searchCard" class="form-control" placeholder="Search by Card Number">
+    </div>
     <table class="table mt-3">
         <thead>
             <tr>
@@ -24,7 +27,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Status</th>
-                <th>Ward Admin</th>
+                <th>Distributor</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -117,7 +120,7 @@
 
                     <div class="form-group">
                         <label>Select Ward Admin</label>
-                        <select name="assign_id" id="" class="form-control" required>
+                        <select name="assign_id" class="form-control" required>
                             <option value="">Select Word Admin</option>
                             @foreach ($ward_admins as $admin)
                             <option value="{{ $admin->id }}">{{ $admin->name }}</option>
@@ -126,35 +129,76 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Card Number(Min:6 & Max:6)</label>
-                        <input type="text" id="card_number" name="card_number" class="form-control" minlength="6"
-                            maxlength="6" pattern="\d{6}" placeholder="Please enter exactly 6 digits" required>
-
+                        <label>Select Card Creation Mode</label>
+                        <select name="card_mode" id="card_mode" class="form-control" required>
+                            <option value="single">Single Card</option>
+                            <option value="multiple">Multiple Cards</option>
+                        </select>
                     </div>
+
+                    <!-- Single Card Section -->
+                    <div id="single_card_section">
+                        <div class="form-group">
+                            <label>Card Number (Min:6 & Max:6)</label>
+                            <input type="text" id="card_number" name="card_number" class="form-control" minlength="6" maxlength="6" pattern="\d{6}" placeholder="Enter exactly 6 digits" required>
+                        </div>
+                    </div>
+
+                    <!-- Multiple Card Section -->
+                    <div id="multiple_card_section" class="d-none">
+                        <div class="form-group">
+                            <label>Select Generation Type</label>
+                            <select name="generation_type" id="generation_type" class="form-control">
+                                <option value="">Select Type</option>
+                                <option value="random">Random</option>
+                                <option value="range">Range</option>
+                            </select>
+                        </div>
+
+                        <!-- Random Cards -->
+                        <div id="random_cards" class="d-none">
+                            <label>Random Card Numbers</label>
+                            <div id="random_card_list"></div>
+                            <button type="button" id="add_random_card" class="btn btn-sm btn-success mt-2">+ Add Card</button>
+                        </div>
+
+                        <!-- Range Cards -->
+                        <div id="range_cards" class="d-none">
+                            <div class="form-group">
+                                <label>Start Card Number</label>
+                                <input type="text" name="start_card_number" id="start_card_number" class="form-control" pattern="\d{6}" placeholder="Start Number (6 digits)">
+                            </div>
+                            <div class="form-group">
+                                <label>End Card Number</label>
+                                <input type="text" name="end_card_number" id="end_card_number" class="form-control" pattern="\d{6}" placeholder="End Number (6 digits)">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="number" id="price" name="price" class="form-control"
-                            placeholder="Please enter price" required>
+                        <input type="number" name="price" class="form-control" placeholder="Enter price" required>
                     </div>
                     <div class="form-group">
                         <label>Start Date</label>
-                        <input type="date" id="start_date" name="start_date" class="form-control" required>
+                        <input type="date" name="start_date" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>End Date</label>
-                        <input type="date" id="end_date" name="end_date" class="form-control" required>
+                        <input type="date" name="end_date" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select id="status" class="form-control" name="status" required>
+                        <select name="status" class="form-control" required>
                             <option value="pending">Pending</option>
                             <option value="active">Active</option>
                             <option value="expired">Expired</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success" id="saveBtn">Save</button>
+                    <button type="submit" class="btn btn-success">Save</button>
                 </form>
             </div>
+
         </div>
     </div>
 </div>
@@ -162,15 +206,77 @@
 @push('script')
 <script>
     $(document).ready(function() {
+        // Show modal on button click
         $('#createNewCard').click(function() {
             $('#cardForm')[0].reset();
-            $('#card_id').val('');
-            $('#cardModalLabel').text('Create Card');
+            $('#single_card_section').show();
+            $('#multiple_card_section').addClass('d-none');
             $('#cardModal').modal('show');
+        });
+
+        // Toggle between Single and Multiple Card sections
+        $('#card_mode').change(function() {
+            if ($(this).val() === 'multiple') {
+                $('#single_card_section').hide();
+                $('#multiple_card_section').removeClass('d-none');
+                $('#card_number').removeAttr('required');
+            } else {
+                $('#single_card_section').show();
+                $('#multiple_card_section').addClass('d-none');
+                $('#card_number').attr('required', 'required');
+            }
+        });
+
+        // Toggle between Random and Range options
+        $('#generation_type').change(function() {
+            var type = $(this).val();
+
+            if (type === 'random') {
+                $('#random_cards').removeClass('d-none');
+                $('#range_cards').addClass('d-none');
+            } else if (type === 'range') {
+                $('#random_cards').addClass('d-none');
+                $('#range_cards').removeClass('d-none');
+            } else {
+                $('#random_cards').addClass('d-none');
+                $('#range_cards').addClass('d-none');
+            }
+        });
+
+
+        // Add Random Card Fields Dynamically
+        $('#add_random_card').click(function() {
+            $('#random_card_list').append(`
+            <div class="input-group mt-2">
+                <input type="text" name="random_card_numbers[]" class="form-control" pattern="\\d{6}" placeholder="Enter 6-digit card number">
+                <button type="button" class="btn btn-danger remove-card">X</button>
+            </div>
+        `);
+        });
+
+        // Remove Random Card Field
+        $(document).on('click', '.remove-card', function() {
+            $(this).closest('.input-group').remove();
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+    $('#searchCard').on('keyup', function() {
+        var query = $(this).val().toLowerCase();
 
+        $('#cardTable tr').each(function() {
+            var cardNumber = $(this).find('td:nth-child(2)').text().toLowerCase();
+
+            if (cardNumber.includes(query) || query === '') {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+</script>
 <script>
     $(document).ready(function() {
         $('.toggle-details').click(function() {
