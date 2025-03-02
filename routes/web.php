@@ -86,7 +86,8 @@ Route::middleware(['role:ward_admin'])->group(function () {
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::post('update/{id}', 'update')->name('update'); // Added {id} parameter
             Route::get('/verify', 'verify')->name('verify');
-        });
+            Route::get('/search', 'searchCustomer')->name('search');
+    });
 });
 
 
