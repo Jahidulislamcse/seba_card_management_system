@@ -44,11 +44,11 @@ Route::get('/get-unions/{upozila_id}', [LocationController::class, 'getUnions'])
 
 
 Route::middleware(['role:super_admin'])->group(function () {
-    Route::prefix('super-admin')->name('super.admin.')->group(function () {
+    Route::prefix('super-admin')->name('super-admin.')->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
         Route::resource('/transactions', TransactionController::class);
         Route::get('/transaction-number-search/{search}', [TransactionController::class, 'searchNumber']);
-        Route::get('/rest-balances', [TransactionController::class, 'restBalances'])->name('rest.balance');
+        Route::get('/rest-balances', [TransactionController::class, 'restBalances'])->name('rest.balance.index');
     });
 });
 
@@ -89,7 +89,7 @@ Route::middleware(['role:ward_admin'])->group(function () {
 });
 
 
-Route::prefix('ward')->name('ward.')->group(function () {
+Route::prefix('ward-admin')->name('ward.')->group(function () {
     Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/new-members', NewMemberController::class);
 });

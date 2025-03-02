@@ -75,7 +75,7 @@
 
 .user-show-no{
     > select{
-        font-size: 13px;
+        font-size: 13px !important;
     }
     > p{
         margin: 0%;

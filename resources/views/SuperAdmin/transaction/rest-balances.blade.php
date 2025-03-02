@@ -16,6 +16,7 @@
     <!-- toastr  -->
     <link href="{{ asset('libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">
     <title>Sheba Card</title>
+    
 </head>
 <body>
     <div class="container">
@@ -39,9 +40,9 @@
             <!-- header end -->
 
             <!-- user table -->
-            <h6 class="all-user">মোট - ৮৭৯০ জন</h6>
-            <form action="#" class="search-user-area">
-                <input type="text" name="search-user" id="search-user" placeholder="mobile number/id">
+            <h6 class="all-user">মোট - {{$restBalances->total()}} জন</h6>
+            <form action="{{route('super-admin.rest.balance.index')}}" method="GET" class="search-user-area">
+                <input type="text" name="search" id="search-user" placeholder="mobile number/id" value="{{$search ?? ''}}">
                 <button type="submit" class="button">Submit</button>
             </form>
             <div class="user-table">
@@ -50,47 +51,46 @@
                         <tr>
                             <th>ক্রমিক নং</th>
                             <th>নাম</th>
+                            <th>আইডি</th>
+                            <th>মোবাইল নং</th>
                             <th>বাকি পরিমাণ</th>
                             <th>বিস্তারিত দেখুন</th>
                             <th>আদায় করুন</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="serial_no">০১</td>
-                            <td class="user-name">মো: রিমন শেখ</td>
-                            <td class="rest-balance">৬,৫০০</td>
-                            <td class="view-details-btn">
-                                <div>
-                                    <a class="details-btn" href="#">View Details</a>
-                                </div>
-                            </td>
-                            <td class="collection-btn">
-                                <div>
-                                    <a class="collect-btn" href="#">Collect</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="serial_no">০১</td>
-                            <td class="user-name">মো: রিমন শেখ</td>
-                            <td class="rest-balance">৬,৫০০</td>
-                            <td class="view-details-btn">
-                                <div>
-                                    <a class="details-btn" href="#">View Details</a>
-                                </div>
-                            </td>
-                            <td class="collection-btn">
-                                <div>
-                                    <a class="collect-btn" href="#">Collect</a>
-                                </div>
-                            </td>
-                        </tr>
+                        @if($restBalances->isNotEmpty())
+                            @foreach ($restBalances as $transation )
+                                <tr>
+                                    <td class="serial_no">{{$loop->iteration}}</td>
+                                    <td class="user-name">
+                                        <h6>{{ $transation?->receiver->name ?? '' }}</h6>
+                                    
+                                    </td>
+                                    <td class="rest-balance">{{ $transation?->receiver->nid ?? '' }}</td>
+                                    <td class="rest-balance">{{$transation?->receiver->phone}}</td>
+                                    <td class="rest-balance">{{$transation->remaining_due}}</td>
+                                    <td class="view-details-btn">
+                                        <div>
+                                            <a class="details-btn" href="#">View Details</a>
+                                        </div>
+                                    </td>
+                                    <td class="collection-btn">
+                                        <div>
+                                            <a class="collect-btn" href="#">Collect</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        
+                        @endif
+                        
 
                     </tbody>
                 </table>
             </div>
             <!-- user table -->
+            {!! $restBalances->links('vendor.pagination.bootstrap-5', ['total' => $total]) !!}
 
             <!-- footer start -->
             <div class="fixed-bottom">
@@ -156,7 +156,18 @@
             if ($("form").length) {
                 $('form').parsley();
             }
-    
+            $('#total-select-paginate').on('change', function () {
+                var selectedTotal = $(this).val();
+
+                // Get the current URL and query parameters
+                var url = new URL(window.location.href);
+
+                // Update or add the 'total' query parameter
+                url.searchParams.set('total', selectedTotal);
+
+                // Redirect to the new URL
+                window.location.href = url.toString();
+            });
             
         });
     </script>
