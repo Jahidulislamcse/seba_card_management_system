@@ -23,7 +23,7 @@ class NewMemberRequest extends FormRequest
     {
         // dd(request()->all());
         return [
-            'card_id' => ['required'],
+            'card_id' => $this->new_member ? ['nullable'] : ['required'],
             'duration_year' => ['required'],
             'name' => ['required'],
             'father_name' => ['required'],

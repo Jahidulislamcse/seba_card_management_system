@@ -9,14 +9,14 @@
         <input type="file" name="avatar" class="profile-inp" id="profile-input" style="display: none;">
     </button>
 
-
+    
     <!-- verify button -->
     <label class="input-label" for="card-no">কার্ড নং (Choice) <span class="text-danger">*</span></label>
     <div class="input-group mb-2">
         <span class="input-box-icon input-group-text rounded-end-0" id="card-no">
             <img src="{{ asset('assets/img/card.png') }}" alt="card icon">
         </span>
-        <select class="input-box form-control shadow-none" name="card_id" id="card_id" required>
+        <select class="input-box form-control shadow-none change_card" name="card_id" id="card_id" required>
             <option value="">Select a Card</option>
             @foreach($cards as $card)
             <option value="{{ $card->id }}">{{ $card->card_number }}</option>
@@ -325,7 +325,7 @@
         Add More
     </button>
 
-    <button type="submit" class="button">Save</button>
+    <button type="submit" class="button save_btn" >Save</button>
 </form>
 
 @endsection
@@ -342,6 +342,29 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        const cards = @json($cards);
+        const total_balance = @json(auth()->user()->total_balance)
+
+        console.log('cards', cards, total_balance);
+        $(document).on('change', '.change_card', function() {
+            console.log('change_card event triggered');
+            let card_id = $(this).val();
+            let card = cards.find(card => card.id == card_id);
+            if(card){
+                if(parseFloat(card.price) > parseFloat(total_balance)){
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true
+                    };
+                    toastr.error('Your balance is not enough');
+                    
+                    $('.save_btn').attr('disabled', true);
+                }else{
+                    $('.save_btn').attr('disabled', false);
+                }
+            }
+            console.log('card', card, total_balance);
+        });
         // Fetch districts based on division selection
         $(document).on('change', '#division_id', function() {
             var divisionId = $(this).val();

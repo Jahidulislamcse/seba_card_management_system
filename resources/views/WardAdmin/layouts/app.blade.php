@@ -24,6 +24,6 @@
 
     @include('WardAdmin.layouts.partials._scripts')
 
-    @stack('scripts')
+    
 </body>
 </html>

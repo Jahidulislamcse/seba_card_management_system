@@ -1,6 +1,6 @@
 <div class="fixed-bottom">
     <footer>
-        <a href="index.html">
+        <a href="{{route('ward.dashboard')}}">
             <img src="{{ asset('assets/img/home.png') }}" alt="home icon">
             <p>হোম</p>
         </a>
