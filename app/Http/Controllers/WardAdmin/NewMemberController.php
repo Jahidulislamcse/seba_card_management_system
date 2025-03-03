@@ -78,7 +78,6 @@ class NewMemberController extends Controller
 
         try {
             DB::beginTransaction();
-
             $customerData = $request->only([
                 'card_id',
                 'duration_year',
@@ -111,8 +110,10 @@ class NewMemberController extends Controller
                 $customerData['nid_back'] = $this->fileUploadService->uploadFile($request,'nid_back',FILE_STORE_PATH);
             }
             $customerData['user_id'] = auth()->user()->id;
+
+            $customerData['expired_date'] = calculateExpiredDate($request->duration_year);
+
             $customer = Customer::create($customerData);
-            // dd('customer', $customer);
             if(isset($data['family_members'])){
 
                 $customer->family_members()->createMany($request->family_members);

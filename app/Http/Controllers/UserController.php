@@ -35,12 +35,13 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Validate incoming request data
+
+        // dd($request->all());
+
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string',
             'father' => 'nullable|string|max:255',
-            'birth_date' => 'nullable|date',
             'nid' => 'nullable|string|max:20',
             'phone' => 'required',
             'email' => 'required|email|unique:users,email',
@@ -57,7 +58,26 @@ class UserController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        // Store the user data
+        // dd($request->all());
+
+
+        $banglaToEnglishMonths = [
+            "জানুয়ারি" => "01",
+            "ফেব্রুয়ারি" => "02",
+            "মার্চ" => "03",
+            "এপ্রিল" => "04",
+            "মে" => "05",
+            "জুন" => "06",
+            "জুলাই" => "07",
+            "আগস্ট" => "08",
+            "সেপ্টেম্বর" => "09",
+            "অক্টোবর" => "10",
+            "নভেম্বর" => "11",
+            "ডিসেম্বর" => "12"
+        ];
+
+        $englishMonth = $banglaToEnglishMonths[$request['month']];
+        $formattedDate = $request['year'] . '-' . $englishMonth . '-' . str_pad($request['day'], 2, '0', STR_PAD_LEFT);
         $data = new User();
 
         // Handle photo upload
@@ -104,7 +124,7 @@ class UserController extends Controller
         $data->name = $request->name;
         $data->role = $request->role;
         $data->father = $request->father;
-        $data->birth_date = $request->birth_date;
+        $data->birth_date = $formattedDate;
         $data->nid = $request->nid;
         $data->phone = $request->phone;
         $data->email = $request->email;
@@ -267,12 +287,12 @@ class UserController extends Controller
 
 
 
-//        $smsSent = $this->smsService->sendSMS($user->phone, $message);
-//
-//        if ($smsSent) {
-//            return redirect()->route('user.list')->with('success', 'User status updated and SMS sent successfully');
-//        } else {
-//            return redirect()->route('user.list')->with('error', 'User status updated, but SMS sending failed');
-//        }
+        //        $smsSent = $this->smsService->sendSMS($user->phone, $message);
+        //
+        //        if ($smsSent) {
+        //            return redirect()->route('user.list')->with('success', 'User status updated and SMS sent successfully');
+        //        } else {
+        //            return redirect()->route('user.list')->with('error', 'User status updated, but SMS sending failed');
+        //        }
     }
 }

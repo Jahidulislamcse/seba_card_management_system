@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('post_code')->nullable();
             $table->string('phone')->unique();
             $table->string('status')->nullable()->default(STATUS_ACTIVE);
+            $table->date('expired_date')->nullable();
             $table->timestamps();
         });
     }

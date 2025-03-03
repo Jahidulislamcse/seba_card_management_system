@@ -15,7 +15,7 @@ use App\Http\Controllers\UpozilaAdmin\UpozilaAdminDashboardController;
 use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.index');
 });
 
 Route::get('/dashboard', function () {

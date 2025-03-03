@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@font-face {
+    font-family: 'Sonali Lipi';
+    src: url('../SolaimanLipi_22-02-2012.ttf') format('truetype');
+}
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Sonali Lipi', sans-serif;
+}
+.containers{
+    min-width: 100%;
+    display: flex;
+    padding: 0% !important;
+    align-items: center;
+    justify-content: center;
+}
+.content{
+    width: 35%;
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+.input-label{
+    width: 100%;
+    font-size: 14px;
+    font-weight: 550 !important;
+    color: #343538;
+}
+/* logo start */
+.logo{
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    > img{
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        -ms-border-radius: 50px;
+        -o-border-radius: 50px;
+    }
+    .logo-details{
+        color: #2a2929;
+        font-family: 'Poppins', sans-serif;
+        > h4{
+            font-size: 18px;
+            margin: 0%;
+            font-family: 'Sonali Lipi', sans-serif;
+        }
+        > p{
+            margin: 0%;
+            font-size: 13px;
+        }
+    }
+}
+.auth-logo{
+    padding: 15px;
+}
+/* logo end */
+
+
+
+/* logo start */
+
+.button{
+    padding: 9px 20px;
+    border: none;
+    height: 38px;
+    font-size: 14px;
+    font-weight: 550;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 1px;
+    background-color:rgb(61, 144, 83);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.save-btn{
+    min-width: 100px;
+    margin-top: 20px;
+}
+
+
+@media (max-width: 1200px) {
+    .content{
+        width: 50%;
+    }
+}
+@media (max-width: 992px) {
+    .content{
+        width: 55%;
+    }
+}
+@media (max-width: 850px) {
+    body{
+          background-color: #ffffff;
+    }
+    .content{
+        width: 100%;
+    }
+}
+@media (max-width:500px) {
+    .logo{
+        gap: 5px;
+        > img{
+            height: 50px;
+            width: 50px;
+        }
+        .logo-details{
+            > h4{
+                font-size: 15px;
+            }
+            > p{
+                font-size: 12px;
+            }
+        }
+    }
+    .auth-logo{
+        padding: 15px;
+    }
+}

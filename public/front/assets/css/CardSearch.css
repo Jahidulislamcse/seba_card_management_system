@@ -1,0 +1,95 @@
+.card-search{
+    margin-top: 100px;
+}
+.user-find-form{
+    > label{
+        font-size: 14px;
+        font-weight: 550;
+        color: #383838;
+    }
+    > div{
+        gap: 10px;
+        display: flex;
+        margin-top: 5px;
+        align-items: center;
+        > input{
+            color: #4D4D4D;
+            outline: none;
+            padding: 5px;
+            font-size: 14px;
+            height: 35px;
+            border: 1px solid #4D4D4D;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+        }
+    }
+}
+.sended-id{
+    font-size: 14px;
+    font-weight: 550;
+    margin-top: 5px;
+    color: #383838;
+}
+.user-result{
+    font-weight: 550;
+    font-size: 14px;
+    color: #383838;
+}
+.user-table-area{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+.specific-user-table{
+    width: 58%;
+    border: 1px solid #073265;
+    > tbody > tr > td{
+        padding: 5px;
+        color: #383838;
+        font-size: 14px;
+        font-weight: 500;
+        border: 1px solid rgb(61, 144, 83);
+        background-color:rgb(61, 144, 83, .2);
+    }
+    > tbody > tr > td:first-child{
+        font-weight: bold;
+        width: 140px;
+    }
+}
+.user-profile-img{
+    max-width: 250px;
+    max-height: 100%;
+    > img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.family-info{
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0%;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.family-table{
+    margin-bottom: 100px;
+}
+
+
+@media (max-width: 550px) {
+    .user-table-area{
+        display: block;
+    }
+    .specific-user-table{
+        width: 100%;
+    }
+    .user-profile-img{
+        width: 50%;
+        margin-top: 10px;
+    }
+}

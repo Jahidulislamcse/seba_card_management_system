@@ -1,392 +1,396 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/common.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/Authentication.css') }}">
+    <title>সাইনআপ করুন | Sheba Card Portal</title>
 </head>
+
 <body>
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card shadow-lg border-0 rounded-lg">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0 text-center">Registration</h4>
+    <div class="containers">
+        <div class="content">
+            <a href="index.html" class="logo auth-logo">
+                <img src="{{ asset('front/assets/img/logo.jpg') }}" alt="">
+                <div class="logo-details">
+                    <h4>সেবা কার্ড পোর্টাল</h4>
+                    <p>Qtech Bangladesh</p>
                 </div>
-            </div>
-            <div class="card-body p-4">
-                <form id="user-registration-form" action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
+            </a>
 
-                        <!-- Name -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="name" class="font-weight-bold">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" required>
-                            </div>
-                        </div>
+            <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <button type="button" class="up-profile-photo profile-photo">
+                    <img src="{{ asset('front/assets/img/profile.png') }}" alt="profile icon">
+                    <input type="file" name="photo" id="photo" class="up-profile-inp file-hide">
+                </button> <br>
 
-                        <!-- Role -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="role" class="font-weight-bold">Role</label>
-                                <select name="role" id="role" class="form-control" required>
-                                    <option value="admin">Admin</option>
-                                    <option value="dis_admin">District Admin</option>
-                                    <option value="upo_admin">Upozila Admin</option>
-                                    <option value="uni_admin">Union Admin</option>
-                                    <option value="ward_admin">Ward Admin</option>
-                                </select>
-                            </div>
-                        </div>
 
-                        <!-- Father's Name -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="father" class="font-weight-bold">Father's Name</label>
-                                <input type="text" name="father" id="father" class="form-control">
-                            </div>
-                        </div>
 
-                        <!-- Birth Date -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="birth_date" class="font-weight-bold">Birth Date</label>
-                                <input type="date" name="birth_date" id="birth_date" class="form-control">
-                            </div>
-                        </div>
+                <label for="">পদবী সিলেক্ট করুন</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="name">
+                        <img src="{{ asset('front/assets/img/name.png') }}" alt="name icon">
+                    </span>
+                    <select name="role" id="role" class="input-box form-control shadow-none" required>
+                        <option value="">পদবী</option>
+                        <option value="upo_admin">উপজেলা এডমিন</option>
+                        <option value="uni_admin">ইউনিয়ন এডমিন</option>
+                        <option value="ward_admin">ওর্য়াড এডমিন</option>
+                    </select>
+                </div>
 
-                        <!-- NID -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="nid" class="font-weight-bold">NID</label>
-                                <input type="text" name="nid" id="nid" class="form-control">
-                            </div>
-                        </div>
+                <label class="input-label" for="name">নাম (বাংলা)</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="name">
+                        <img src="{{ asset('front/assets/img/name.png') }}" alt="name icon">
+                    </span>
+                    <input type="text" maxlength="40" class="input-box form-control shadow-none"name="name"
+                        id="name" placeholder="নাম (বাংলা)" required>
+                </div>
 
-                        <!-- Phone -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="phone" class="font-weight-bold">Phone</label>
-                                <input type="tel" name="phone" id="phone" class="form-control" required pattern="^\+[0-9]{8,15}$" title="Phone number must start with + and contain only numbers (8-15 digits)">
-                            </div>
-                        </div>
+                <label class="input-label" for="father_name">পিতার নাম (বাংলা)</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="father_name">
+                        <img src="{{ asset('front/assets/img/name.png') }}" alt="name icon">
+                    </span>
+                    <input type="text" maxlength="40" class="input-box form-control shadow-none"name="father"
+                        id="father" placeholder="পিতার নাম (বাংলা)">
+                </div>
 
-                        <!-- Email -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="email" class="font-weight-bold">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" required>
-                            </div>
-                        </div>
+                <label class="input-label" for="birth-date">জন্ম তা‌রিখ </label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon select-group input-group-text rounded-end-0" id="birth-date">
+                        <img src="{{ asset('front/assets/img/name.png') }}" alt="date icon">
+                    </span>
+                    <div class="birth-date" lang="bn">
+                        <!-- Month Dropdown -->
+                        <select name="month" id="month-select" required>
+                            <option value="" disabled selected>মাস নির্বাচন করুন</option>
+                            <option value="জানুয়ারি">জানুয়ারি</option>
+                            <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
+                            <option value="মার্চ">মার্চ</option>
+                            <option value="এপ্রিল">এপ্রিল</option>
+                            <option value="মে">মে</option>
+                            <option value="জুন">জুন</option>
+                            <option value="জুলাই">জুলাই</option>
+                            <option value="আগস্ট">আগস্ট</option>
+                            <option value="সেপ্টেম্বর">সেপ্টেম্বর</option>
+                            <option value="অক্টোবর">অক্টোবর</option>
+                            <option value="নভেম্বর">নভেম্বর</option>
+                            <option value="ডিসেম্বর">ডিসেম্বর</option>
+                        </select>
 
-                        <!-- Division -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="division" class="font-weight-bold">Division</label>
-                                <select name="division" id="division" class="form-control" required>
-                                    <option value="">Select Division</option>
-                                    @foreach($division as $div)
-                                        <option value="{{ $div->id }}">{{ $div->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                        <!-- Day Dropdown -->
+                        <select name="day" id="day-select" required>
+                            <option value="" disabled selected>দিন নির্বাচন করুন</option>
+                            <!-- Generate days from 1 to 31 dynamically (or adjust per month) -->
+                            <option value="1">১</option>
+                            <option value="2">২</option>
+                            <option value="3">৩</option>
+                            <option value="4">৪</option>
+                            <option value="5">৫</option>
+                            <option value="6">৬</option>
+                            <option value="7">৭</option>
+                            <option value="8">৮</option>
+                            <option value="9">৯</option>
+                            <option value="10">১০</option>
+                            <option value="11">১১</option>
+                            <option value="12">১২</option>
+                            <option value="13">১৩</option>
+                            <option value="14">১৪</option>
+                            <option value="15">১৫</option>
+                            <option value="16">১৬</option>
+                            <option value="17">১৭</option>
+                            <option value="18">১৮</option>
+                            <option value="19">১৯</option>
+                            <option value="20">২০</option>
+                            <option value="21">২১</option>
+                            <option value="22">২২</option>
+                            <option value="23">২৩</option>
+                            <option value="24">২৪</option>
+                            <option value="25">২৫</option>
+                            <option value="26">২৬</option>
+                            <option value="27">২৭</option>
+                            <option value="28">২৮</option>
+                            <option value="29">২৯</option>
+                            <option value="30">৩০</option>
+                            <option value="31">৩১</option>
+                        </select>
 
-                        <!-- District -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="district" class="font-weight-bold">District</label>
-                                <select name="district" id="district" class="form-control" required>
-                                    <option value="">Select District</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Upozila -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="upozila" class="font-weight-bold">Upozila</label>
-                                <select name="upozila" id="upozila" class="form-control" required>
-                                    <option value="">Select Upozila</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Union -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="union" class="font-weight-bold">Union</label>
-                                <select name="union" id="union" class="form-control" required>
-                                    <option value="">Select Union</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Ward -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="ward" class="font-weight-bold">Ward</label>
-                                <input type="text" name="ward" id="ward" class="form-control">
-                            </div>
-                        </div>
-
-                        <!-- File Uploads -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="photo" class="font-weight-bold">Photo</label>
-                                <input type="file" name="photo" id="photo" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="nid_front" class="font-weight-bold">NID Front</label>
-                                <input type="file" name="nid_front" id="nid_front" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="nid_back" class="font-weight-bold">NID Back</label>
-                                <input type="file" name="nid_back" id="nid_back" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="cv" class="font-weight-bold">CV</label>
-                                <input type="file" name="cv" id="cv" class="form-control">
-                            </div>
-                        </div>
-
-                        <!-- Password -->
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label for="password" class="font-weight-bold">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" required>
-                            </div>
-                        </div>
-
+                        <!-- Year Dropdown -->
+                        <select name="year" id="year-select" required>
+                            <option value="">বছর নির্বাচন করুন</option>
+                            <!-- Generate years dynamically from a certain range -->
+                            <option value="2000">২০০০</option>
+                            <option value="2001">২০০১</option>
+                            <option value="2002">২০০২</option>
+                            <option value="2003">২০০৩</option>
+                            <option value="2004">২০০৪</option>
+                            <option value="2005">২০০৫</option>
+                            <option value="2006">২০০৬</option>
+                            <option value="2007">২০০৭</option>
+                            <option value="2008">২০০৮</option>
+                            <option value="2009">২০০৯</option>
+                            <option value="2010">২০১০</option>
+                            <option value="2011">২০১১</option>
+                            <option value="2012">২০১২</option>
+                            <option value="2013">২০১৩</option>
+                            <option value="2014">২০১৪</option>
+                            <option value="2015">২০১৫</option>
+                            <option value="2016">২০১৬</option>
+                            <option value="2017">২০১৭</option>
+                            <option value="2018">২০১৮</option>
+                            <option value="2019">২০১৯</option>
+                            <option value="2020">২০২০</option>
+                            <option value="2021">২০২১</option>
+                            <option value="2022">২০২২</option>
+                            <option value="2023">২০২৩</option>
+                        </select>
                     </div>
 
-                    <!-- Buttons -->
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary px-5 py-2">Register</button>
-                        <button type="button" id="cancel-registration" class="btn btn-secondary px-5 py-2">Cancel</button>
+                </div>
+
+                <label class="input-label" for="id_no">আইডি নং </label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="">
+                        <img src="{{ asset('front/assets/img/name.png') }}" alt="card icon">
+                    </span>
+                    <input type="text" maxlength="40" class="input-box form-control shadow-none"name="nid"
+                        id="nid" placeholder="আইডি নং">
+                </div>
+
+                <label class="input-label" for="mobile_no">মোবাইল নং </label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
+                        <img src="{{ asset('front/assets/img/name.png') }}" alt="number icon">
+                    </span>
+                    <input type="number" maxlength="40" class="input-box form-control shadow-none" name="phone"
+                        id="phone" placeholder="01402860617..." required>
+                </div>
+
+                <label class="input-label" for="email_address">ইমেইল এড্রেস</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
+                        <img src="{{ asset('front/assets/img/name.png') }}" alt="email icon">
+                    </span>
+                    <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email"
+                        id="email" placeholder="example@gmail.com" required>
+                </div>
+
+                <label class="input-label" for="Password">Password</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
+                        <img src="{{ asset('front/assets/img/name.png') }}" alt="email icon">
+                    </span>
+                    <input type="password" class="input-box form-control shadow-none" name="password" id="password"
+                        placeholder="পাসওয়ার্ড" required>
+                </div>
+
+                <label class="input-label" for="division">বিভাগ</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="division">
+                        <img src="{{ asset('front/assets/img/city.png') }}" alt="city icon">
+                    </span>
+
+                    <select name="division" id="division" class="input-box form-control shadow-none" required>
+                        <option value="">বিভাগ</option>
+                        @foreach ($division as $div)
+                            <option value="{{ $div->id }}">{{ $div->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <label class="input-label" for="dristrick">জেলা</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
+                        <img src="{{ asset('front/assets/img/city.png') }}" alt="city icon">
+                    </span>
+                    <select name="district" id="district" class="input-box form-control shadow-none">
+                        <option value="">জেলা</option>
+                    </select>
+
+                </div>
+
+                <label class="input-label" for="Upazilla">উপ‌জেলা</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
+                        <img src="{{ asset('front/assets/img/city.png') }}" alt="city icon">
+                    </span>
+                    <select name="upozila" id="upozila" class="input-box form-control shadow-none">
+                        <option value="">উপ‌জেলা</option>
+                    </select>
+                </div>
+                <label class="input-label" for="ইউনিয়ন">ইউনিয়ন</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
+                        <img src="{{ asset('front/assets/img/city.png') }}" alt="city icon">
+                    </span>
+                    <select name="union" id="union" class="input-box form-control shadow-none">
+                        <option value="">ইউনিয়ন</option>
+                    </select>
+
+                </div>
+                <label class="input-label" for="ওর্য়াড">ওর্য়াড</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
+                        <img src="{{ asset('front/assets/img/city.png') }}" alt="city icon">
+                    </span>
+                    <input type="text" name="ward" id="ward" class="input-box form-control shadow-none"
+                        placeholder="ওর্য়াড">
+
+                </div>
+
+                <div class="nid-card-area">
+                    <div>
+                        <label class="input-label" for="nid1">এনআইডি ফ্রন্ট</label>
+                        <button type="button" class="up-nid-card1 nid-card1">
+                            <img src="{{ asset('front/assets/img/NID-1.jpg') }}" alt="nid card">
+                            <div class="upload-icon">
+                                <div>
+                                    <img src="{{ asset('front/assets/img/uploads.png') }}" alt="">
+                                </div>
+                            </div>
+                            <input type="file" name="nid_front" class="up-nid1 file-hide" id="nid_front">
+                        </button>
                     </div>
-                </form>
-            </div>
+                    <div>
+                        <label class="input-label" for="nid2">এনআইডি ব্যাক</label>
+                        <button type="button" class="up-nid-card2 nid-card2">
+                            <img src="{{ asset('front/assets/img/NID-2.jpg') }}" alt="nid card">
+                            <div class="upload-icon">
+                                <div>
+                                    <img src="{{ asset('front/assets/img/uploads.png') }}" alt="">
+                                </div>
+                            </div>
+                            <input type="file" name="nid_back" class="up-nid2 file-hide" id="nid_back">
+                        </button>
+                    </div>
+                </div>
+                <div class="cv-upload-area">
+                    <label class="input-label" for="cv">সিভি আপলোড</label>
+                    <div>
+                        <div>
+                            <button type="button" class="up-cv-upload cv-upload">
+                                <img src="{{ asset('front/assets/img/cv upload.webp') }}" alt="nid card">
+                                <input type="file" name="cv" class="up-cv file-hide" id="cv">
+                            </button>
+                        </div>
+                        <div class="demo-cv">Demo CV</div>
+                    </div>
+                </div>
+                <div class="certificate-upload-area">
+                    <label class="input-label" for="certificate">সার্টিফিকেট আপলোড</label>
+                    <button type="button" class="up-certificate-upload certificate-upload">
+                        <img src="{{ asset('front/assets/img/certificate.jpg') }}" alt="certificate img">
+                        <div class="upload-icon">
+                            <div>
+                                <img src="{{ asset('front/assets/img/uploads.png') }}" alt="">
+                            </div>
+                        </div>
+                        <input type="file" name="certificate" class="up-certificate file-hide" id="certificate">
+                    </button>
+                </div>
+
+                <div class="form-btns">
+                    <a href="Login.html" class="button bg-danger m-0">লগিন করুন</a>
+                    <button type="submit" class="button save-btn">সাইনআপ করুন</button>
+                </div>
+            </form>
 
         </div>
     </div>
-</div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <!-- jQuery CDN with integrity check -->
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.getElementById('phone').addEventListener('input', function(e) {
-        // Remove any character that is not a number or '+'
-        this.value = this.value.replace(/[^0-9+]/g, '');
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        // Ensure it always starts with '+'
-        if (!this.value.startsWith('+')) {
-            this.value = '+' + this.value.replace(/\+/g, ''); // Removes extra '+'
-        }
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        // Fetch districts based on division selection
-        $('#division').change(function() {
-            var divisionId = $(this).val();
-            if (divisionId) {
-                $.ajax({
-                    url: '/get-districts/' + divisionId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#district').empty().append('<option value="">Select District</option>');
-                        $.each(data, function(key, value) {
-                            $('#district').append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                        $('#upozila').empty().append('<option value="">Select Upozila</option>'); // Reset upozila dropdown
-                    }
-                });
-            } else {
-                $('#district').empty().append('<option value="">Select District</option>');
-                $('#upozila').empty().append('<option value="">Select Upozila</option>');
-            }
-        });
-
-        // Fetch upozilas based on district selection
-        $('#district').change(function() {
-            var districtId = $(this).val();
-            if (districtId) {
-                $.ajax({
-                    url: '/get-upozilas/' + districtId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#upozila').empty().append('<option value="">Select Upozila</option>');
-                        $.each(data, function(key, value) {
-                            $('#upozila').append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#upozila').empty().append('<option value="">Select Upozila</option>');
-            }
-        });
-
-        // Fetch Union based on upozila selection
-        $('#upozila').change(function() {
-            var upozilaId = $(this).val();
-            if (upozilaId) {
-                $.ajax({
-                    url: '/get-unions/' + upozilaId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#union').empty().append('<option value="">Select union</option>');
-                        $.each(data, function(key, value) {
-                            $('#union').append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#union').empty().append('<option value="">Select union</option>');
-            }
-        });
-    });
-</script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-<script>
-    $(document).ready(function() {
-        // Show all users by default
-        $('tbody tr').show();
 
-        // Toggle button click event
-        $('.toggle-btn').click(function() {
-            const role = $(this).data('role'); // Get the role from the button
+    <script src="{{ asset('front/assets/js/main.js') }}"></script>
 
-            // Hide all rows
-            $('tbody tr').hide();
-
-            // Show rows with the selected role
-            $(`tbody tr[data-role="${role}"]`).show();
-
-            // Show "Add New" button and hide registration form for vendors and admins
-            if (role === 'super_admin' || role === 'admin' || role === 'dis_admin' || role === 'upo_admin' || role === 'uni_admin' || role === 'ward_admin') {
-                $('#add-new-section').show();
-                $('#registration-form').hide(); // Hide registration form
-            } else {
-                // Hide both "Add New" button and registration form for customers
-                $('#add-new-section').hide();
-                $('#registration-form').hide();
-            }
-
-            // Set the role in the registration form
-            $('#role').val(role);
-        });
-
-        // Show registration form when "Add New" button is clicked
-        $('#add-new-btn').click(function() {
-            $('#registration-form').show();
-            $('#add-new-section').hide();
-        });
-
-        // Hide registration form when "Cancel" button is clicked
-        $('#cancel-registration').click(function() {
-            $('#registration-form').hide();
-            $('#add-new-section').show();
-        });
-
-        // Edit Button Click Event
-        $('.edit-btn').click(function() {
-            const userId = $(this).data('id');
-            const editUrl = ``; // Route to fetch user data
-            const $row = $(this).closest('tr'); // Get the current row
-
-            // Remove any existing edit forms
-            $('.edit-form').remove();
-
-            // Fetch user data via AJAX
-            $.ajax({
-                url: editUrl,
-                method: 'GET',
-                success: function(response) {
-                    // Create the edit form HTML
-                    const editForm = `
-                        <tr class="edit-form">
-                            <td colspan="7">
-                                <form action="" method="POST" class="p-3 bg-light">
-                                    @csrf
-                    @method('PUT')
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="edit-name">Name</label>
-                                <input type="text" name="name" id="edit-name" class="form-control" value="${response.name}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-email">Email</label>
-                                                <input type="email" name="email" id="edit-email" class="form-control" value="${response.email}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-phone">Phone</label>
-                                                <input type="text" name="phone" id="edit-phone" class="form-control" value="${response.phone_number}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-address">Address</label>
-                                                <input type="text" name="address" id="edit-address" class="form-control" value="${response.address}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="edit-role">Role</label>
-                                                <select name="role" id="edit-role" class="form-control" required>
-                                                    <option value="vendor" ${response.role === 'vendor' ? 'selected' : ''}>Vendor</option>
-                                                    <option value="admin" ${response.role === 'admin' ? 'selected' : ''}>Admin</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                            <button type="button" class="btn btn-secondary cancel-edit">Cancel</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-                    `;
-
-                    // Insert the edit form below the current row
-                    $row.after(editForm);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching user data:', error);
+    <script>
+        $(document).ready(function() {
+            // Fetch districts based on division selection
+            $('#division').change(function() {
+                var divisionId = $(this).val();
+                alert(divisionId);
+                if (divisionId) {
+                    $.ajax({
+                        url: '/get-districts/' + divisionId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#district').empty().append(
+                                '<option value="">Select District</option>');
+                            $.each(data, function(key, value) {
+                                $('#district').append('<option value="' + value.id +
+                                    '">' + value.name + '</option>');
+                            });
+                            $('#upozila').empty().append(
+                                '<option value="">Select Upozila</option>'
+                            ); // Reset upozila dropdown
+                        }
+                    });
+                } else {
+                    $('#district').empty().append('<option value="">Select District</option>');
+                    $('#upozila').empty().append('<option value="">Select Upozila</option>');
                 }
+            });
 
+            // Fetch upozilas based on district selection
+            $('#district').change(function() {
+                var districtId = $(this).val();
+                if (districtId) {
+                    $.ajax({
+                        url: '/get-upozilas/' + districtId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#upozila').empty().append(
+                                '<option value="">Select Upozila</option>');
+                            $.each(data, function(key, value) {
+                                $('#upozila').append('<option value="' + value.id +
+                                    '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#upozila').empty().append('<option value="">Select Upozila</option>');
+                }
+            });
+            // Fetch Union based on upozila selection
+            $('#upozila').change(function() {
+                var upozilaId = $(this).val();
+                if (upozilaId) {
+                    $.ajax({
+                        url: '/get-unions/' + upozilaId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#union').empty().append(
+                                '<option value="">Select union</option>');
+                            $.each(data, function(key, value) {
+                                $('#union').append('<option value="' + value.id + '">' +
+                                    value.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#union').empty().append('<option value="">Select union</option>');
+                }
             });
         });
-
-        // Cancel Edit Button Click Event
-        $(document).on('click', '.cancel-edit', function() {
-            $('.edit-form').remove(); // Remove the edit form
-        });
-    });
-</script>
+    </script>
 </body>
+
 </html>

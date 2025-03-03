@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Storage;
 
+use Carbon\Carbon;
+
 if (!function_exists('setPageMeta')) {
 
     function setPageMeta($content = null, $metaName = "title")
@@ -76,4 +78,23 @@ if (!function_exists('monthNumberGenerate')) {
         $index = array_search($month, ENGLISH_MONTHS);
         return $index+1;
     }
+}
+
+function convertBanglaToEnglish($number) {
+    $banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    $englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    return str_replace($banglaDigits, $englishDigits, $number);
+}
+
+function calculateExpiredDate($banglaYear) {
+    // Convert Bengali number to English
+    $duration = (int) convertBanglaToEnglish($banglaYear);
+
+    // Get today's date
+    $today = Carbon::today();
+
+    // Calculate expired date
+    $expiredDate = $today->addYears($duration);
+
+    return $expiredDate->toDateString(); // Returns YYYY-MM-DD format
 }

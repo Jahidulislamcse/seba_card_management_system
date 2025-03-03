@@ -1,0 +1,319 @@
+
+
+/* tab content hide/show control */
+.btn-area{
+    position: relative;
+    padding: 15px;
+}
+.tab-btns{
+    width: 100%;
+    padding: 5px;
+    height: 38px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid rgb(61, 144, 83);
+    font-size: 14.5px;
+    font-weight: 500 !important;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    > img{
+        height: 20px;
+        cursor: pointer;
+    }
+}
+.btns{
+    display: none;
+    width: 95%;
+    margin: 15px;
+    margin-top: 0px !important;
+    > button{
+        width:100%;
+        padding: 8px 3px;
+        border: none;
+        font-size: 13px;
+        color: #272727;
+        font-weight: 550;
+        text-align: start;
+        background-color: #ffff;
+        font-family: "Poppins", serif;
+    }
+    > button:first-child{
+        min-width: 130px;
+        border-left: none;
+    }
+}
+.active-tab-btn{
+    display: block;
+    position: absolute;
+    top: 80%;
+    left: 0%;
+    border: 1px solid rgb(61, 144, 83);
+    overflow: hidden;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+
+
+
+
+
+.contents{
+    display: none !important;
+}
+.sub_content1,
+.sub_content2,
+.sub_content3{
+    display: none;
+}
+.active-btn{
+    color: #ffffff !important;
+    background-color: rgb(61, 144, 83) !important;
+}
+.active_section,
+.active_content1,
+.active_content2,
+.active_content3{
+    display: block !important;
+}
+/* tab content hide/show control */
+
+@media (max-width: 450px) {
+    .tab-btns{
+        > button{
+            font-size: 12px;
+        }
+        > button:first-child{
+            min-width: 0px;
+        }
+    }
+}
+
+
+
+
+/* form design start */
+.member-add-form{
+    padding: 15px;
+    margin-bottom: 100px;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.profile-photo{
+    height: 60px;
+    width: 60px;
+    background-color: rgb(61, 144, 83);
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    > img{
+        height: 50px;
+    }
+}
+.file-hide{
+    display: none;
+}
+.input-box-icon{
+    width: 35px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color:rgb(61, 144, 83);
+    border: 1px solid rgb(61, 144, 83);
+    > img{
+        height: 20px;
+        width: 20px;
+        object-fit: contain;
+    }
+}
+.input-box{
+    border: 1px solid rgb(61, 144, 83);
+    font-size: 14.5px;
+    font-weight: 500 !important;
+    color: #343538 !important;
+    outline: none;
+}
+.select-group{
+    display: flex !important;
+}
+.input-box-icon{
+    width: 10%;
+}
+.select-box{
+    width: 90%;
+    cursor: pointer;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.input-box::placeholder{
+    font-size: 14px;
+    font-weight: 550 !important;
+    color: #343538 !important;
+}
+.birth-date{
+    width: 90%;
+    display: flex;
+    background: #ffffff;
+    > select {
+        padding: 6px !important;
+        font-size: 14px;
+        width: 100%;
+        cursor: pointer;
+        border: 1px solid rgb(61, 144, 83);
+        font-size: 14.5px;
+        font-weight: 500 !important;
+        color: #343538 !important;
+        outline: none;
+        border-left: none;
+    }
+    > .year-select{
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
+
+.nid-card-area{
+    gap: 15px;
+    display: flex;
+    margin-top: 15px;
+    > div{
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        justify-content: start;
+        > button{
+            border: none;
+            width: 150px;
+            height: 100px;
+            position: relative;
+            > img{
+                width: 100%;
+                height: 100%;
+                border: 2px dotted rgb(61, 144, 83);
+                border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                -ms-border-radius: 5px;
+                -o-border-radius: 5px;
+            }
+        }
+    }
+}
+/* upload icon */
+.upload-icon{
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    > div{
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #555353;
+        border-radius: 100px;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        -ms-border-radius: 100px;
+        -o-border-radius: 100px;
+        > img{
+            height: 20px;
+        }
+    }
+}
+/* upload icon */
+
+.cv-upload-area{
+    margin-top: 20px;
+    > div{
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        > div{
+            width: 150px;
+        }
+        > .demo-cv{
+            width: 150px;
+            height: 50px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dotted rgb(61, 144, 83);
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+        }
+    }
+}
+.cv-upload{
+    border: none;
+    height: 100px;
+    > img{
+        height: 100%;
+    }
+}
+.certificate-upload-area{
+    margin-top: 20px;
+}
+.certificate-upload{
+    border: none;
+    position: relative;
+    > img{
+        height: 100px;
+        width: 150px;
+        border: 2px dotted rgb(61, 144, 83);
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+}
+.form-btns{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+@media (max-width:450px) {
+    .tab-btns{
+        > button{
+            padding: 8px 0px;
+            font-size: 11px;
+        }
+        > button:first-child{
+            min-width: 100px;
+        }
+    }
+    .input-label{
+        font-size: 13px;
+    }
+
+}

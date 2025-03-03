@@ -1,47 +1,63 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="en">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/common.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/Authentication.css') }}">
+    <title>লগিন করুন | Sheba Card Portal</title>
+</head>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+<body>
+    <div class="containers">
+        <div class="content">
+            <a href="index.html" class="logo auth-logo">
+                <img src="{{ asset('front/assets/img/logo.jpg') }}" alt="">
+                <div class="logo-details">
+                    <h4>সেবা কার্ড পোর্টাল</h4>
+                    <p>Qtech Bangladesh</p>
+                </div>
+            </a>
+            <form class="member-add-form login-form" action="{{ route('login') }}" method="POST">
+                @csrf
+                <h6 class="text-center fw-bold">লগিন করুন</h6>
+                <label class="input-label" for="id_no">ফোন নম্বর</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="id_no">
+                        <img src="{{ asset('front/assets/img/number.png') }}" alt="card icon">
+                    </span>
+                    <input type="text" maxlength="40" class="input-box form-control shadow-none" name="phone"
+                        id="phone" placeholder="ফোন নম্বর" required>
+
+                </div>
+                @error('phone')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+
+                <label class="input-label" for="email_address">পাসওয়ার্ড</label>
+                <div class="input-group mb-2">
+                    <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
+                        <img src="{{ asset('front/assets/img/password.png') }}" alt="email icon">
+                    </span>
+                    <input type="text" maxlength="40" class="input-box form-control shadow-none" name="password"
+                        id="password" placeholder="পাসওয়ার্ড" required>
+                </div>
+                @error('password')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+
+                <div class="form-btns">
+                    <a href="{{ route('admin.register') }}" class="button bg-danger m-0">সাইনআপ করুন</a>
+                    <button type="submit" class="button save-btn">লগিন করুন</button>
+                </div>
+            </form>
+
         </div>
+    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <script src="{{ asset('front/assets/js/main.js') }}"></script>
+</body>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>
