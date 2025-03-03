@@ -16,6 +16,62 @@
     <!-- toastr  -->
     <link href="{{ asset('libs/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css">
     <title>Sheba Card</title>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collect Form</title>
+    <style>
+        /* body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        } */
+
+        /* .container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        } */
+
+        h5 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
     
 </head>
 <body>
@@ -40,60 +96,22 @@
             <!-- header end -->
 
             <!-- user table -->
-            <h6 class="all-user">মোট - {{$restBalances->total()}} জন</h6>
-            <form action="{{route('super-admin.rest-balance.index')}}" method="GET" class="search-user-area">
-                <input type="text" name="search" id="search-user" placeholder="mobile number/id" value="{{$search ?? ''}}">
-                <button type="submit" class="button">Submit</button>
-            </form>
-            <div class="user-table">
-                <table class="all-user-table table">
-                    <thead>
-                        <tr>
-                            <th>ক্রমিক নং</th>
-                            <th>নাম</th>
-                            <th>আইডি</th>
-                            <th>মোবাইল নং</th>
-                            <th>বাকি পরিমাণ</th>
-                            <th>তা‌রিখ</th>
-                            <th>বিস্তারিত দেখুন</th>
-                            <th>আদায় করুন</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($restBalances->isNotEmpty())
-                            @foreach ($restBalances as $restBalance )
-                                <tr>
-                                    <td class="serial_no">{{$loop->iteration}}</td>
-                                    <td class="user-name">
-                                        <h6>{{ $restBalance?->receiver->name ?? '' }}</h6>
-                                    
-                                    </td>
-                                    <td class="rest-balance">{{ $restBalance?->receiver->nid ?? '' }}</td>
-                                    <td class="rest-balance">{{$restBalance?->receiver->phone}}</td>
-                                    <td class="rest-balance">{{$restBalance->remaining_due}}</td>
-                                    <td class="view-details-btn">
-                                        <div>
-                                            <a class="details-btn" href="{{route('super-admin.rest-balance.details', $restBalance->id)}}">View Details</a>
-                                        </div>
-                                    </td>
-                                    <td class="collection-btn">
-                                        @if($restBalance->remaining_due != 0)
-                                        <div>
-                                            <a class="collect-btn" href="{{route('super-admin.rest-balance.collect', $restBalance->id)}}">Collect</a>
-                                        </div>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        
-                        @endif
-                        
-
-                    </tbody>
-                </table>
+            <div style="width: 85%;margin: 6% auto;">
+                <h5>অর্থ সংগ্রহ করা</h5>
+                <form action="{{ route('super-admin.rest-balance.collect.store', $restBalance->id) }}" method="POST">
+                    @csrf 
+                    <input type="hidden" name="transaction_id" value="{{ $restBalance->id }}" />
+                    
+                    <input type="number" step="any" name="amount" value="{{ $restBalance->remaining_due }}" 
+                           min="1" max="{{ $restBalance->remaining_due }}" placeholder="Enter Amount" required />
+        
+                    <input type="text" name="notes" placeholder="Notes (Optional)" />
+        
+                    <input type="datetime-local" name="datetime" required />
+        
+                    <button type="submit">Submit</button>
+                </form>
             </div>
-            <!-- user table -->
-            {!! $restBalances->links('vendor.pagination.bootstrap-5', ['total' => $total]) !!}
 
             <!-- footer start -->
             <div class="fixed-bottom">

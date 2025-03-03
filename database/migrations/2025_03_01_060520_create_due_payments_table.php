@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaction_id')->nullable()->constrained('transactions')->onDelete('cascade');
             $table->decimal('amount', 10, 2); // Partial payment amount
+            $table->datetime('datetime')->nullable();
+            $table->text('notes')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->onDelete('set null');
             $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->onDelete('set null');
             $table->timestamps();

@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function getPhotoUrlAttribute()
     {
-        return !is_null($this->photo) ? asset( $this->photo) : null;
+        return !is_null($this->photo) ? asset( $this->photo) : asset('SuperAdmin/assets/img/profile.png');
     }
 
     public function upazila()

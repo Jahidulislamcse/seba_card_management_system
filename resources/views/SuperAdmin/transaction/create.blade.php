@@ -40,7 +40,7 @@
 
 
             <!-- send money start -->
-            <form class="send-money" action="{{route('super.admin.transactions.store')}}" method="POST" data-parsley-validate>
+            <form class="send-money" action="{{route('super-admin.transactions.store')}}" method="POST" data-parsley-validate>
                 @csrf
                 <input type="hidden" name="sender_id" id="sender_id" value="{{ Auth::user()->id }}" />
                 <input type="hidden" name="receiver_id" id="receiver_id" value="" />
@@ -192,7 +192,7 @@
                             response.role.split('_') // Split the role by underscores
                                 .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
                                 .join(' ')+" )" // Join the words back together
-                            $('#user-image').attr('src', response.photo_url);
+                            $('#user-image').attr('src', response.photo_url != null ? response.photo_url : defaultImage);
                             $('#user-name').html(user_name);
                             $('#receiver_id').val(response.id);
                         }else{
