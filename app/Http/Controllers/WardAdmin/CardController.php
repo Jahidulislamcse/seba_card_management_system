@@ -5,6 +5,7 @@ namespace App\Http\Controllers\WardAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Card;
 use App\Models\Customer;
+use App\Models\FamilyMember;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -53,6 +54,13 @@ class CardController extends Controller
             return response()->json(['error' => 'কোনো গ্রাহক পাওয়া যায়নি!'], 404);
         }
 
+        // $family_members = FamilyMember::where('customer_id', $customer->id)->first();
+        $family_members = FamilyMember::where('customer_id', $customer->id)->get();
+
+        if (!$family_members) {
+            return response()->json(['error' => 'কোনো family পাওয়া যায়নি!'], 404);
+        }
+
         return response()->json([
             'name' => $customer->name,
             'father_name' => $customer->father_name,
@@ -63,15 +71,26 @@ class CardController extends Controller
             'occupation' => $customer->occupation,
             'district' => optional($customer->district)->name,
             'upazila' => optional($customer->upazila)->name,
+            'union' => optional($customer->union)->name,
+            'ward' => $customer->ward ?? 'N/A',
             'avatar' => asset($customer->avatar ?? 'assets/img/default.png'),
+
+            // Get all family members
+            'family_members' => $family_members->map(function ($member) {
+                return [
+                    'name' => $member->name,
+                    'date_of_birth' => $member->date_of_birth,
+                    'gender' => $member->gender,
+                    'relationship' => $member->relationship,
+                ];
+            }),
         ]);
     }
 
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-        ]);
+        $validator = Validator::make($request->all(), []);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
