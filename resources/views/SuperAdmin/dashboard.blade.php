@@ -69,7 +69,7 @@
                     <p>কার্ড রেকু‌য়েস্ট </p>
                 </div>
                 <div class="cards">
-                    <a class="card-links" href="RestBalance.html">
+                    <a class="card-links" href="{{ route('super-admin.rest-balance.index') }}">
                         <div>
                             <img src="{{ asset('SuperAdmin/assets/img/account.png')}}" alt="account icon">
                         </div>
