@@ -77,7 +77,7 @@
                     <p>বা‌কি হিসাব</p>
                 </div>
                 <div class="cards">
-                    <a class="card-links" href="UserCreate.html">
+                    <a class="card-links" href="{{route('user.list')}}">
                         <div>
                             <img src="{{ asset('SuperAdmin/assets/img/profile-.png')}}" alt="user icon">
                         </div>
@@ -85,7 +85,7 @@
                     <p>ইউজার তৈরি</p>
                 </div>
                 <div class="cards">
-                    <a class="card-links" href="AddCard.html">
+                    <a class="card-links" href="{{route('cards.list')}}">
                         <div>
                             <img src="{{ asset('SuperAdmin/assets/img/card.png')}}" alt="card icon">
                         </div>
