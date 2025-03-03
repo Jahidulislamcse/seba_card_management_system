@@ -53,7 +53,7 @@
             <!-- balance add & add card alada page hobe -->
             <div class="all-cards">
                 <div class="cards">
-                    <a class="card-links" href="SendMoney.html">
+                    <a class="card-links" href="{{ route('super-admin.transactions.create') }}">
                         <div>
                             <img src="{{ asset('SuperAdmin/assets/img/cash out.png')}}" alt="cash out icon">
                         </div>

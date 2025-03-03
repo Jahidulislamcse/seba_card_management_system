@@ -42,7 +42,7 @@ class TransactionController extends Controller
 
         try {
             $this->transactionService->createTransaction($data);
-            return redirect()->back()->with('success', 'Send Money Created Successfully');
+            return redirect()->route('super-admin.transactions.create')->with('success', 'Send Money Created Successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

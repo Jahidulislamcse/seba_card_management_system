@@ -1,8 +1,6 @@
 
 
-<form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
-    @csrf
-</form>
+
 <div class="fixed-bottom">
     <footer>
         <a href="{{route('dashboard')}}">
@@ -23,3 +21,6 @@
         </a>
     </footer>
 </div>
+<form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
+    @csrf
+</form>

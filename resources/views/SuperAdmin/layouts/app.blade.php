@@ -15,8 +15,7 @@
             @include('SuperAdmin.layouts.partials._header')
             <!-- header end -->
             @yield('content')
-            <!-- card-menu end -->
-
+        
             <!-- footer start -->
             @include('SuperAdmin.layouts.partials._footer')
             <!-- footer end -->
