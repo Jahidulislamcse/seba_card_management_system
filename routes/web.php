@@ -14,6 +14,8 @@ use App\Http\Controllers\SuperAdmin\SuperAdminDashboardController;
 use App\Http\Controllers\UnionAdmin\UnionAdminDashboardController;
 use App\Http\Controllers\UpozilaAdmin\UpozilaAdminDashboardController;
 use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
+use App\Http\Controllers\SuperAdmin\NoticeSettingController;
+use App\Http\Controllers\SuperAdmin\OfferSettingController;
 
 Route::get('/', function () {
     return view('front.index');
@@ -49,6 +51,8 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
         Route::resource('/transactions', TransactionController::class);
         Route::get('/transaction-number-search/{search}', [TransactionController::class, 'searchNumber']);
+        Route::resource('/notice', NoticeSettingController::class);
+        Route::resource('/offer', OfferSettingController::class);
 
         Route::controller(RestBalanceController::class)
         ->prefix('rest-balance')->as('rest-balance.')->group(function () {
@@ -56,9 +60,9 @@ Route::middleware(['role:super_admin'])->group(function () {
             Route::get('/{id}/details', 'restBalanceDetails')->name('details');
             Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
             Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
-            
+
         });
-        
+
     });
 });
 

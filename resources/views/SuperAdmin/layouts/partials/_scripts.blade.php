@@ -1,7 +1,7 @@
     <!--   Core JS Files   -->
     <script src="{{ asset('backend/js/core/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ asset('WardAdmin/assets/js/script.js')}}"></script>
-    <script src="{{ asset('WardAdmin/assets/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('SuperAdmin/assets/js/script.js')}}"></script>
+    <script src="{{ asset('SuperAdmin/assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="https://kit.fontawesome.com/696233e01c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 

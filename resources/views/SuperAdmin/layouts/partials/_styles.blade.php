@@ -2,6 +2,27 @@
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Header.css') }}">
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/footer.css') }}">
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/common.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Notice.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Tab.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/AddCard.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/AddMoney.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/HelpLine.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/IncomeExpense.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/MobileRecharge.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Offer.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/OfferSetting.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Profile.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Report.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/RestBalance.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/SendMoney.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Table.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/UserCreate.css') }}">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/UserManage.css') }}">
+
+
+
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 
@@ -20,5 +41,3 @@
 {{-- <link rel="stylesheet" href="{{ asset('backend/css/plugins.min.css') }}" /> --}}
 
 @stack('styles')
-
-
