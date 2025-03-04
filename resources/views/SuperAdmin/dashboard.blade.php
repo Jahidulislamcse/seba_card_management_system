@@ -93,7 +93,7 @@
         <p>কার্ড এড করুন</p>
     </div>
     <div class="cards">
-        <a class="card-links" href="AddMoney.html">
+        <a class="card-links" href="{{route('super-admin.add-money')}}">
             <div>
                 <img src="{{ asset('SuperAdmin/assets/img/balance statement.png')}}" alt="balance statement icon">
             </div>

@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- send money start -->
-    <form class="send-money" action="{{route('super-admin.transactions.store')}}" method="POST" data-parsley-validate id="send-money-form">
+    <form class="send-money" action="{{route('super-admin.transactions.store')}}" method="POST" data-parsley-validate id="my-form">
         @csrf
         <input type="hidden" name="sender_id" id="sender_id" value="{{ Auth::user()->id }}" />
         <input type="hidden" name="receiver_id" id="receiver_id" value="" />
@@ -19,7 +19,7 @@
                 <img class="user-image" id="user-image" src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="">
             </div>
         </div>
-        <p class="user-name" id="user-name"> </p>
+        <p class="user-name text-left" style="text-align: left;" id="user-name"> </p>
         <input class="send-money-inp" type="text" name="amount" id="amount" placeholder="Amount" required>
         <div class="cashRest">
             <div class="cash">
@@ -43,9 +43,7 @@
 <script>
     $(document).ready(function () {
         // Initialize Parsley validation if a form exists
-        if ($("form").length) {
-            $('form').parsley();
-        }
+
 
         // Function to validate Bangladeshi phone numbers
         function validatePhoneNumber(phoneNumber) {
@@ -53,10 +51,10 @@
             return regex.test(phoneNumber);
         }
 
-        
+
 
         let defaultImage = "{{asset('SuperAdmin/assets/img/profile.png')}}";
-    
+
         function resetData(html = ''){
             $('#user-image').attr('src', defaultImage);
             $('#user-name').html(html);
@@ -71,7 +69,7 @@
             // console.log('total_balance',total_balance, send_amount)
             if(total_balance < send_amount || send_amount == 0) return toastr.error(@json('Your balance is not enough'));
             if($('#receiver_id').val() == '') return toastr.error(@json('Please select a verified user')) ;
-            $('#send-money-form').submit();
+            $('#my-form').submit();
         })
         $(document).on('click', '#verify-btn', function () {
             let number = $('#search-number').val().trim(); // Get the input value and trim whitespace
@@ -97,8 +95,8 @@
                 },
                 success: function (response) {
                     if(Object.keys(response).length !== 0){
-            
-                        let user_name = response.name + ' ( Role: ' + 
+
+                        let user_name = response.name + ' ( Role: ' +
                         response.role.split('_') // Split the role by underscores
                             .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
                             .join(' ')+" )" // Join the words back together
@@ -106,12 +104,12 @@
                         $('#user-name').html(user_name);
                         $('#receiver_id').val(response.id);
                     }else{
-                        
+
                         resetData('Data Not Found...');
                     }
-                
+
                 },
-            
+
                 error: function (xhr, status, error) {
                     // Handle errors
                     resetData('Something went wrong. Please try again.');

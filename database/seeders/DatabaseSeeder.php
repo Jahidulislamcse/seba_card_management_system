@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'role' => USER_ROLE_SUPER_ADMIN,
             'status' => 'approved',
-            'password' => Hash::make('12345678')
+            'password' => Hash::make('12345678'),
+            'phone' => '12345678'
         ]);
 
         $this->call(WardAdminSeeder::class);
