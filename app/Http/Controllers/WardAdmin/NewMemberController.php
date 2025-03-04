@@ -64,8 +64,11 @@ class NewMemberController extends Controller
             'upazila' => Upazila::all(),
             'union' => Union::all(),
             'ward' => Ward::all(),
-            'cards' => Card::where('assign_id', auth()->id())->where('status', 'active')->get(),
+            'cards' => Card::where('assign_id', auth()->id())
+            ->doesntHave('customer')
+            ->where('status', 'active')->get(),
         ];
+
         return view('WardAdmin.new-members.create',$data);
     }
 
@@ -110,14 +113,16 @@ class NewMemberController extends Controller
                 $customerData['nid_back'] = $this->fileUploadService->uploadFile($request,'nid_back',FILE_STORE_PATH);
             }
             $customerData['user_id'] = auth()->user()->id;
-
-            $customerData['expired_date'] = calculateExpiredDate($request->duration_year);
-
-            $customer = Customer::create($customerData);
+            $customer = Customer::create($customerData)->load(['user']);
+            // dd('customer', $customer);
             if(isset($data['family_members'])){
 
                 $customer->family_members()->createMany($request->family_members);
             }
+            //custer balance reduce
+            $card = Card::find($data['card_id']);
+            $customer->user->total_balance = $customer->user->total_balance - $card->price;
+            $customer->user->save();
 
             DB::commit();
             return redirect()->back()->with('success','New Member Created Successfully');

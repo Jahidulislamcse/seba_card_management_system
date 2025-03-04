@@ -20,7 +20,7 @@
         <span class="input-box-icon input-group-text rounded-end-0">
             <img src="{{ asset('assets/img/card.png') }}" alt="card icon">
         </span>
-        <select class="input-box form-control shadow-none" name="card_id" id="card_id" required>
+        <select class="input-box form-control shadow-none" name="card_id" id="card_id" required disabled>
             <option value="">Select an Active Card</option>
             @foreach($cards as $card)
             <option value="{{ $card->id }}"

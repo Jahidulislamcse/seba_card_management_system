@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{ getPageMeta('title') }} | {{  config('app.name') }}</title>
-    @include('WardAdmin.layouts.partials._styles')
+    @include('SuperAdmin.layouts.partials._styles')
 </head>
 <body>
+    
     <div class="container">
         <div class="content">
             <!-- header start -->
-            @include('WardAdmin.layouts.partials._header')
+            @include('SuperAdmin.layouts.partials._header')
             <!-- header end -->
-
             @yield('content')
-
+        
             <!-- footer start -->
-            @include('WardAdmin.layouts.partials._footer')
+            @include('SuperAdmin.layouts.partials._footer')
             <!-- footer end -->
         </div>
     </div>
 
-    @include('WardAdmin.layouts.partials._scripts')
+    @include('SuperAdmin.layouts.partials._scripts')
 
     
 </body>

@@ -41,12 +41,30 @@ body{
     min-width: 100px;
     margin-top: 20px;
 }
+.approved-btn,
+.delete-btn{
+        padding: 5px 8px;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 550;
+        text-decoration: none;
+        font-family: "Poppins", serif;
+}
+.approved-btn{
+    background-color: rgb(29, 165, 86);
+}
+.delete-btn{
+    background-color: rgb(203, 51, 97);
+}
 .form-check-input {
     width: 2.5rem !important; 
     height: 1.3rem; 
     padding: .5rem; 
     cursor: pointer;
 }
+
 
 
 @media (max-width: 1200px) {

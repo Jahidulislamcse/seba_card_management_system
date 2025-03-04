@@ -68,4 +68,8 @@ class Customer extends Model
     {
         return '<span class="badge ' . ($this->status == STATUS_ACTIVE ? 'bg-success' : 'bg-danger') . '">' . ucwords($this->status) . '</span>';
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
