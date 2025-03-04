@@ -309,7 +309,7 @@
     <!-- jQuery CDN with integrity check -->
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('backend/js/core/jquery-3.7.1.min.js') }}"></script>
 
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -320,10 +320,11 @@
 
     <script>
         $(document).ready(function() {
+
             // Fetch districts based on division selection
-            $('#division').change(function() {
+            $(document).on('change','#division',function() {
                 var divisionId = $(this).val();
-                alert(divisionId);
+                // alert(divisionId);
                 if (divisionId) {
                     $.ajax({
                         url: '/get-districts/' + divisionId,
@@ -348,7 +349,8 @@
             });
 
             // Fetch upozilas based on district selection
-            $('#district').change(function() {
+
+            $(document).on('change','#district',function() {
                 var districtId = $(this).val();
                 if (districtId) {
                     $.ajax({
@@ -369,7 +371,8 @@
                 }
             });
             // Fetch Union based on upozila selection
-            $('#upozila').change(function() {
+
+            $(document).on('change','#upozila',function() {
                 var upozilaId = $(this).val();
                 if (upozilaId) {
                     $.ajax({
