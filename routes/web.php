@@ -55,14 +55,12 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::resource('/offer', OfferSettingController::class);
 
         Route::controller(RestBalanceController::class)
-        ->prefix('rest-balance')->as('rest-balance.')->group(function () {
-            Route::get('/', 'restBalances')->name('index');
-            Route::get('/{id}/details', 'restBalanceDetails')->name('details');
-            Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
-            Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
-
-        });
-
+            ->prefix('rest-balance')->as('rest-balance.')->group(function () {
+                Route::get('/', 'restBalances')->name('index');
+                Route::get('/{id}/details', 'restBalanceDetails')->name('details');
+                Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
+                Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
+            });
     });
 });
 
@@ -101,7 +99,7 @@ Route::middleware(['role:ward_admin'])->group(function () {
             Route::post('update/{id}', 'update')->name('update'); // Added {id} parameter
             Route::get('/verify', 'verify')->name('verify');
             Route::get('/search', 'searchCustomer')->name('search');
-    });
+        });
 });
 
 
@@ -113,12 +111,18 @@ Route::prefix('ward-admin')->name('ward.')->group(function () {
 Route::controller(CardController::class)
     ->prefix('cards')->as('cards.')->group(function () {
         Route::get('/', 'index')->name('list');
-        Route::get('/create', 'index')->name('create');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/request', 'prndingCard')->name('request');
         Route::post('store', 'store')->name('store');
         Route::delete('delete/{id}', 'destroy')->name('destroy'); // Changed to DELETE
         Route::get('edit/{id}', 'edit')->name('edit');
         Route::post('update/{id}', 'update')->name('update'); // Added {id} parameter
+        Route::post('/{id}/approve', [CardController::class, 'approveCard'])->name('cards.approve');
+        Route::get('/search', [CardController::class, 'searchCard']);
     });
+
+
+
 
 
 

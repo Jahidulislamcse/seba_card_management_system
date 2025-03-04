@@ -27,18 +27,29 @@
 /* tab content hide/show control */
 .contents{
     display: none;
+    min-height: 80vh;
 }
+
+
 .active-btn{
     color: #272727;
     background-color: #d8a107 !important;
 }
-.active_section{
+/* .active_section{
     display: block !important;
+} */
+
+
+.active_section {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    overflow: visible;
 }
 /* tab content hide/show control */
 
 .content-area{
-    padding: 15px;
+    padding: 5px;
     > h4{
         font-size: 15px;
         font-weight: 600;
@@ -129,7 +140,7 @@
 /* card details add from (single/multi card) */
 .card-add{
     > div{
-        margin-top: 20px;
+        margin-top: 10px;
         > label{
             font-size: 15px;
             font-weight: 550;
