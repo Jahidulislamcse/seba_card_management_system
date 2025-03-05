@@ -20,17 +20,21 @@ class CardController extends Controller
     {
 
         // dd('hello');
-        $data = [
-            'cards' => Card::latest()->paginate(20),
-            'ward_admins' => User::where('role', 'ward_admin')->get(),
-            'division' => Division::all(),
-            'district' => District::all(),
-            'upazila' => Upazila::all(),
-            'union' => Union::all(),
-            'ward' => Ward::all(),
-        ];
+        // $data = [
+        //     'cards' => Card::latest()->paginate(20),
+        //     'ward_admins' => User::where('role', 'ward_admin')->get(),
+        //     'division' => Division::all(),
+        //     'district' => District::all(),
+        //     'upazila' => Upazila::all(),
+        //     'union' => Union::all(),
+        //     'ward' => Ward::all(),
+        // ];
 
-        return view('card.index', $data);
+        $data['cards'] = Card::query()->where('status', 'active')->orWhere('status', 'expired')->latest()->paginate(20);
+
+        // dd($data['cards']);
+
+        return view('card.card-number', $data);
     }
 
 
@@ -147,8 +151,6 @@ class CardController extends Controller
         $validator = Validator::make($request->all(), [
             'card_number' => 'required|digits:6|unique:cards,card_number,' . $id,
             'price' => 'required|numeric',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|in:pending,active,expired'
         ]);
 
@@ -159,8 +161,6 @@ class CardController extends Controller
         $card->update([
             'card_number' => $request->card_number,
             'price' => $request->price,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
             'status' => $request->status,
         ]);
 

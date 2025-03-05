@@ -87,6 +87,14 @@
             <p>কার্ড এড করুন</p>
         </div>
         <div class="cards">
+            <a class="card-links" href="{{ route('cards.list') }}">
+                <div>
+                    <img src="{{ asset('SuperAdmin/assets/img/card.png') }}" alt="card icon">
+                </div>
+            </a>
+            <p>কার্ড নাম্বার লিস্ট</p>
+        </div>
+        <div class="cards">
             <a class="card-links" href="">
                 <div>
                     <img src="{{ asset('SuperAdmin/assets/img/balance statement.png') }}" alt="balance statement icon">
@@ -144,8 +152,7 @@
         </div>
     </div>
 
-</div>
-
+    </div>
 @endsection
 @push('styles')
     <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/index.css') }}">
