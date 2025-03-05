@@ -32,6 +32,21 @@ class UserController extends Controller
         return view('user.index', $data);
     }
 
+    public function create(){
+        setPageMeta('User Create');
+
+        $data = [
+            'users' => User::all(),
+            'division' => Division::all(),
+            'district' => District::all(),
+            'upazila' => Upazila::all(),
+            'union' => Union::all(),
+            'ward' => Ward::all(),
+        ];
+
+        return view('SuperAdmin.user.create', $data);
+    }
+
 
     public function store(Request $request)
     {

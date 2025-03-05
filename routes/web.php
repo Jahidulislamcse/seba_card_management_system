@@ -55,6 +55,9 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::post('/add-money', [TransactionController::class, 'addMoneyStore'])->name('add-money.store');
         Route::resource('/notice', NoticeSettingController::class);
         Route::resource('/offer', OfferSettingController::class);
+        //user
+        Route::resource('/users', UserController::class);
+
 
         Route::controller(RestBalanceController::class)
         ->prefix('rest-balance')->as('rest-balance.')->group(function () {
