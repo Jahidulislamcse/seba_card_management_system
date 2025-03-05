@@ -69,6 +69,7 @@ Route::middleware(['role:super_admin'])->group(function () {
 
         //user
         Route::resource('/users', UserController::class);
+        Route::post('/user/store', [UserController::class, 'userDatastore'])->name('user.store');
 
 
 Route::controller(RestBalanceController::class)

@@ -10,24 +10,15 @@
     </div>
 
     <!-- এডমিন/সাব এডমিন -->
-    <form class="member-add-form contents active_section" action="#" method="POST">
+    <form class="member-add-form contents active_section" action="{{ route('super-admin.user.store') }}" method="POST" enctype="multipart/form-data" data-parsley-validate>
+        @csrf
+        <input type="hidden" name="role" value="{{\App\Models\User::USER_ROLE_ADMIN}}">
+
         <h6 class="text-center fw-bold">এডমিন/সাব এডমিন</h6>
         <button type="button" class="admin-profile-photo profile-photo" id="admin_profile_input">
             <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" id="admin_profile_photo" alt="profile icon">
             <input type="file" name="profile-inp" class="admin-profile-inp file-hide">
         </button>
-
-        <label class="input-label" for="name">ধরন</label>
-        <div class="input-group select-group mb-2">
-            <span class="input-box-icon input-group-text rounded-end-0" id="duration">
-                <img src="http://seba_card_management_system.test/assets/img//term.png" alt="term icon">
-            </span>
-            <select class="input-box select-box" name="duration_year" id="duration" required="">
-                <option value="{{\App\Models\User::USER_ROLE_SUPERADMIN}}">{{strtoupper(\App\Models\User::USER_ROLE_SUPERADMIN)}}</option>
-                <option value="{{\App\Models\User::USER_ROLE_ADMIN}}">{{strtoupper(\App\Models\User::USER_ROLE_ADMIN)}}</option>
-
-            </select>
-        </div>
 
         <label class="input-label" for="name">নাম (বাংলা)</label>
         <div class="input-group mb-2">
@@ -35,7 +26,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
             <input type="text" maxlength="40" class="input-box form-control shadow-none" name="name" id="name"
-                placeholder="নাম (বাংলা)" require>
+                placeholder="নাম (বাংলা)" required>
         </div>
 
 
@@ -47,14 +38,14 @@
             </span>
             <div class="birth-date">
                 <!-- month -->
-                <select>
+                <select name="dob[month]" required>
                     @foreach (ENGLISH_MONTHS as $value)
                         <option value="{{$value}}" {{old('date_of_birth.month') == $value ? 'selected' : ''}}>{{$value}}</option>
                     @endforeach
                 </select>
 
                 <!-- day -->
-                <select>
+                <select name="dob[day]" required>
                     @foreach (ENGLISH_DAYS as $value)
                         <option value="{{$value}}" {{old('date_of_birth.day') == $value ? 'selected' : ''}}>{{$value}}</option>
                     @endforeach
@@ -66,7 +57,7 @@
                     $years = range($currentYear, $startYear);
                 @endphp
                 <!-- year -->
-                <select class="year-select">
+                <select class="year-select" name="dob[year]" required>
                     @foreach ($years as $value)
                         <option value="{{$value}}" {{old('date_of_birth.year') == $value ? 'selected' : ''}}>{{$value}}</option>
                     @endforeach
@@ -88,8 +79,8 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
                 <img src="{{ asset('SuperAdmin/assets/img/number.png')}}" alt="number icon">
             </span>
-            <input type="number" maxlength="40" class="input-box form-control shadow-none" name="mobile_no" id="mobile_no"
-                placeholder="01402860617..." require>
+            <input type="number" maxlength="40" class="input-box form-control shadow-none" name="phone" id="mobile_no"
+                placeholder="01402860617..." required>
         </div>
 
         <label class="input-label" for="email_address">ইমেইল এড্রেস</label>
@@ -97,8 +88,16 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
                 <img src="{{ asset('SuperAdmin/assets/img/email.png')}}" alt="email icon">
             </span>
-            <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email_address"
-                id="email_address" placeholder="example@gmail.com" require>
+            <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email"
+                id="email_address" placeholder="example@gmail.com" required>
+        </div>
+        <label class="input-label" for="email_address">পাসওয়ার্ড</label>
+        <div class="input-group mb-2">
+            <span class="input-box-icon input-group-text rounded-end-0" id="password">
+                <img src="{{ asset('front/assets/img/password.png')}}" alt="password icon">
+            </span>
+            <input type="password" class="input-box form-control shadow-none" name="password"
+                id="password" placeholder="পাসওয়ার্ড" required>
         </div>
 
         <div class="nid-card-area">
@@ -111,7 +110,7 @@
                             <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="" accept="image/*">
                         </div>
                     </div>
-                    <input type="file" name="nid1" class="admin-nid1 file-hide" id="nid1">
+                    <input type="file" name="nid_front" class="admin-nid1 file-hide" id="nid1" accept="image/*">
                 </button>
             </div>
             <div>
@@ -123,7 +122,7 @@
                             <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="" accept="image/*">
                         </div>
                     </div>
-                    <input type="file" name="nid2" class="admin-nid2 file-hide" id="nid2">
+                    <input type="file" name="nid_back" class="admin-nid2 file-hide" id="nid2" accept="image/*">
                 </button>
             </div>
         </div>
@@ -170,7 +169,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
             <input type="text" maxlength="40" class="input-box form-control shadow-none" name="name" id="name"
-                placeholder="নাম (বাংলা)" require>
+                placeholder="নাম (বাংলা)" required>
         </div>
 
         <label class="input-label" for="father_name">পিতার নাম (বাংলা)</label>
@@ -179,7 +178,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
             <input type="text" maxlength="40" class="input-box form-control shadow-none" name="father_name" id="father_name"
-                placeholder="পিতার নাম (বাংলা)" require>
+                placeholder="পিতার নাম (বাংলা)" required>
         </div>
 
         <label class="input-label" for="birth-date">জন্ম তা‌রিখ </label>
@@ -230,7 +229,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/number.png')}}" alt="number icon">
             </span>
             <input type="number" maxlength="40" class="input-box form-control shadow-none" name="mobile_no" id="mobile_no"
-                placeholder="01402860617..." require>
+                placeholder="01402860617..." required>
         </div>
 
         <label class="input-label" for="email_address">ইমেইল এড্রেস</label>
@@ -239,7 +238,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/email.png')}}" alt="email icon">
             </span>
             <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email_address"
-                id="email_address" placeholder="example@gmail.com" require>
+                id="email_address" placeholder="example@gmail.com" required>
         </div>
 
         <label class="input-label" for="division">বিভাগ</label>
@@ -343,7 +342,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
             <input type="text" maxlength="40" class="input-box form-control shadow-none" name="name" id="name"
-                placeholder="নাম (বাংলা)" require>
+                placeholder="নাম (বাংলা)" required>
         </div>
 
         <label class="input-label" for="father_name">পিতার নাম (বাংলা)</label>
@@ -352,7 +351,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
             <input type="text" maxlength="40" class="input-box form-control shadow-none" name="father_name" id="father_name"
-                placeholder="পিতার নাম (বাংলা)" require>
+                placeholder="পিতার নাম (বাংলা)" required>
         </div>
 
         <label class="input-label" for="birth-date">জন্ম তা‌রিখ </label>
@@ -403,7 +402,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/number.png')}}" alt="number icon">
             </span>
             <input type="number" maxlength="40" class="input-box form-control shadow-none" name="mobile_no" id="mobile_no"
-                placeholder="01402860617..." require>
+                placeholder="01402860617..." required>
         </div>
 
         <label class="input-label" for="email_address">ইমেইল এড্রেস</label>
@@ -412,7 +411,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/email.png')}}" alt="email icon">
             </span>
             <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email_address"
-                id="email_address" placeholder="example@gmail.com" require>
+                id="email_address" placeholder="example@gmail.com" required>
         </div>
 
         <label class="input-label" for="division">বিভাগ</label>
@@ -526,7 +525,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
             <input type="text" maxlength="40" class="input-box form-control shadow-none" name="name" id="name"
-                placeholder="নাম (বাংলা)" require>
+                placeholder="নাম (বাংলা)" required>
         </div>
 
         <label class="input-label" for="father_name">পিতার নাম (বাংলা)</label>
@@ -535,7 +534,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
             <input type="text" maxlength="40" class="input-box form-control shadow-none" name="father_name" id="father_name"
-                placeholder="পিতার নাম (বাংলা)" require>
+                placeholder="পিতার নাম (বাংলা)" required>
         </div>
 
         <label class="input-label" for="birth-date">জন্ম তা‌রিখ </label>
@@ -586,7 +585,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/number.png')}}" alt="number icon">
             </span>
             <input type="number" maxlength="40" class="input-box form-control shadow-none" name="mobile_no" id="mobile_no"
-                placeholder="01402860617..." require>
+                placeholder="01402860617..." required>
         </div>
 
         <label class="input-label" for="email_address">ইমেইল এড্রেস</label>
@@ -595,7 +594,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/email.png')}}" alt="email icon">
             </span>
             <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email_address"
-                id="email_address" placeholder="example@gmail.com" require>
+                id="email_address" placeholder="example@gmail.com" required>
         </div>
 
         <label class="input-label" for="division">বিভাগ</label>
@@ -647,7 +646,7 @@
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
             <input type="text" maxlength="40" class="input-box form-control shadow-none" name="word" id="word"
-                placeholder="ওয়ার্ড" require>
+                placeholder="ওয়ার্ড" required>
         </div>
 
         <div class="nid-card-area">
@@ -708,6 +707,13 @@
 @endsection
 @push('styles')
     <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/UserCreate.css')}}">
+    <style>
+        .parsley-errors-list {
+            display: block;
+            width: 100%;
+            margin-top: 5px;
+        }
+    </style>
 @endpush
 @push('scripts')
     <script>

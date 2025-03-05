@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('status')->default('pending');
             $table->string('role')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable(); // To maintain hierarchy
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('father')->nullable();
+            $table->string('id_no')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('nid')->nullable();
             $table->string('phone')->unique()->nullable();

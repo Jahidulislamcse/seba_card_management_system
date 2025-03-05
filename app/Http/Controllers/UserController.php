@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\District;
-use App\Models\Division;
-use App\Models\Union;
-use App\Models\Upazila;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Ward;
+use App\Models\Union;
+use App\Models\Upazila;
+use App\Models\District;
+use App\Models\Division;
+use App\Services\SMSService;
 use Illuminate\Http\Request;
-use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\DB;
+
 use Intervention\Image\ImageManager;
 use Intervention\Image\Facades\Image;
-
-use App\Services\SMSService;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class UserController extends Controller
 {
@@ -158,6 +160,117 @@ class UserController extends Controller
             'alert-type' => 'success'
         ]);
     }
+    public function userDatastore(Request $request)
+    {
+
+        // dd($request->all());
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => 'required|string',
+            'id_no' => 'required|string',
+            'father' => 'nullable|string|max:255',
+            'nid' => 'nullable|string|max:20',
+            'phone' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'division_id' => 'nullable|exists:divisions,id',
+            'district_id' => 'nullable|exists:districts,id',
+            'upazila_id' => 'nullable|exists:upazilas,id',
+            'union_id' => 'nullable|exists:unions,id',
+            'ward' => 'nullable',
+            'photo' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp',
+            'nid_front' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp',
+            'nid_back' => 'nullable|image|mimes:jpeg,JPG,jpg,png,gif,svg,webp,bmp',
+            'cv' => 'nullable|file|mimes:pdf,doc,docx',
+            'certificate' => 'nullable|file',
+            'password' => 'nullable|string|min:8',
+        ]);
+
+        // dd($request->all());
+
+        // $englishMonth = $banglaToEnglishMonths[$request['month']];
+        // $formattedDate = $request['year'] . '-' . $englishMonth . '-' . str_pad($request['day'], 2, '0', STR_PAD_LEFT);
+        // Combine the parts into a string
+        $dob = $request->dob;
+        $dateString = "{$dob['month']} {$dob['day']}, {$dob['year']}";
+        // Parse the string into a Carbon instance
+        $date = Carbon::parse($dateString);
+        // Format the date into YYYY-MM-DD
+        $formattedDate = $date->format('Y-m-d');
+
+        try {
+            DB::beginTransaction();
+            $data = new User();
+
+            // Handle photo upload
+            if ($request->hasFile('photo')) {
+                $image = $request->file('photo');
+                $image_name = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('upload/photos'), $image_name);
+                $data->photo = 'upload/photos/' . $image_name;
+            }
+
+            // Handle NID front upload
+            if ($request->hasFile('nid_front')) {
+                $nid_front = $request->file('nid_front');
+                $nid_front_name = hexdec(uniqid()) . '.' . $nid_front->getClientOriginalExtension();
+                $nid_front->move(public_path('upload/nid'), $nid_front_name);
+                $data->nid_front = 'upload/nid/' . $nid_front_name;
+            }
+
+            // Handle NID back upload
+            if ($request->hasFile('nid_back')) {
+                $nid_back = $request->file('nid_back');
+                $nid_back_name = hexdec(uniqid()) . '.' . $nid_back->getClientOriginalExtension();
+                $nid_back->move(public_path('upload/nid'), $nid_back_name);
+                $data->nid_back = 'upload/nid/' . $nid_back_name;
+            }
+
+            // Handle CV upload
+            if ($request->hasFile('cv')) {
+                $cv = $request->file('cv');
+                $cv_name = hexdec(uniqid()) . '.' . $cv->getClientOriginalExtension();
+                $cv->move(public_path('upload/cv'), $cv_name);
+                $data->cv = 'upload/cv/' . $cv_name;
+            }
+
+            // Handle Certificate upload
+            if ($request->hasFile('certificate')) {
+                $certificate = $request->file('certificate');
+                $certificate_name = hexdec(uniqid()) . '.' . $certificate->getClientOriginalExtension();
+                $certificate->move(public_path('upload/certificate'), $certificate_name);
+                $data->certificate = 'upload/certificate/' . $certificate_name;
+            }
+
+            // Store other user details
+            $data->name = $request->name;
+            $data->role = $request->role;
+            $data->id_no = $request->id_no;
+            $data->father = $request->father ?? null;
+            $data->birth_date = $formattedDate;
+            $data->nid = $request->nid ?? null;
+            $data->phone = $request->phone ?? null;
+            $data->email = $request->email ?? null;
+            $data->division_id = $request->division ?? null;
+            $data->district_id = $request->district ?? null;
+            $data->upazila_id = $request->upozila ?? null;
+            $data->union_id = $request->union ?? null;
+            $data->ward = $request->ward ?? null;
+            $data->password = bcrypt($request->password);
+            $data->raw_password = $request->password;
+
+            $data->save();
+            DB::commit();
+
+            return redirect()->back()->with('success','User Created Successfully');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('errors',$e->getMessage());
+        }
+
+    }
+
 
 
 
