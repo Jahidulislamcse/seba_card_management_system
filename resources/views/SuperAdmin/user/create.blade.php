@@ -132,7 +132,7 @@
                 <div>
                     <button type="button" class="admin-cv-upload cv-upload">
                         <img src="{{ asset('SuperAdmin/assets/img/cv upload.webp')}}" alt="nid card">
-                        <input type="file" name="cv" class="admin-cv file-hide" id="cv">
+                        <input type="file" name="cv" class="admin-cv file-hide" id="  accept="application/pdf"cv">
                     </button>
                 </div>
                 <div class="demo-cv">Demo CV</div>
@@ -156,7 +156,9 @@
     </form>
 
     <!-- উপজেলা এডমিন -->
-    <form class="member-add-form contents" action="#" method="POST">
+    <form class="member-add-form contents"action="{{ route('super-admin.user.store') }}" method="POST" enctype="multipart/form-data" data-parsley-validate>
+        @csrf
+        <input type="hidden" name="role" value="{{\App\Models\User::USER_ROLE_UPO_ADMIN}}">
         <h6 class="text-center fw-bold">উপজেলা এডমিন</h6>
         <button type="button" class="up-profile-photo profile-photo" id="upozila_profile_input">
             <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon" id="upozila_profile_photo">
@@ -177,7 +179,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="father_name">
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
-            <input type="text" maxlength="40" class="input-box form-control shadow-none" name="father_name" id="father_name"
+            <input type="text" maxlength="40" class="input-box form-control shadow-none" name="father" id="father_name"
                 placeholder="পিতার নাম (বাংলা)" required>
         </div>
 
@@ -187,26 +189,26 @@
                 <img src="{{ asset('SuperAdmin/assets/img/date.png')}}" alt="date icon">
             </span>
             <div class="birth-date">
-                <!-- month -->
-                <select>
+                <select name="dob[month]" required>
                     @foreach (ENGLISH_MONTHS as $value)
                         <option value="{{$value}}" {{old('date_of_birth.month') == $value ? 'selected' : ''}}>{{$value}}</option>
                     @endforeach
                 </select>
 
                 <!-- day -->
-                <select>
+                <select name="dob[day]" required>
                     @foreach (ENGLISH_DAYS as $value)
-                    <option value="{{$value}}" {{old('date_of_birth.day') == $value ? 'selected' : ''}}>{{$value}}</option>
-                @endforeach
+                        <option value="{{$value}}" {{old('date_of_birth.day') == $value ? 'selected' : ''}}>{{$value}}</option>
+                    @endforeach
                 </select>
+
                 @php
                     $currentYear = date('Y');
                     $startYear = 1950;
                     $years = range($currentYear, $startYear);
                 @endphp
                 <!-- year -->
-                <select class="year-select">
+                <select class="year-select" name="dob[year]" required>
                     @foreach ($years as $value)
                         <option value="{{$value}}" {{old('date_of_birth.year') == $value ? 'selected' : ''}}>{{$value}}</option>
                     @endforeach
@@ -228,7 +230,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
                 <img src="{{ asset('SuperAdmin/assets/img/number.png')}}" alt="number icon">
             </span>
-            <input type="number" maxlength="40" class="input-box form-control shadow-none" name="mobile_no" id="mobile_no"
+            <input type="number" maxlength="40" class="input-box form-control shadow-none" name="phone" id="mobile_no"
                 placeholder="01402860617..." required>
         </div>
 
@@ -237,8 +239,17 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
                 <img src="{{ asset('SuperAdmin/assets/img/email.png')}}" alt="email icon">
             </span>
-            <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email_address"
+            <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email"
                 id="email_address" placeholder="example@gmail.com" required>
+        </div>
+
+        <label class="input-label" for="email_address">পাসওয়ার্ড</label>
+        <div class="input-group mb-2">
+            <span class="input-box-icon input-group-text rounded-end-0" id="password">
+                <img src="{{ asset('front/assets/img/password.png')}}" alt="password icon">
+            </span>
+            <input type="password" class="input-box form-control shadow-none" name="password"
+                id="password" placeholder="পাসওয়ার্ড" required>
         </div>
 
         <label class="input-label" for="division">বিভাগ</label>
@@ -246,7 +257,7 @@
             <span class="input-box-icon input-group-text rounded-end-0 " id="division" >
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="division_id" id="division_id" class="input-box select-box division division_2" data-tab="2" required>
+            <select name="division" id="division_id" class="input-box select-box division division_2" data-tab="2" required>
                 <option value="">নির্বাচন করুন বিভাগ</option>
                 @foreach ($division as $div)
                 <option value="{{ $div->id }}" {{old('division_id') == $div->id ? 'selected' : ''}}>{{ $div->name }}</option>
@@ -259,7 +270,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="district_id" id="district_id" class="input-box select-box district district_2" data-tab="2" required>
+            <select name="district" id="district_id" class="input-box select-box district district_2" data-tab="2" required>
                 <option value="">জেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -269,7 +280,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="upazila_id" id="upazila_id" class="input-box select-box upazila upazila_2" data-tab="2" required>
+            <select name="upozila" id="upazila_id" class="input-box select-box upazila upazila_2" data-tab="2" required>
                 <option value="">উপজেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -284,7 +295,7 @@
                             <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="">
                         </div>
                     </div>
-                    <input type="file" name="nid1" class="up-nid1 file-hide" id="nid1" accept="image/*">
+                    <input type="file" name="nid_front" class="up-nid1 file-hide" id="nid1" accept="image/*">
                 </button>
             </div>
             <div>
@@ -296,7 +307,7 @@
                             <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="">
                         </div>
                     </div>
-                    <input type="file" name="nid2" class="up-nid2 file-hide" id="nid2" accept="image/*">
+                    <input type="file" name="nid_back" class="up-nid2 file-hide" id="nid2" accept="image/*">
                 </button>
             </div>
         </div>
@@ -306,7 +317,7 @@
                 <div>
                     <button type="button" class="up-cv-upload cv-upload">
                         <img src="{{ asset('SuperAdmin/assets/img/cv upload.webp')}}" alt="nid card">
-                        <input type="file" name="cv" class="up-cv file-hide" id="cv">
+                        <input type="file" name="cv" class="up-cv file-hide" id="cv"  accept="application/pdf">
                     </button>
                 </div>
                 <div class="demo-cv">Demo CV</div>
@@ -489,7 +500,7 @@
                 <div>
                     <button type="button" class="un-cv-upload cv-upload">
                         <img src="{{ asset('SuperAdmin/assets/img/cv upload.webp')}}" alt="nid card">
-                        <input type="file" name="cv" class="un-cv file-hide" id="cv">
+                        <input type="file" name="cv" class="un-cv file-hide" id="cv"  accept="application/pdf">
                     </button>
                 </div>
                 <div class="demo-cv">Demo CV</div>
@@ -681,7 +692,7 @@
                 <div>
                     <button type="button" class="wor-cv-upload cv-upload">
                         <img src="{{ asset('SuperAdmin/assets/img/cv upload.webp')}}" alt="nid card">
-                        <input type="file" name="cv" class="wor-cv file-hide" id="cv">
+                        <input type="file" name="cv" class="wor-cv file-hide" id="cv  accept="application/pdf"">
                     </button>
                 </div>
                 <div class="demo-cv">Demo CV</div>
