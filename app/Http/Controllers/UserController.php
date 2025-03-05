@@ -45,8 +45,11 @@ class UserController extends Controller
             'union' => Union::all(),
             'ward' => Ward::all(),
         ];
+        $upazila_admins = User::where('role', User::USER_ROLE_UPO_ADMIN)->where('status', User::STATUS_APPROVED)
+        ->select(['id','name'])
+        ->get();
 
-        return view('SuperAdmin.user.create', $data);
+        return view('SuperAdmin.user.create',compact('upazila_admins'), $data);
     }
 
 
@@ -245,6 +248,7 @@ class UserController extends Controller
             // Store other user details
             $data->name = $request->name;
             $data->role = $request->role;
+            $data->parent_id = $request->parent_id ?? null;
             $data->id_no = $request->id_no;
             $data->father = $request->father ?? null;
             $data->birth_date = $formattedDate;
