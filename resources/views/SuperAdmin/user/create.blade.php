@@ -244,10 +244,10 @@
 
         <label class="input-label" for="division">বিভাগ</label>
         <div class="input-group mb-2">
-            <span class="input-box-icon input-group-text rounded-end-0 division" id="division" data-id="0">
+            <span class="input-box-icon input-group-text rounded-end-0 " id="division" >
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="division_id" id="division_id" class="input-box select-box" required>
+            <select name="division_id" id="division_id" class="input-box select-box division division_2" data-tab="2" required>
                 <option value="">নির্বাচন করুন বিভাগ</option>
                 @foreach ($division as $div)
                 <option value="{{ $div->id }}" {{old('division_id') == $div->id ? 'selected' : ''}}>{{ $div->name }}</option>
@@ -260,7 +260,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="district_id" id="district_id" class="input-box select-box" required>
+            <select name="district_id" id="district_id" class="input-box select-box district district_2" data-tab="2" required>
                 <option value="">জেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -270,7 +270,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="upazila_id" id="upazila_id" class="input-box select-box" required>
+            <select name="upazila_id" id="upazila_id" class="input-box select-box upazila upazila_2" data-tab="2" required>
                 <option value="">উপজেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -332,8 +332,8 @@
     <!-- ইউনিয়ন এডমিন -->
     <form class="member-add-form contents" action="#" method="POST">
         <h6 class="text-center fw-bold">ইউনিয়ন এডমিন</h6>
-        <button type="button" class="un-profile-photo profile-photo">
-            <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon">
+        <button type="button" class="un-profile-photo profile-photo" id="union_profile_input">
+            <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon" id="union_profile_photo">
             <input type="file" name="profile-inp" class="un-profile-inp file-hide">
         </button>
 
@@ -420,7 +420,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="division">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="division_id" id="division_id" class="input-box select-box" required>
+            <select name="division_id" id="division_id" class="input-box select-box division division_3" data-tab="3" required>
                 <option value="">নির্বাচন করুন বিভাগ</option>
                 @foreach ($division as $div)
                 <option value="{{ $div->id }}" {{old('division_id') == $div->id ? 'selected' : ''}}>{{ $div->name }}</option>
@@ -433,7 +433,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="district_id" id="district_id" class="input-box select-box" required>
+            <select name="district_id" id="district_id" class="input-box select-box district district_3" data-tab="3" required>
                 <option value="">জেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -443,7 +443,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="upazila_id" id="upazila_id" class="input-box select-box" required>
+            <select name="upazila_id" id="upazila_id" class="input-box select-box upazila upazila_3" data-tab="3" required>
                 <option value="">উপজেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -453,7 +453,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="Union">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="union_id" id="union_id" class="input-box select-box">
+            <select name="union_id" id="union_id" class="input-box select-box union union_3" data-tab="3">
                 <option value="">ইউনিয়ন নির্বাচন করুন</option>
             </select>
         </div>
@@ -515,8 +515,8 @@
     <!-- ওর্য়াড এডমিন -->
     <form class="member-add-form contents" action="#" method="POST">
         <h6 class="text-center fw-bold">ওর্য়াড এডমিন</h6>
-        <button type="button" class="wor-profile-photo profile-photo">
-            <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon">
+        <button type="button" class="wor-profile-photo profile-photo" id="wa_profile_input">
+            <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon" id="wa_profile_photo">
             <input type="file" name="profile-inp" class="wor-profile-inp file-hide">
         </button>
 
@@ -603,7 +603,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="division">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="division_id" id="division_id" class="input-box select-box" required>
+            <select name="division_id" id="division_id" class="input-box select-box division division_4" data-tab="4" required>
                 <option value="">নির্বাচন করুন বিভাগ</option>
                 @foreach ($division as $div)
                 <option value="{{ $div->id }}" {{old('division_id') == $div->id ? 'selected' : ''}}>{{ $div->name }}</option>
@@ -616,7 +616,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="district_id" id="district_id" class="input-box select-box" required>
+            <select name="district_id" id="district_id" class="input-box select-box district district_4" data-tab="4" required>
                 <option value="">জেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -626,7 +626,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="upazila_id" id="upazila_id" class="input-box select-box" required>
+            <select name="upazila_id" id="upazila_id" class="input-box select-box upazila upazila_4" data-tab="4" required>
                 <option value="">উপজেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -636,7 +636,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="Union">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="union_id" id="union_id" class="input-box select-box">
+            <select name="union_id" id="union_id" class="input-box select-box union union_4" data-tab="4" required>
                 <option value="">ইউনিয়ন নির্বাচন করুন</option>
             </select>
         </div>
@@ -713,6 +713,26 @@
     <script>
         $(document).ready(function () {
             // Handle file selection and update the image
+            $('#union_profile_input').on('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#union_profile_photo').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            $('#wa_profile_input').on('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#wa_profile_photo').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
             $('#admin_profile_input').on('change', function (event) {
                 const file = event.target.files[0];
                 if (file) {
@@ -852,6 +872,102 @@
                         $('#wa_nid_certificate_photo').attr('src', e.target.result);
                     };
                     reader.readAsDataURL(file);
+                }
+            });
+            //division, district, upazilla fatch
+            // Fetch districts based on division selection
+            $(document).on('change', '.division', function() {
+                let tab = $(this).data('tab')
+                var divisionId = $(this).val();
+                console.log('divisionId', divisionId)
+                if (divisionId) {
+                    $.ajax({
+                        url: '/get-districts/' + divisionId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            if($('.district_'+tab).length > 0){
+                                $('.district_'+tab).empty().append(
+                                '<option value="">নির্বাচন করুন জেলা</option>');
+                                $.each(data, function(key, value) {
+                                    $('.district_'+tab).append('<option value="' + value.id +
+                                        '">' + value.name + '</option>');
+                                });
+
+                            }
+                            if($('.upazila_'+tab).length > 0){
+                                $(`.upazila_${tab}`).empty().append(
+                                    '<option value="">উপজেলা নির্বাচন করুন</option>'
+                                ); // Reset upozila dropdown
+                            }
+
+
+                        }
+                    });
+                } else {
+                    if($('.district_'+tab).length > 0){
+                        $('.district_'+tab).empty().append('<option value="">নির্বাচন করুন জেলা</option>');
+                    }
+                    if($('.upazila_'+tab).length > 0){
+                        $(`.upazila_${tab}`).empty().append('<option value="">উপজেলা নির্বাচন করুন</option>');
+                    }
+                }
+            });
+
+            // Fetch upozilas based on district selection
+
+            $(document).on('change', '.district', function() {
+                let tab = $(this).data('tab')
+                var districtId = $(this).val();
+                if (districtId) {
+                    $.ajax({
+                        url: '/get-upozilas/' + districtId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            if($('.upazila_'+tab).length > 0){
+                                $('.upazila_'+tab).empty().append(
+                                '<option value="">উপজেলা নির্বাচন করুন</option>');
+                                $.each(data, function(key, value) {
+                                    $('.upazila_'+tab).append('<option value="' + value.id +
+                                        '">' + value.name + '</option>');
+                                });
+                            }
+
+                        }
+                    });
+                } else {
+                    if($('.upazila_'+tab).length > 0){
+                        $('.upazila_'+tab).empty().append('<option value="">উপজেলা নির্বাচন করুন</option>');
+                    }
+                }
+            });
+
+            // Fetch Union based on upazila_id selection
+            $(document).on('change', '.upazila', function() {
+                let tab = $(this).data('tab')
+                var upozilaId = $(this).val();
+                if (upozilaId) {
+                    $.ajax({
+                        url: '/get-unions/' + upozilaId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            if($('.union_'+tab).length > 0){
+                                $('.union_'+tab).empty().append(
+                                '<option value="">ইউনিয়ন নির্বাচন করুন</option>');
+                                $.each(data, function(key, value) {
+                                    $('.union_'+tab).append('<option value="' + value.id + '">' +
+                                        value.name + '</option>');
+                                });
+                            }
+
+                        }
+                    });
+                } else {
+                    if($('.union_'+tab).length > 0){
+                        $('.union_'+tab).empty().append('<option value="">ইউনিয়ন নির্বাচন করুন</option>');
+                    }
                 }
             });
         });
