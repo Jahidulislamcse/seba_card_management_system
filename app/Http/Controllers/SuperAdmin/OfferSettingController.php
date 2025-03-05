@@ -11,16 +11,15 @@ class OfferSettingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('SuperAdmin.offer.create');
+        $offers = Offer::latest()->get();
+        return view('SuperAdmin.offer.create', compact('offers'));
     }
 
 
@@ -29,25 +28,26 @@ class OfferSettingController extends Controller
         $request->validate([
             'offer-img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'dedline' => 'required|string',
-            'admin-type' => 'required|in:word-amin,union-amin,upazilla-amin',
+            'admin-type' => 'required|in:word-admin,union-admin,upazilla-admin',
         ]);
 
         $image_name = null;
 
-        if ($request->hasFile('offer-img')) { // Fix: Use 'offer-img' instead of 'banner'
+        if ($request->hasFile('offer-img')) {
             $image = $request->file('offer-img');
             $image_name = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload/offers'), $image_name);
         }
 
         Offer::create([
-            'banner' => $image_name ? 'upload/offers/' . $image_name : null, // Handle case when no image is uploaded
+            'banner' => $image_name ? 'upload/offers/' . $image_name : null,
             'deadline' => $request->dedline,
             'admin_type' => $request->input('admin-type'),
         ]);
 
         return redirect()->back()->with('success', 'Offer saved successfully!');
     }
+
 
 
     /**
@@ -79,6 +79,9 @@ class OfferSettingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $offer = Offer::findOrFail($id);
+        $offer->delete();
+
+        return redirect()->route('super-admin.offer.create')->with('success', 'অফারটি সফলভাবে মুছে ফেলা হয়েছে।');
     }
 }

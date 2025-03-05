@@ -49,7 +49,7 @@
                     <span class="input-box-icon input-group-text rounded-end-0" id="name">
                         <img src="{{ asset('front/assets/img/name.png') }}" alt="name icon">
                     </span>
-                    <input type="text" maxlength="40" class="input-box form-control shadow-none"name="name"
+                    <input type="text" maxlength="40" class="input-box form-control shadow-none" name="name"
                         id="name" placeholder="নাম (বাংলা)" required>
                 </div>
 
@@ -58,7 +58,7 @@
                     <span class="input-box-icon input-group-text rounded-end-0" id="father_name">
                         <img src="{{ asset('front/assets/img/name.png') }}" alt="name icon">
                     </span>
-                    <input type="text" maxlength="40" class="input-box form-control shadow-none"name="father"
+                    <input type="text" maxlength="40" class="input-box form-control shadow-none" name="father"
                         id="father" placeholder="পিতার নাম (বাংলা)">
                 </div>
 
@@ -122,35 +122,11 @@
                             <option value="31">৩১</option>
                         </select>
 
-                        <!-- Year Dropdown -->
                         <select name="year" id="year-select" required>
                             <option value="">বছর নির্বাচন করুন</option>
-                            <!-- Generate years dynamically from a certain range -->
-                            <option value="2000">২০০০</option>
-                            <option value="2001">২০০১</option>
-                            <option value="2002">২০০২</option>
-                            <option value="2003">২০০৩</option>
-                            <option value="2004">২০০৪</option>
-                            <option value="2005">২০০৫</option>
-                            <option value="2006">২০০৬</option>
-                            <option value="2007">২০০৭</option>
-                            <option value="2008">২০০৮</option>
-                            <option value="2009">২০০৯</option>
-                            <option value="2010">২০১০</option>
-                            <option value="2011">২০১১</option>
-                            <option value="2012">২০১২</option>
-                            <option value="2013">২০১৩</option>
-                            <option value="2014">২০১৪</option>
-                            <option value="2015">২০১৫</option>
-                            <option value="2016">২০১৬</option>
-                            <option value="2017">২০১৭</option>
-                            <option value="2018">২০১৮</option>
-                            <option value="2019">২০১৯</option>
-                            <option value="2020">২০২০</option>
-                            <option value="2021">২০২১</option>
-                            <option value="2022">২০২২</option>
-                            <option value="2023">২০২৩</option>
                         </select>
+
+
                     </div>
 
                 </div>
@@ -160,7 +136,7 @@
                     <span class="input-box-icon input-group-text rounded-end-0" id="">
                         <img src="{{ asset('front/assets/img/name.png') }}" alt="card icon">
                     </span>
-                    <input type="text" maxlength="40" class="input-box form-control shadow-none"name="nid"
+                    <input type="text" maxlength="40" class="input-box form-control shadow-none" name="nid"
                         id="nid" placeholder="আইডি নং">
                 </div>
 
@@ -200,7 +176,7 @@
                     <select name="division" id="division" class="input-box form-control shadow-none" required>
                         <option value="">বিভাগ</option>
                         @foreach ($division as $div)
-                            <option value="{{ $div->id }}">{{ $div->name }}</option>
+                        <option value="{{ $div->id }}">{{ $div->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -322,7 +298,7 @@
         $(document).ready(function() {
 
             // Fetch districts based on division selection
-            $(document).on('change','#division',function() {
+            $(document).on('change', '#division', function() {
                 var divisionId = $(this).val();
                 // alert(divisionId);
                 if (divisionId) {
@@ -350,7 +326,7 @@
 
             // Fetch upozilas based on district selection
 
-            $(document).on('change','#district',function() {
+            $(document).on('change', '#district', function() {
                 var districtId = $(this).val();
                 if (districtId) {
                     $.ajax({
@@ -372,7 +348,7 @@
             });
             // Fetch Union based on upozila selection
 
-            $(document).on('change','#upozila',function() {
+            $(document).on('change', '#upozila', function() {
                 var upozilaId = $(this).val();
                 if (upozilaId) {
                     $.ajax({
@@ -394,6 +370,24 @@
             });
         });
     </script>
+    <script>
+        const yearSelect = document.getElementById("year-select");
+        const startYear = 1940;
+        const endYear = 2025;
+
+        function toBengaliNumber(num) {
+            const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+            return num.toString().replace(/\d/g, d => bengaliDigits[d]);
+        }
+
+        for (let year = endYear; year >= startYear; year--) {
+            let option = document.createElement("option");
+            option.value = year;
+            option.textContent = toBengaliNumber(year); 
+            yearSelect.appendChild(option);
+        }
+    </script>
+
 </body>
 
 </html>
