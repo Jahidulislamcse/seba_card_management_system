@@ -6,31 +6,59 @@
         <button type="button" class="active-btn buttons">এড নতুন নো‌টিশ </button>
         <button type="button" class="buttons">নো‌টিশ তা‌লিকা</button>
     </div>
-    <form accept="#" class="contents notice-form active_section">
+    <form action="{{ route('super-admin.notice.store') }}" method="POST" enctype="multipart/form-data" class="contents notice-form active_section">
+        @csrf
         <label for="title">নো‌টিশ টাইটেল</label>
-        <input type="text" name="title" id="title" placeholder="নো‌টিশ টাইটেল">
+        <input type="text" name="title" id="title" placeholder="নো‌টিশ টাইটেল" required>
 
         <label for="date">তা‌রিখ এড</label>
-        <input type="text" name="date" id="date" placeholder="তা‌রিখ এড">
+        <input type="date" name="date" id="date" required>
 
         <label for="file">ফাইল এড</label>
-        <input type="file" name="file" id="file" placeholder="ফাইল এড">
+        <input type="file" name="file" id="file" required>
 
         <button class="button save-btn" type="submit">সাবমিট</button>
     </form>
+
+    <!-- Display Existing Notices -->
     <div class="contents p-3">
-        <p>একটি ত্রুটি সংশোধন মডিউল। ফলস্বরূপ, ত্রুটি সংশোধন মডিউল ব্যবহার করে শব্দ স্তরে OCR সিস্টেমের সামগ্রিক কর্মক্ষমতা 95.29%। এই কর্মক্ষমতা গণনা করা হয়েছিল 20,000 OCR স্বীকৃত শব্দের উপর ভিত্তি করে যা একটি একক ফন্টে</p>
-        <div>
-            <div>
-                <p>একটি ত্রুটি সংশোধন মডিউল। ফলস্বরূপ, ত্রুটি সংশোধন মডিউল ব্যবহার করে শব্দ স্তরে OCR সিস্টেমের সামগ্রিক কর্মক্ষমতা 95.29%। এই কর্মক্ষমতা গণনা করা হয়েছিল 20,000 OCR স্বীকৃত শব্দের উপর ভিত্তি করে যা একটি একক ফন্টে</p>
-
-            </div>
-            <div>
-                <p>একটি ত্রুটি সংশোধন মডিউল। ফলস্বরূপ, ত্রুটি সংশোধন মডিউল ব্যবহার করে শব্দ স্তরে OCR সিস্টেমের সামগ্রিক কর্মক্ষমতা 95.29%। এই কর্মক্ষমতা গণনা করা হয়েছিল 20,000 OCR স্বীকৃত শব্দের উপর ভিত্তি করে যা একটি একক ফন্টে</p>
-
-            </div>
-        </div>
+        <table width="100%" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>নো‌টিশ টাইটেল</th>
+                    <th>তা‌রিখ</th>
+                    <th>ডাউনলোড</th>
+                    <th>অপসারণ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($notices as $index => $notice)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $notice->title }}</td>
+                    <td>{{ \Carbon\Carbon::parse($notice->date)->format('d M, Y') }}</td>
+                    <td>
+                        @if($notice->file)
+                        <a href="{{ route('super-admin.notice.download', basename($notice->file)) }}">ডাউনলোড</a>
+                        @else
+                        N/A
+                        @endif
+                    </td>
+                    <td>
+                        <form action="{{ route('super-admin.notice.destroy', $notice->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('আপনি কি এই নোটিশটি মুছে ফেলতে চান?')">মুছুন</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+
+
 </div>
 
 @endsection

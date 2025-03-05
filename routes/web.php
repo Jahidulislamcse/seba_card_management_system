@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -55,8 +57,18 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::post('/add-money', [TransactionController::class, 'addMoneyStore'])->name('add-money.store');
         Route::resource('/notice', NoticeSettingController::class);
         Route::resource('/offer', OfferSettingController::class);
+        Route::get('/download-notice/{file}', function ($file) {
+            $filePath = public_path("upload/notices/{$file}");
 
-        Route::controller(RestBalanceController::class)
+            if (File::exists($filePath)) {
+                return Response::download($filePath);
+            } else {
+                return abort(404, 'File not found');
+            }
+        })->name('notice.download');
+
+
+Route::controller(RestBalanceController::class)
             ->prefix('rest-balance')->as('rest-balance.')->group(function () {
                 Route::get('/', 'restBalances')->name('index');
                 Route::get('/{id}/details', 'restBalanceDetails')->name('details');

@@ -10,9 +10,7 @@
         <input type="text" name="card" id="card" placeholder="কার্ড সার্চ করুন">
         <img class="search-go-img" src="{{ asset('SuperAdmin/assets/img/download.png') }}" alt="download icon">
     </form>
-    <!-- search area end -->
 
-    <!-- all report start  -->
     <div class="all-report">
         <div class="stock-balance">
             <div>
@@ -41,15 +39,12 @@
             </div>
         </div>
     </div>
-    <!-- all report end  -->
 
-    <!-- card-menu start -->
     <div class="headline mt-0">
         <img src="{{ asset('SuperAdmin/assets/img/notice.png') }}" alt="notice icon">
         <marquee class="notice-area" behavior="scroll" direction="left">নোটিশ বোর্ড</marquee>
         <img class="search-go-img" src="{{ asset('SuperAdmin/assets/img/download.png') }}" alt="">
     </div>
-    <!-- balance add & add card alada page hobe -->
     <div class="all-cards">
         <div class="cards">
             <a class="card-links" href="{{ route('super-admin.transactions.create') }}">
@@ -148,129 +143,9 @@
             <p>ইউজার ম্যানেজ</p>
         </div>
     </div>
-    <div class="card-details">
-        <div>
-            <h4>এক্টিভ এড‌মিন </h4>
-            <p>20</p>
-        </div>
-        <div>
-            <h4>এক্টিভ কার্ড </h4>
-            <p>200 BDT</p>
-        </div>
-        <div class="card-stock">
-            <h4>স্টক কার্ড </h4>
-            <p>20</p>
-        </div>
-    </div>
-</div>
-<!-- all report end  -->
 
-<!-- card-menu start -->
-<div class="headline mt-0">
-    <img src="{{ asset('SuperAdmin/assets/img/notice.png')}}" alt="notice icon">
-    <marquee class="notice-area" behavior="scroll" direction="left">নোটিশ বোর্ড</marquee>
-    <img class="search-go-img" src="{{ asset('SuperAdmin/assets/img/download.png')}}" alt="">
 </div>
-<!-- balance add & add card alada page hobe -->
-<div class="all-cards">
-    <div class="cards">
-        <a class="card-links" href="{{ route('super-admin.transactions.create') }}">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/cash out.png')}}" alt="cash out icon">
-            </div>
-        </a>
-        <p>সেন্ড মা‌নি</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="CardRequest.html">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/card.png')}}" alt="card icon">
-            </div>
-        </a>
-        <p>কার্ড রেকু‌য়েস্ট </p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="{{ route('super-admin.rest-balance.index') }}">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/account.png')}}" alt="account icon">
-            </div>
-        </a>
-        <p>বা‌কি হিসাব</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="{{route('user.list')}}">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/profile-.png')}}" alt="user icon">
-            </div>
-        </a>
-        <p>ইউজার তৈরি</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="{{route('cards.list')}}">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/card.png')}}" alt="card icon">
-            </div>
-        </a>
-        <p>কার্ড এড করুন</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="{{route('super-admin.add-money')}}">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/balance statement.png')}}" alt="balance statement icon">
-            </div>
-        </a>
-        <p>এডমা‌নি</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="IncomeExpense.html">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/income.png')}}" alt="income icon">
-            </div>
-        </a>
-        <p>আয় ব‌্যায়</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="UserReport.html">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/report.png')}}" alt="user report icon">
-            </div>
-        </a>
-        <p>ইউজার রি‌পোর্ট</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="{{ route('super-admin.offer.create') }}">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/offer.png')}}" alt="offer icon">
-            </div>
-        </a>
-        <p>অফার সে‌টিং</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="{{ route('super-admin.notice.create') }}">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/notice.png')}}" alt="notice icon">
-            </div>
-        </a>
-        <p>নো‌টিশ সে‌টিং</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/report.png')}}" alt="user report icon">
-            </div>
-        </a>
-        <p>একনজ‌রে রি‌পোর্ট</p>
-    </div>
-    <div class="cards">
-        <a class="card-links" href="UserManage.html">
-            <div>
-                <img src="{{ asset('SuperAdmin/assets/img/profile-.png')}}" alt="user icon">
-            </div>
-        </a>
-        <p>ইউজার ম্যানেজ</p>
-    </div>
-</div>
-<!-- card-menu end -->
+
 @endsection
 @push('styles')
     <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/index.css') }}">
