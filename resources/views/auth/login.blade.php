@@ -41,7 +41,7 @@
                     <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
                         <img src="{{ asset('front/assets/img/password.png') }}" alt="email icon">
                     </span>
-                    <input type="text" maxlength="40" class="input-box form-control shadow-none" name="password"
+                    <input type="password" maxlength="40" class="input-box form-control shadow-none" name="password"
                         id="password" placeholder="পাসওয়ার্ড" required>
                 </div>
                 @error('password')

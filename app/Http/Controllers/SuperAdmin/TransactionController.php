@@ -89,4 +89,20 @@ class TransactionController extends Controller
         return response()->json($user);
     }
 
+    public function addMoney(){
+        setPageMeta('Add Money');
+        return view('SuperAdmin.transaction.add-money');
+    }
+
+    public function addMoneyStore(Request $request){
+
+        $request->validate([
+            'amount' => 'required|numeric',
+        ]);
+        $user = auth()->user();
+        $user->total_balance += $request->amount;
+        $user->save();
+        return redirect()->back()->with('success', 'Money Added Successfully');
+    }
+
 }

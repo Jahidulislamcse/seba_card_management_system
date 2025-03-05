@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-
+    setPageMeta('Home');
     return view('SuperAdmin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -51,6 +51,8 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
         Route::resource('/transactions', TransactionController::class);
         Route::get('/transaction-number-search/{search}', [TransactionController::class, 'searchNumber']);
+        Route::get('/add-money', [TransactionController::class, 'addMoney'])->name('add-money');
+        Route::post('/add-money', [TransactionController::class, 'addMoneyStore'])->name('add-money.store');
         Route::resource('/notice', NoticeSettingController::class);
         Route::resource('/offer', OfferSettingController::class);
 

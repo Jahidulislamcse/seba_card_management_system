@@ -5,11 +5,11 @@
     <!-- user table -->
     <div style="width: 85%;margin: 6% auto;">
         <h5>অর্থ সংগ্রহ করা</h5>
-        <form action="{{ route('super-admin.rest-balance.collect.store', $restBalance->id) }}" method="POST">
-            @csrf 
+        <form action="{{ route('super-admin.rest-balance.collect.store', $restBalance->id) }}" method="POST" id="my-form">
+            @csrf
             <input type="hidden" name="transaction_id" value="{{ $restBalance->id }}" />
-            
-            <input type="number" step="any" name="amount" value="{{ $restBalance->remaining_due }}" 
+
+            <input type="number" step="any" name="amount" value="{{ $restBalance->remaining_due }}"
                    min="1" max="{{ $restBalance->remaining_due }}" placeholder="Enter Amount" required />
 
             <input type="text" name="notes" placeholder="Notes (Optional)" />
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Table.css')}}">
     <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/RestBalance.css')}}">
     <style>
-        
+
 
         h5 {
             margin-bottom: 15px;

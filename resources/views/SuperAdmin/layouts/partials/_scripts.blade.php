@@ -22,8 +22,8 @@
             // if ($("#basic-datatables").length) {
             //     $("#basic-datatables").DataTable({});
             // }
-            if ($("form").length) {
-                $('form').parsley();
+            if ($("#my-form").length) {
+                $('#my-form').parsley();
             }
 
             $('#total-select-paginate').on('change', function () {

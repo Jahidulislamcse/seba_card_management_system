@@ -20,7 +20,8 @@ class WardAdminSeeder extends Seeder
                 'email' => 'ward_admin@example.com',
                 'role'  => USER_ROLE_WARD_ADMIN,
                 'password' => Hash::make('12345678'),
-                'status' => User::STATUS_APPROVED
+                'status' => User::STATUS_APPROVED,
+                'phone' => '123456789'
             ]
         ];
             //word admin create
