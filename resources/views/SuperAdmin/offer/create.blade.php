@@ -1,7 +1,7 @@
 @extends('SuperAdmin.layouts.app')
 
 @section('content')
-<div>
+<div class="px-3">
     <div class="tab-btns">
         <button type="button" class="active-btn buttons">এড অফার</button>
         <button type="button" class="buttons">অফার তালিকা</button>
@@ -13,16 +13,20 @@
             <div>
                 <label for="offer-img">আপলোড অফার ইমেজ</label>
                 <button class="offer-img-btn" type="button">
-                    <img src="{{ asset('SuperAdmin/assets/img/upload-image.png')}}" alt="img upload icon">
-                    <input type="file" name="offer-img" id="offer-img" class="offer-img">
+                    <img src="{{ asset('SuperAdmin/assets/img/upload-image.png') }}" alt="img upload icon">
+                    <input type="file" name="offer-img" id="offer-img" class="offer-img" onchange="previewImage(event)">
                 </button>
             </div>
-            <div class="show-offer-img">demo image</div>
+            <div class="show-offer-img mt-2">
+                <img id="demo-image" src="" alt="Demo Image" style="display:none; width: 200px; height: 80px; object-fit: cover;" />
+            </div>
+
+
         </div>
 
         <div class="dedline-area">
             <label for="dedline">ডেডলাইন</label>
-            <input type="text" name="dedline" id="dedline" placeholder="Ded Line" required>
+            <input type="text" name="dedline" id="dedline" placeholder="Deadline" required>
         </div>
 
         <div class="admin-types">
@@ -109,5 +113,21 @@
             time_24hr: true,
         });
     });
+</script>
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const demoImage = document.getElementById('demo-image');
+            demoImage.src = e.target.result;
+            demoImage.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
 </script>
 @endpush
