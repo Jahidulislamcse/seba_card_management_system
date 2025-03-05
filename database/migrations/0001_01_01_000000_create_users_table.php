@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreignId('district_id')->unsigned()->nullable();
             $table->foreignId('upazila_id')->unsigned()->nullable();
             $table->foreignId('union_id')->unsigned()->nullable();
-            $table->integer('ward')->nullable();
+            $table->string('ward')->nullable();
             $table->string('photo')->nullable();
             $table->string('nid_front')->nullable();
             $table->string('nid_back')->nullable();

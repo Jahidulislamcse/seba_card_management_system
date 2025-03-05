@@ -189,10 +189,7 @@ class UserController extends Controller
             'password' => 'nullable|string|min:8',
         ]);
 
-        // dd($request->all());
 
-        // $englishMonth = $banglaToEnglishMonths[$request['month']];
-        // $formattedDate = $request['year'] . '-' . $englishMonth . '-' . str_pad($request['day'], 2, '0', STR_PAD_LEFT);
         // Combine the parts into a string
         $dob = $request->dob;
         $dateString = "{$dob['month']} {$dob['day']}, {$dob['year']}";
@@ -426,5 +423,12 @@ class UserController extends Controller
         //        } else {
         //            return redirect()->route('user.list')->with('error', 'User status updated, but SMS sending failed');
         //        }
+    }
+
+    public function getUnionAdmins($upozila_id){
+        $user = User::where('role', User::USER_ROLE_UNI_ADMIN)->where('status', User::STATUS_APPROVED)
+        ->where('parent_id', $upozila_id)
+        ->select(['id','name'])->get();
+        return response()->json($user);
     }
 }

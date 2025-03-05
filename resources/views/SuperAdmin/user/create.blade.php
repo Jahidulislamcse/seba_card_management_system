@@ -535,7 +535,8 @@
             </button>
         </div>
         <hr>
-        <label class="input-label" for="parent_id">অ্যাডমিনের অধীনে</label>
+        <h4 class="input-label" for="parent_id">অ্যাডমিনের অধীনে</h4>
+        <label class="input-label" for="up_admin">উপজেলা এডমিন</label>
         <div class="input-group mb-2">
             <span class="input-box-icon input-group-text rounded-end-0 " id="par">
                 <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
@@ -543,7 +544,7 @@
 
             <select name="parent_id" id="parent_id" class="input-box select-box parent_id"
                 required>
-                <option value="">উপজেলা নির্বাচন করুন অ্যাডমিন</option>
+                <option value="">উপজেলা অ্যাডমিন নির্বাচন করুন </option>
                 @if($upazila_admins->count() > 0)
                     @foreach ($upazila_admins as $upazila_admin)
                         <option value="{{ $upazila_admin->id }}">{{ $upazila_admin->name }}</option>
@@ -557,7 +558,9 @@
     </form>
 
     <!-- ওর্য়াড এডমিন -->
-    <form class="member-add-form contents" action="#" method="POST">
+    <form class="member-add-form contents"action="{{ route('super-admin.user.store') }}" method="POST" enctype="multipart/form-data" data-parsley-validate>
+        @csrf
+        <input type="hidden" name="role" value="{{\App\Models\User::USER_ROLE_UNI_ADMIN}}">
         <h6 class="text-center fw-bold">ওর্য়াড এডমিন</h6>
         <button type="button" class="wor-profile-photo profile-photo" id="wa_profile_input">
             <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon" id="wa_profile_photo">
@@ -578,7 +581,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="father_name">
                 <img src="{{ asset('SuperAdmin/assets/img/name.png')}}" alt="name icon">
             </span>
-            <input type="text" maxlength="40" class="input-box form-control shadow-none" name="father_name" id="father_name"
+            <input type="text" maxlength="40" class="input-box form-control shadow-none" name="father" id="father_name"
                 placeholder="পিতার নাম (বাংলা)" required>
         </div>
 
@@ -589,25 +592,26 @@
             </span>
             <div class="birth-date">
                 <!-- month -->
-                <select>
+                <select name="dob[month]" required>
                     @foreach (ENGLISH_MONTHS as $value)
                         <option value="{{$value}}" {{old('date_of_birth.month') == $value ? 'selected' : ''}}>{{$value}}</option>
                     @endforeach
                 </select>
 
                 <!-- day -->
-                <select>
+                <select name="dob[day]" required>
                     @foreach (ENGLISH_DAYS as $value)
                         <option value="{{$value}}" {{old('date_of_birth.day') == $value ? 'selected' : ''}}>{{$value}}</option>
                     @endforeach
                 </select>
+
                 @php
                     $currentYear = date('Y');
                     $startYear = 1950;
                     $years = range($currentYear, $startYear);
                 @endphp
                 <!-- year -->
-                <select class="year-select">
+                <select class="year-select" name="dob[year]" required>
                     @foreach ($years as $value)
                         <option value="{{$value}}" {{old('date_of_birth.year') == $value ? 'selected' : ''}}>{{$value}}</option>
                     @endforeach
@@ -629,7 +633,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
                 <img src="{{ asset('SuperAdmin/assets/img/number.png')}}" alt="number icon">
             </span>
-            <input type="number" maxlength="40" class="input-box form-control shadow-none" name="mobile_no" id="mobile_no"
+            <input type="number" maxlength="40" class="input-box form-control shadow-none" name="phone" id="mobile_no"
                 placeholder="01402860617..." required>
         </div>
 
@@ -638,8 +642,17 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="mobile_no">
                 <img src="{{ asset('SuperAdmin/assets/img/email.png')}}" alt="email icon">
             </span>
-            <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email_address"
+            <input type="email" maxlength="40" class="input-box form-control shadow-none" name="email"
                 id="email_address" placeholder="example@gmail.com" required>
+        </div>
+
+        <label class="input-label" for="email_address">পাসওয়ার্ড</label>
+        <div class="input-group mb-2">
+            <span class="input-box-icon input-group-text rounded-end-0" id="password">
+                <img src="{{ asset('front/assets/img/password.png')}}" alt="password icon">
+            </span>
+            <input type="password" class="input-box form-control shadow-none" name="password"
+                id="password" placeholder="পাসওয়ার্ড" required>
         </div>
 
         <label class="input-label" for="division">বিভাগ</label>
@@ -647,7 +660,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="division">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="division_id" id="division_id" class="input-box select-box division division_4" data-tab="4"
+            <select name="division" id="division_id" class="input-box select-box division division_4" data-tab="4"
                 required>
                 <option value="">নির্বাচন করুন বিভাগ</option>
                 @foreach ($division as $div)
@@ -661,7 +674,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="district_id" id="district_id" class="input-box select-box district district_4" data-tab="4"
+            <select name="district" id="district_id" class="input-box select-box district district_4" data-tab="4"
                 required>
                 <option value="">জেলা নির্বাচন করুন</option>
             </select>
@@ -672,7 +685,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="Upazilla">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="upazila_id" id="upazila_id" class="input-box select-box upazila upazila_4" data-tab="4" required>
+            <select name="upozila" id="upazila_id" class="input-box select-box upazila upazila_4" data-tab="4" required>
                 <option value="">উপজেলা নির্বাচন করুন</option>
             </select>
         </div>
@@ -682,7 +695,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="Union">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <select name="union_id" id="union_id" class="input-box select-box union union_4" data-tab="4" required>
+            <select name="union" id="union_id" class="input-box select-box union union_4" data-tab="4" required>
                 <option value="">ইউনিয়ন নির্বাচন করুন</option>
             </select>
         </div>
@@ -692,7 +705,7 @@
             <span class="input-box-icon input-group-text rounded-end-0" id="word">
                 <img src="{{ asset('SuperAdmin/assets/img/city.png')}}" alt="city icon">
             </span>
-            <input type="text" maxlength="40" class="input-box form-control shadow-none" name="word" id="word"
+            <input type="text" maxlength="40" class="input-box form-control shadow-none" name="ward" id="word"
                 placeholder="ওয়ার্ড" required>
         </div>
 
@@ -706,7 +719,7 @@
                             <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="">
                         </div>
                     </div>
-                    <input type="file" name="nid1" class="wor-nid1 file-hide" id="nid1">
+                    <input type="file" name="nid_front" class="wor-nid1 file-hide" id="nid1" accept="image/*">
                 </button>
             </div>
             <div>
@@ -718,7 +731,7 @@
                             <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="">
                         </div>
                     </div>
-                    <input type="file" name="nid2" class="wor-nid2 file-hide" id="nid2">
+                    <input type="file" name="nid_back" class="wor-nid2 file-hide" id="nid2" accept="image/*">
                 </button>
             </div>
         </div>
@@ -728,7 +741,7 @@
                 <div>
                     <button type="button" class="wor-cv-upload cv-upload">
                         <img src="{{ asset('SuperAdmin/assets/img/cv upload.webp')}}" alt="nid card">
-                        <input type="file" name="cv" class="wor-cv file-hide" id="cv  accept=" application/pdf"">
+                        <input type="file" name="cv" class="wor-cv file-hide" id="cv" accept="application/pdf">
                     </button>
                 </div>
                 <div class="demo-cv">Demo CV</div>
@@ -746,6 +759,41 @@
                 </div>
                 <input type="file" name="certificate" class="wor-certificate file-hide" id="certificate">
             </button>
+        </div>
+
+        <hr>
+        <h4 class="input-label" for="parent_id">অ্যাডমিনের অধীনে</h4>
+
+        <label class="input-label" for="up_admin">উপজেলা এডমিন</label>
+        <div class="input-group mb-2">
+            <span class="input-box-icon input-group-text rounded-end-0 " id="par">
+                <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
+            </span>
+
+            <select  id="under_up_admin" class="input-box select-box parent_id"
+                required>
+                <option value="">উপজেলা এডমিন নির্বাচন করুন </option>
+                @if($upazila_admins->count() > 0)
+                    @foreach ($upazila_admins as $upazila_admin)
+                        <option value="{{ $upazila_admin->id }}">{{ $upazila_admin->name }}</option>
+                    @endforeach
+                @endif
+
+            </select>
+        </div>
+
+        <label class="input-label" for="up_admin">ইউনিয়ন এডমিন</label>
+        <div class="input-group mb-2">
+            <span class="input-box-icon input-group-text rounded-end-0 " id="par">
+                <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
+            </span>
+
+            <select  id="under_union_admin" name="parent_id" class="input-box select-box parent_id"
+                required>
+                <option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>
+
+
+            </select>
         </div>
 
         <button type="submit" class="button save-btn">Save</button>
@@ -1021,6 +1069,33 @@
                 } else {
                     if ($('.union_' + tab).length > 0) {
                         $('.union_' + tab).empty().append('<option value="">ইউনিয়ন নির্বাচন করুন</option>');
+                    }
+                }
+            });
+            $(document).on('change', '#under_up_admin', function () {
+
+                var upozilaId = $(this).val();
+                if (upozilaId) {
+                    $.ajax({
+                        url: '/super-admin/get-union-admins/' + upozilaId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            if(Object.keys(data).length > 0){
+                                $('#under_union_admin').empty().append(
+                                    '<option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>');
+                                $.each(data, function (key, value) {
+                                    $('#under_union_admin').append('<option value="' + value.id + '">' +
+                                        value.name + '</option>');
+                                });
+                            }
+
+                        }
+                    });
+                } else {
+                    if ($('#under_union_admin').length > 0) {
+                        $('#under_union_admin').empty().append(
+                                    '<option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>');
                     }
                 }
             });
