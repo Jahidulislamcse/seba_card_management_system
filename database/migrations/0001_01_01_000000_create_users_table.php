@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('status')->default('pending');
             $table->string('role')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable(); // To maintain hierarchy
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('father')->nullable();
+            $table->string('id_no')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('nid')->nullable();
             $table->string('phone')->unique()->nullable();
@@ -25,7 +28,7 @@ return new class extends Migration
             $table->foreignId('district_id')->unsigned()->nullable();
             $table->foreignId('upazila_id')->unsigned()->nullable();
             $table->foreignId('union_id')->unsigned()->nullable();
-            $table->integer('ward')->nullable();
+            $table->string('ward')->nullable();
             $table->string('photo')->nullable();
             $table->string('nid_front')->nullable();
             $table->string('nid_back')->nullable();

@@ -81,6 +81,7 @@ class NewMemberController extends Controller
 
         try {
             DB::beginTransaction();
+
             $customerData = $request->only([
                 'card_id',
                 'duration_year',

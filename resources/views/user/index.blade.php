@@ -6,7 +6,7 @@
             <li class="nav-home">
                 <a href="">
                     <i class="icon-home"></i>
-                    Dashboard  
+                    Dashboard
                 </a>
             </li>
             <li class="separator">

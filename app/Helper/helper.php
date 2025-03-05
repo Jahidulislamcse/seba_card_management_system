@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Storage;
-
 use Carbon\Carbon;
+
+use App\Models\User;
+use App\Models\Customer;
+use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('setPageMeta')) {
 
@@ -97,4 +99,13 @@ function calculateExpiredDate($banglaYear) {
     $expiredDate = $today->addYears($duration);
 
     return $expiredDate->toDateString(); // Returns YYYY-MM-DD format
+}
+
+if (!function_exists('generateFormattedNumber')) {
+
+    function  generateFormattedNumber($type='user')
+    {
+        $id = $type == 'user' ? User::latest()->select(['id'])->first()->id ?? 1 : Customer::latest()->select(['id'])->first()->id ?? 1;
+        return str_pad($id, 6, '0', STR_PAD_LEFT);
+    }
 }
