@@ -34,6 +34,20 @@ class UserController extends Controller
         return view('user.index', $data);
     }
 
+    public function index()
+    {
+        $data = [
+            'users' => User::all(),
+            'division' => Division::all(),
+            'district' => District::all(),
+            'upazila' => Upazila::all(),
+            'union' => Union::all(),
+            'ward' => Ward::all(),
+        ];
+
+        return view('user.show', $data);
+    }
+
     public function create(){
         setPageMeta('User Create');
 
