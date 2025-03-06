@@ -781,7 +781,7 @@
     <!-- ওর্য়াড এডমিন -->
     <form class="member-add-form contents"action="{{ route('super-admin.user.store') }}" method="POST" enctype="multipart/form-data" data-parsley-validate>
         @csrf
-        <input type="hidden" name="role" value="{{\App\Models\User::USER_ROLE_UNI_ADMIN}}">
+        <input type="hidden" name="role" value="{{\App\Models\User::USER_ROLE_WARD_ADMIN}}">
         <h6 class="text-center fw-bold">ওর্য়াড এডমিন</h6>
         <button type="button" class="wor-profile-photo profile-photo" id="wa_profile_input">
             <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon" id="wa_profile_photo">
