@@ -97,21 +97,21 @@
                     <table class="pending-user-table " style="width: 100%; border-collapse: collapse;">
                         <thead>
                             <tr>
-                                <th>Profile</th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th>Role</th>
-                                <th>Actions</th>
+                                <th style="border: 1px solid black; padding: 8px;">Profile</th>
+                                <th style="border: 1px solid black; padding: 8px;">Name</th>
+                                <th style="border: 1px solid black; padding: 8px;">Phone</th>
+                                <th style="border: 1px solid black; padding: 8px;">Role</th>
+                                <th style="border: 1px solid black; padding: 8px;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($users->where('status', 'pending')->where('role', $role) as $user)
                             <tr class="user-row" id="user-row-{{ $user->id }}">
-                                <td><img src="{{ asset('storage/' . $user->profile_picture) }}" alt="profile icon" style="max-width: 50px;"></td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ $role == 'upo_admin' ? 'উপজেলা ইউজার' : ($role == 'union_admin' ? 'ইউনিয়ন ইউজার' : ($role == 'district_admin' ? 'জেলা ইউজার' : 'ওর্য়াড ইউজার')) }}</td>
-                                <td>
+                                <td style="border: 1px solid black; padding: 8px;"><img src="{{ asset('storage/' . $user->profile_picture) }}" alt="profile icon" style="max-width: 50px;"></td>
+                                <td style="border: 1px solid black; padding: 8px;">{{ $user->name }}</td>
+                                <td style="border: 1px solid black; padding: 8px;">{{ $user->phone }}</td>
+                                <td style="border: 1px solid black; padding: 8px;">{{ $role == 'upo_admin' ? 'উপজেলা ইউজার' : ($role == 'union_admin' ? 'ইউনিয়ন ইউজার' : ($role == 'district_admin' ? 'জেলা ইউজার' : 'ওর্য়াড ইউজার')) }}</td>
+                                <td style="border: 1px solid black; padding: 8px;">
                                     <button type="button" class="view-more-btn" onclick="toggleUserDetails({{ $user->id }})">View More</button>
                                     <button type="button" class="approved-btn">Approved</button>
                                 </td>
@@ -178,9 +178,6 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-
-
-
                                     </div>
                                 </td>
                             </tr>
@@ -191,7 +188,6 @@
             </div>
             @endforeach
         </div>
-        <!-- Modal for Image Preview -->
         <div id="image-preview-modal" class="image-preview-modal">
             <div class="image-preview-container">
                 <span class="close-btn" onclick="closePreview()">&times;</span>
@@ -207,19 +203,17 @@
     function toggleUserDetails(userId) {
         var detailsRow = document.getElementById('user-details-row-' + userId);
         if (detailsRow.style.display === 'none' || detailsRow.style.display === '') {
-            detailsRow.style.display = 'table-row'; // Show details row
+            detailsRow.style.display = 'table-row';
         } else {
-            detailsRow.style.display = 'none'; // Hide details row
+            detailsRow.style.display = 'none';
         }
     }
 
-    // Function to display the image in the preview modal
     function viewImage(imageSrc) {
         document.getElementById('preview-image').src = imageSrc;
         document.getElementById('image-preview-modal').style.display = 'flex';
     }
 
-    // Function to close the preview modal
     function closePreview() {
         document.getElementById('image-preview-modal').style.display = 'none';
     }
@@ -306,7 +300,6 @@
 </script>
 
 <style>
-    /* Styling for the hover button and image container */
     .image-container {
         position: relative;
         display: inline-block;
@@ -328,7 +321,6 @@
         visibility: visible;
     }
 
-    /* Modal for Image Preview */
     .image-preview-modal {
         display: none;
         position: fixed;
