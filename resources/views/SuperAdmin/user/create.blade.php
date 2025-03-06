@@ -526,6 +526,25 @@
             </button>
         </div>
 
+        <h4 class="input-label" for="parent_id">অ্যাডমিনের অধীনে</h4>
+        <label class="input-label" for="up_admin">জেলা এডমিন</label>
+        <div class="input-group mb-2">
+            <span class="input-box-icon input-group-text rounded-end-0 " id="par">
+                <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
+            </span>
+
+            <select name="parent_id" id="parent_id" class="input-box select-box district_admin district_admin_3" data-tab="3"
+                required>
+                <option value="">জেলা অ্যাডমিন নির্বাচন করুন </option>
+                @if($district_admins->count() > 0)
+                    @foreach ($district_admins as $data)
+                        <option value="{{ $data->id }}">{{ $data->name }}</option>
+                    @endforeach
+                @endif
+
+            </select>
+        </div>
+
         <button type="submit" class="button save-btn">Save</button>
     </form>
 
@@ -723,20 +742,35 @@
         </div>
         <hr>
         <h4 class="input-label" for="parent_id">অ্যাডমিনের অধীনে</h4>
+
+        <label class="input-label" for="up_admin">জেলা এডমিন</label>
+        <div class="input-group mb-2">
+            <span class="input-box-icon input-group-text rounded-end-0 " id="par">
+                <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
+            </span>
+
+            <select class="input-box select-box district_admin district_admin_4" data-tab="4"
+                required>
+                <option value="">জেলা অ্যাডমিন নির্বাচন করুন </option>
+                @if($district_admins->count() > 0)
+                    @foreach ($district_admins as $data)
+                        <option value="{{ $data->id }}">{{ $data->name }}</option>
+                    @endforeach
+                @endif
+
+            </select>
+        </div>
+
         <label class="input-label" for="up_admin">উপজেলা এডমিন</label>
         <div class="input-group mb-2">
             <span class="input-box-icon input-group-text rounded-end-0 " id="par">
                 <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
             </span>
 
-            <select name="parent_id" id="parent_id" class="input-box select-box parent_id"
+            <select name="parent_id" id="parent_id" class="input-box select-box upozila_admin upozila_admin_4" data-tab="4"
                 required>
                 <option value="">উপজেলা অ্যাডমিন নির্বাচন করুন </option>
-                @if($upazila_admins->count() > 0)
-                    @foreach ($upazila_admins as $upazila_admin)
-                        <option value="{{ $upazila_admin->id }}">{{ $upazila_admin->name }}</option>
-                    @endforeach
-                @endif
+
 
             </select>
         </div>
@@ -951,33 +985,46 @@
         <hr>
         <h4 class="input-label" for="parent_id">অ্যাডমিনের অধীনে</h4>
 
-        <label class="input-label" for="up_admin">উপজেলা এডমিন</label>
+        <label class="input-label" for="up_admin">জেলা এডমিন</label>
         <div class="input-group mb-2">
             <span class="input-box-icon input-group-text rounded-end-0 " id="par">
                 <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
             </span>
 
-            <select  id="under_up_admin" class="input-box select-box parent_id"
+            <select class="input-box select-box district_admin district_admin_5" data-tab="5"
                 required>
-                <option value="">উপজেলা এডমিন নির্বাচন করুন </option>
-                @if($upazila_admins->count() > 0)
-                    @foreach ($upazila_admins as $upazila_admin)
-                        <option value="{{ $upazila_admin->id }}">{{ $upazila_admin->name }}</option>
+                <option value="">জেলা অ্যাডমিন নির্বাচন করুন </option>
+                @if($district_admins->count() > 0)
+                    @foreach ($district_admins as $data)
+                        <option value="{{ $data->id }}">{{ $data->name }}</option>
                     @endforeach
                 @endif
 
             </select>
         </div>
 
-        <label class="input-label" for="up_admin">ইউনিয়ন এডমিন</label>
+        <label class="input-label" for="up_admin">উপজেলা এডমিন</label>
         <div class="input-group mb-2">
             <span class="input-box-icon input-group-text rounded-end-0 " id="par">
                 <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
             </span>
 
-            <select  id="under_union_admin" name="parent_id" class="input-box select-box parent_id"
+            <select  class="input-box select-box upozila_admin upozila_admin_5" data-tab="5"
                 required>
-                <option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>
+                <option value="">উপজেলা অ্যাডমিন নির্বাচন করুন </option>
+
+
+            </select>
+        </div>
+        <label class="input-label" for="union_admin">ইউনিয়ন এডমিন</label>
+        <div class="input-group mb-2">
+            <span class="input-box-icon input-group-text rounded-end-0 " id="par">
+                <img src="http://seba_card_management_system.test/SuperAdmin/assets/img/city.png" alt="city icon">
+            </span>
+
+            <select name="parent_id" id="parent_id" class="input-box select-box union_admin union_admin_5" data-tab="5"
+                required>
+                <option value="">উপজেলা অ্যাডমিন নির্বাচন করুন </option>
 
 
             </select>
@@ -1299,20 +1346,22 @@
                     }
                 }
             });
-            $(document).on('change', '#under_up_admin', function () {
 
-                var upozilaId = $(this).val();
-                if (upozilaId) {
+            //under admin search
+            $(document).on('change', '.district_admin', function () {
+                let tab  = $(this).data('tab')
+                var district_id = $(this).val();
+                if (district_id) {
                     $.ajax({
-                        url: '/super-admin/get-union-admins/' + upozilaId,
+                        url: '/super-admin/get-upozila-admins/' + district_id,
                         type: 'GET',
                         dataType: 'json',
                         success: function (data) {
                             if(Object.keys(data).length > 0){
-                                $('#under_union_admin').empty().append(
-                                    '<option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>');
+                                $('.upozila_admin_'+tab).empty().append(
+                                    '<option value="">উপজেলা এডমিন নির্বাচন করুন </option>');
                                 $.each(data, function (key, value) {
-                                    $('#under_union_admin').append('<option value="' + value.id + '">' +
+                                    $('.upozila_admin_'+tab).append('<option value="' + value.id + '">' +
                                         value.name + '</option>');
                                 });
                             }
@@ -1320,12 +1369,66 @@
                         }
                     });
                 } else {
-                    if ($('#under_union_admin').length > 0) {
-                        $('#under_union_admin').empty().append(
+                    if ($('.upozila_admin_'+tab).length > 0) {
+                        $('.upozila_admin_'+tab).empty().append(
+                                    '<option value="">উপজেলা এডমিন নির্বাচন করুন </option>');
+                    }
+                }
+            });
+            $(document).on('change', '.upozila_admin', function () {
+                let tab  = $(this).data('tab')
+                var upozila_id = $(this).val();
+                if (upozila_id) {
+                    $.ajax({
+                        url: '/super-admin/get-union-admins/' + upozila_id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            if(Object.keys(data).length > 0){
+                                $('.union_admin_'+tab).empty().append(
+                                    '<option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>');
+                                $.each(data, function (key, value) {
+                                    $('.union_admin_'+tab).append('<option value="' + value.id + '">' +
+                                        value.name + '</option>');
+                                });
+                            }
+
+                        }
+                    });
+                } else {
+                    if ($('.union_admin_'+tab).length > 0) {
+                        $('.union_admin_'+tab).empty().append(
                                     '<option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>');
                     }
                 }
             });
+            // $(document).on('change', '#under_up_admin', function () {
+
+            //     var upozilaId = $(this).val();
+            //     if (upozilaId) {
+            //         $.ajax({
+            //             url: '/super-admin/get-union-admins/' + upozilaId,
+            //             type: 'GET',
+            //             dataType: 'json',
+            //             success: function (data) {
+            //                 if(Object.keys(data).length > 0){
+            //                     $('#under_union_admin').empty().append(
+            //                         '<option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>');
+            //                     $.each(data, function (key, value) {
+            //                         $('#under_union_admin').append('<option value="' + value.id + '">' +
+            //                             value.name + '</option>');
+            //                     });
+            //                 }
+
+            //             }
+            //         });
+            //     } else {
+            //         if ($('#under_union_admin').length > 0) {
+            //             $('#under_union_admin').empty().append(
+            //                         '<option value="">ইউনিয়ন এডমিন নির্বাচন করুন </option>');
+            //         }
+            //     }
+            // });
         });
     </script>
 @endpush

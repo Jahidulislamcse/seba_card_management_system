@@ -59,11 +59,14 @@ class UserController extends Controller
             'union' => Union::all(),
             'ward' => Ward::all(),
         ];
-        $upazila_admins = User::where('role', User::USER_ROLE_UPO_ADMIN)->where('status', User::STATUS_APPROVED)
+        // $upazila_admins = User::where('role', User::USER_ROLE_UPO_ADMIN)->where('status', User::STATUS_APPROVED)
+        // ->select(['id','name'])
+        // ->get();
+        $district_admins = User::where('role', User::USER_ROLE_DIS_ADMIN)->where('status', User::STATUS_APPROVED)
         ->select(['id','name'])
         ->get();
 
-        return view('SuperAdmin.user.create',compact('upazila_admins'), $data);
+        return view('SuperAdmin.user.create',compact('district_admins'), $data);
     }
 
 
@@ -439,6 +442,12 @@ class UserController extends Controller
         //        }
     }
 
+    public function getUpozilaAdmins($district_id){
+        $user = User::where('role', User::USER_ROLE_UPO_ADMIN)->where('status', User::STATUS_APPROVED)
+        ->where('parent_id', $district_id)
+        ->select(['id','name'])->get();
+        return response()->json($user);
+    }
     public function getUnionAdmins($upozila_id){
         $user = User::where('role', User::USER_ROLE_UNI_ADMIN)->where('status', User::STATUS_APPROVED)
         ->where('parent_id', $upozila_id)

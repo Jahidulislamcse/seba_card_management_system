@@ -71,6 +71,7 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::resource('/users', UserController::class);
         Route::post('/user/store', [UserController::class, 'userDatastore'])->name('user.store');
         Route::get('/get-union-admins/{upozila_id}', [UserController::class, 'getUnionAdmins']);
+        Route::get('/get-upozila-admins/{district_id}', [UserController::class, 'getUpozilaAdmins']);
 
         Route::controller(RestBalanceController::class)
                     ->prefix('rest-balance')->as('rest-balance.')->group(function () {
