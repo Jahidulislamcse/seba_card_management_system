@@ -1,10 +1,10 @@
 <div class="fixed-bottom">
     <footer>
-        <a href="{{route('ward.dashboard')}}">
+        <a href="{{ route('ward.dashboard') }}">
             <img src="{{ asset('assets/img/home.png') }}" alt="home icon">
             <p>হোম</p>
         </a>
-        <a href="Offer.html">
+        <a href="{{ route('ward.offer') }}">
             <img src="{{ asset('assets/img/offer.png') }}" alt="offer icon">
             <p>অফার</p>
         </a>

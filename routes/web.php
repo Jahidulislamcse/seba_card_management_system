@@ -73,13 +73,13 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::get('/get-union-admins/{upozila_id}', [UserController::class, 'getUnionAdmins']);
 
         Route::controller(RestBalanceController::class)
-                    ->prefix('rest-balance')->as('rest-balance.')->group(function () {
-                        Route::get('/', 'restBalances')->name('index');
-                        Route::get('/{id}/details', 'restBalanceDetails')->name('details');
-                        Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
-                        Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
-                    });
+            ->prefix('rest-balance')->as('rest-balance.')->group(function () {
+                Route::get('/', 'restBalances')->name('index');
+                Route::get('/{id}/details', 'restBalanceDetails')->name('details');
+                Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
+                Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
             });
+    });
 });
 
 Route::middleware(['role:admin'])->group(function () {
@@ -107,6 +107,7 @@ Route::middleware(['role:uni_admin'])->group(function () {
 });
 
 Route::middleware(['role:ward_admin'])->group(function () {
+
     Route::controller(App\Http\Controllers\WardAdmin\CardController::class)
         ->prefix('ward-admin-cards')->as('ward_admin.cards.')->group(function () {
             Route::get('/', 'index')->name('list');
@@ -118,12 +119,19 @@ Route::middleware(['role:ward_admin'])->group(function () {
             Route::get('/verify', 'verify')->name('verify');
             Route::get('/search', 'searchCustomer')->name('search');
         });
+
+    Route::controller(App\Http\Controllers\WardAdmin\BalanceController::class)
+        ->prefix('ward-admin-balance')->as('ward_admin.balance.')->group(function () {
+            Route::get('/request', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+        });
 });
 
 
 Route::prefix('ward-admin')->name('ward.')->group(function () {
     Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/new-members', NewMemberController::class);
+    Route::get('/offer', [WardAdminDashboardController::class, 'offer'])->name('offer');
 });
 
 Route::controller(CardController::class)
