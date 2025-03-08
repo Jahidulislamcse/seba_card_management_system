@@ -95,7 +95,7 @@
         <p>কার্ড নাম্বার লিস্ট</p>
     </div>
     <div class="cards">
-        <a class="card-links" href="">
+        <a class="card-links" href="{{route('super-admin.add-money')}}">
             <div>
                 <img src="{{ asset('SuperAdmin/assets/img/balance statement.png') }}" alt="balance statement icon">
             </div>
@@ -143,7 +143,7 @@
         <p>একনজ‌রে রি‌পোর্ট</p>
     </div>
     <div class="cards">
-        <a class="card-links" href="{{ route('super-admin.users.index') }}">
+        <a class="card-links" href="{{ route('super-admin.user.manage') }}">
             <div>
                 <img src="{{ asset('SuperAdmin/assets/img/profile-.png') }}" alt="user icon">
             </div>

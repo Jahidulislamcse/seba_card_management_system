@@ -5,6 +5,7 @@ vendor/
 # Ignore build artifacts and temporary files
 /public/build
 /public/hot
+/public/upload
 /public/storage
 /storage/*.key
 /storage/pail
