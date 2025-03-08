@@ -1,0 +1,55 @@
+/* tab content hide/show control */
+.tab-btns{
+    padding: 15px;
+    display: flex;
+    > button{
+        width: 25%;
+        padding: 8px 3px;
+        border: none;
+        font-size: 13px;
+        color: #272727;
+        font-weight: 550;
+        font-family: "Poppins", serif;
+        border-left: 1px solid rgb(185, 185, 180);
+    }
+    > button:first-child{
+        min-width: 130px;
+        border-left: none;
+    }
+}
+.user-content,
+.cost-content,
+.income-content,
+.contents{
+    display: none !important;
+}
+.sub_content1,
+.sub_content2,
+.sub_content3{
+    display: none;
+}
+.active-btn{
+    color: #272727;
+    background-color: #d8a107 !important;
+}
+.active_user_section,
+.active_cost,
+.active_income,
+.active_section,
+.active_content1,
+.active_content2,
+.active_content3{
+    display: block !important;
+}
+/* tab content hide/show control */
+
+@media (max-width: 450px) {
+    .tab-btns{
+        > button{
+            font-size: 12px;
+        }
+        > button:first-child{
+            min-width: 0px;
+        }
+    }
+}

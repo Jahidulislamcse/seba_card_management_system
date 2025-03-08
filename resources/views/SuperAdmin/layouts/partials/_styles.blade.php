@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Offer.css') }}">
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/OfferSetting.css') }}">
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Profile.css') }}">
-<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Report.css') }}">">
+<link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Report.css') }}">
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/RestBalance.css') }}">
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/SendMoney.css') }}">
 <link rel="stylesheet" href="{{ asset('SuperAdmin/assets/css/Table.css') }}">
