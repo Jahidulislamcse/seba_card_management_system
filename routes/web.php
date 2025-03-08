@@ -72,15 +72,16 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::post('/user/store', [UserController::class, 'userDatastore'])->name('user.store');
         Route::get('/get-union-admins/{upozila_id}', [UserController::class, 'getUnionAdmins']);
         Route::get('/get-upozila-admins/{district_id}', [UserController::class, 'getUpozilaAdmins']);
+        Route::get('/user-manage', [UserController::class, 'userManage'])->name('user.manage');
 
         Route::controller(RestBalanceController::class)
-                    ->prefix('rest-balance')->as('rest-balance.')->group(function () {
-                        Route::get('/', 'restBalances')->name('index');
-                        Route::get('/{id}/details', 'restBalanceDetails')->name('details');
-                        Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
-                        Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
-                    });
+            ->prefix('rest-balance')->as('rest-balance.')->group(function () {
+                Route::get('/', 'restBalances')->name('index');
+                Route::get('/{id}/details', 'restBalanceDetails')->name('details');
+                Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
+                Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
             });
+        });
 });
 
 Route::middleware(['role:admin'])->group(function () {

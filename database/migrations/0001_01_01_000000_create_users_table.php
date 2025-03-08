@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('status')->default('pending');
+            $table->string('active_status')->default(STATUS_ACTIVE);
             $table->string('role')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable(); // To maintain hierarchy
             $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');

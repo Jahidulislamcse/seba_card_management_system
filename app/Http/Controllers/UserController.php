@@ -454,4 +454,17 @@ class UserController extends Controller
         ->select(['id','name'])->get();
         return response()->json($user);
     }
+
+    public function userManage(Request $request){
+        setPageMeta('User Manage');
+
+        $tab = $request->query('tab', 'ward_admins');
+        $total = $request->query('total', 10);
+
+        $approved_ward_admins = User::where('role', User::USER_ROLE_WARD_ADMIN)
+        // ->where('status', User::STATUS_APPROVED)
+        ->paginate($total, ['*'], 'ward_admins');
+        // dd($approved_ward_admins);
+        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total'));
+    }
 }

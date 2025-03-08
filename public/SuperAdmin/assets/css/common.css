@@ -59,14 +59,18 @@ body{
     background-color: rgb(203, 51, 97);
 }
 .form-check-input {
-    width: 2.5rem !important; 
-    height: 1.3rem; 
-    padding: .5rem; 
+    width: 2.5rem !important;
+    height: 1.3rem;
+    padding: .5rem;
     cursor: pointer;
 }
 
 
-
+.parsley-errors-list {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
 @media (max-width: 1200px) {
     .content{
         width: 50%;
