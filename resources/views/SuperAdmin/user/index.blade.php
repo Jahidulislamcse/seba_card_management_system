@@ -20,8 +20,9 @@
     {{-- <div class="user-content active_user_section "> --}}
     <div class="user-content {{$tab == 'ward_admins' ? 'active_user_section' : ''}} ">
         <h6 class="all-user">মোট - {{$approved_ward_admins->total()}} জন</h6>
-        <form action="#" class="search-user-area">
-            <input type="text" name="search-user" id="search-user" placeholder="mobile number/id">
+        <form action="{{route('super-admin.user.manage')}}" class="search-user-area" method="GET">
+            <input type="hidden" name="tab" value="ward_admins">
+            <input type="text" name="search" id="search-user" placeholder="mobile number/id no" value="{{$tab == 'ward_admins' ? $search ?? '' : ''}}">
             <button type="submit" class="button">Submit</button>
         </form>
 

@@ -47,16 +47,17 @@
                             </td>
                         </tr>
                     @endforeach
-                
+
                 @endif
-                
+
 
             </tbody>
         </table>
     </div>
     <!-- user table -->
     <div style="margin-bottom:20%; margin-top:10px;">
-        {!! $restBalances->links('vendor.pagination.bootstrap-5', ['total' => $total]) !!}
+        @php $total_page = !request('total') ?  $approved_ward_admins->total() : $total; @endphp
+        {!! $restBalances->links('vendor.pagination.bootstrap-5', ['total' => $total_page]) !!}
         </div>
 @endsection
 @push('styles')

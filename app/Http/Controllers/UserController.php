@@ -459,12 +459,17 @@ class UserController extends Controller
         setPageMeta('User Manage');
 
         $tab = $request->query('tab', 'ward_admins');
-        $total = $request->query('total', 10);
+        $total = $request->query('total', 2);
+        $search = $request->query('search');
 
         $approved_ward_admins = User::where('role', User::USER_ROLE_WARD_ADMIN)
-        // ->where('status', User::STATUS_APPROVED)
+        ->where('status', User::STATUS_APPROVED)
+        ->when(isset($search) && $tab == 'ward_admins', function ($query) use ($search) {
+            return $query->where('phone', 'like', '%' . $search . '%')
+            ->orWhere('id_no', 'like', '%' . $search . '%');
+        })
         ->paginate($total, ['*'], 'ward_admins');
         // dd($approved_ward_admins);
-        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total'));
+        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total','search'));
     }
 }
