@@ -90,4 +90,16 @@ class User extends Authenticatable
     {
         return $this->balance()->sum('amount');
     }
+
+    public function getRoleName(): string
+    {
+        return match ($this->role) {
+            self::USER_ROLE_ADMIN => 'এডমিন/সাব এডমিন',
+            self::USER_ROLE_DIS_ADMIN => 'জেলা এডমিন',
+            self::USER_ROLE_UPO_ADMIN => 'উপজেলা এডমিন',
+            self::USER_ROLE_UNI_ADMIN => 'ইউনিয়ন এডমিন',
+            self::USER_ROLE_WARD_ADMIN => 'ওর্য়াড এডমিন',
+            default => '',
+        };
+    }
 }

@@ -428,7 +428,8 @@ class UserController extends Controller
 
         $smsSent = $this->smsService->sendSMS($user->phone, $message);
 
-        return redirect()->route('user.list')->with('success', 'User status updated and SMS sent successfully');
+        return redirect()->to(route('super-admin.user.manage').'?tab=pending_admins')->with('success', 'User status updated and SMS sent successfully');
+        // return redirect()->back()->with('success', 'User status updated and SMS sent successfully');
 
 
 
@@ -498,9 +499,15 @@ class UserController extends Controller
         ->with(['division:id,name','district:id,name','upazila:id,name','union:id,name'])
         ->paginate($total, ['*'], 'union_admins_page');
 
+        //pending users
+        $pending_admins = User::query()
+        ->where('status', User::STATUS_PENDING)
+        ->latest()
+        ->get();
 
+        // dd($pending_admins);
 
-        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total','search','approved_district_admins','approved_upozila_admins','approved_union_admins'));
+        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total','search','approved_district_admins','approved_upozila_admins','approved_union_admins','pending_admins'));
     }
 
     public function activeStatusUpdate(Request $request){

@@ -2,13 +2,12 @@
 
 @section('content')
 
-
 <div class="tab-btns">
-    <button type="button" class="buttons active-btn">ইউজার লিস্ট</button>
-    <button type="button" class="buttons">পেনডিং ইউজার</button>
+    <button type="button"  class="buttons {{ in_array($tab, ['ward_admins', 'union_admins', 'upozila_admins', 'district_admins']) ? 'active-btn' : '' }} ">ইউজার লিস্ট</button>
+    <button type="button" class="buttons {{$tab == 'pending_admins' ? 'active-btn' : ''}}" >পেনডিং ইউজার</button>
 </div>
 {{-- {{dd(request('ward_admins') )}} --}}
-<div class="contents active_section">
+<div class="contents {{ in_array($tab, ['ward_admins', 'union_admins', 'upozila_admins', 'district_admins']) ? 'active_section' : '' }} ">
     <div class="tab-btns">
         <button type="button" class="user-list-btn  {{$tab == 'ward_admins' ? 'active-btn' : ''}} ">ওর্য়াড ইউজার</button>
         <button type="button" class="user-list-btn {{$tab == 'union_admins' ? 'active-btn' : ''}}  ">ইউনিয়ন ইউজার</button>
@@ -78,7 +77,7 @@
                     'ward_admins_page' => request('ward_admins_page'),
                     'tab' => 'ward_admins',
                     'total' => $total
-                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page]) !!}
+                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page,'tab' => 'ward_admins']) !!}
                 </div>
         </div>
 
@@ -154,7 +153,7 @@
                     'union_admins_page' => request('union_admins_page'),
                     'tab' => 'union_admins',
                     'total' => $total
-                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page]) !!}
+                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page,'tab' => 'union_admins']) !!}
                 </div>
         </div>
     </div>
@@ -226,7 +225,7 @@
                     'upozila_admins_page' => request('upozila_admins_page'),
                     'tab' => 'upozila_admins',
                     'total' => $total
-                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page]) !!}
+                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page,'tab' => 'upozila_admins']) !!}
                 </div>
         </div>
     </div>
@@ -299,54 +298,32 @@
                     'district_admins_page' => request('district_admins_page'),
                     'tab' => 'district_admins',
                     'total' => $total
-                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page]) !!}
+                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page,'tab' => 'district_admins']) !!}
                 </div>
         </div>
     </div>
 </div>
-<div class="contents">
-    <div class="pending-user">
-        <div class="user-profile">
-            <img src="{{ asset('assets/img/profile.png') }}" alt="profile icon">
-            <div>
-                <h4>মো: রিমন ইসলাম</h4>
-                <p>০১৯০২৮৬০৬১৭</p>
-                <p>উপজেলা ইউজার</p>
+<div class="contents {{$tab == 'pending_admins' ? 'active_section' : ''}}" style="margin-bottom:20%;">
+    @if($pending_admins->count() > 0)
+        @foreach ($pending_admins as $admin)
+        <div class="pending-user">
+            <div class="user-profile">
+                <img src="{{ $admin->photo_url }}" alt="{{$admin->name}}">
+                <div>
+                    <h4>{{ $admin->name }}</h4>
+                    <p>{{ $admin->phone }}</p>
+                    <p>{{ $admin->getRoleName() }}</p>
+                </div>
+            </div>
+            <div class="user-profile-btn">
+                <button type="button" class="view-more-btn">View More</button>
+                <button onclick="window.location.href = '{{ route('user.status', $admin->id) }}'" type="button" class="approved-btn">Approved</button>
             </div>
         </div>
-        <div class="user-profile-btn">
-            <button type="button" class="view-more-btn">View More</button>
-            <button type="button" class="approved-btn">Approved</button>
-        </div>
-    </div>
-    <div class="pending-user">
-        <div class="user-profile">
-            <img src="{{ asset('assets/img/profile.png') }}" alt="profile icon">
-            <div>
-                <h4>মো: রিমন ইসলাম</h4>
-                <p>০১৯০২৮৬০৬১৭</p>
-                <p>উপজেলা ইউজার</p>
-            </div>
-        </div>
-        <div class="user-profile-btn">
-            <button type="button" class="view-more-btn">View More</button>
-            <button type="button" class="approved-btn">Approved</button>
-        </div>
-    </div>
-    <div class="pending-user">
-        <div class="user-profile">
-            <img src="{{ asset('assets/img/profile.png') }}" alt="profile icon">
-            <div>
-                <h4>মো: রিমন ইসলাম</h4>
-                <p>০১৯০২৮৬০৬১৭</p>
-                <p>উপজেলা ইউজার</p>
-            </div>
-        </div>
-        <div class="user-profile-btn">
-            <button type="button" class="view-more-btn">View More</button>
-            <button type="button" class="approved-btn">Approved</button>
-        </div>
-    </div>
+        @endforeach
+
+    @endif
+
 </div>
 
     <!-- send money end -->
