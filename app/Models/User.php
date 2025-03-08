@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function getPhotoUrlAttribute()
     {
-        return !is_null($this->photo) ? asset( $this->photo) : asset('SuperAdmin/assets/img/profile.png');
+        return !is_null($this->photo) ? asset($this->photo) : asset('SuperAdmin/assets/img/profile.png');
     }
 
     public function upazila()
@@ -81,4 +81,13 @@ class User extends Authenticatable
         return $this->belongsTo(Union::class, 'union_id');
     }
 
+    public function balance()
+    {
+        return $this->hasMany(Balance::class, 'admin_id')->where('status', 'approved');
+    }
+
+    public function totalBalance()
+    {
+        return $this->balance()->sum('amount');
+    }
 }

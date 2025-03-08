@@ -2,6 +2,10 @@
 <link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/Header.css') }}">
 <link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/footer.css') }}">
 <link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/common.css') }}">
+<link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/AddBalance.css') }}">
+<link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/Offer.css') }}">
+
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 
@@ -20,5 +24,3 @@
 {{-- <link rel="stylesheet" href="{{ asset('backend/css/plugins.min.css') }}" /> --}}
 
 @stack('styles')
-
-
