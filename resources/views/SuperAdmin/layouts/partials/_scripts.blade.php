@@ -26,18 +26,50 @@
                 $('#my-form').parsley();
             }
 
-            $('#total-select-paginate').on('change', function () {
+            // $('.total-select-paginate').on('change', function () {
+            //     var selectedTotal = $(this).val();
+
+            //     // Get the current URL and query parameters
+            //     var url = new URL(window.location.href);
+
+            //     // Update or add the 'total' query parameter
+            //     url.searchParams.set('total', selectedTotal);
+
+            //     // Redirect to the new URL
+            //     // window.location.href = url.toString();
+            // });
+            $('.total-select-paginate').on('change', function () {
                 var selectedTotal = $(this).val();
+                let tab = $(this).data('tab') ?? ''
 
-                // Get the current URL and query parameters
-                var url = new URL(window.location.href);
+                // Get the current URL
+                const url = new URL(window.location.href);
 
-                // Update or add the 'total' query parameter
-                url.searchParams.set('total', selectedTotal);
+                // Get the query parameters
+                const searchParams = new URLSearchParams(url.search);
 
-                // Redirect to the new URL
+                // Check if the 'tab' parameter exists
+                if (searchParams.has('tab') && tab != '') {
+                    // Update the 'tab' parameter dynamically
+                    searchParams.set('tab', tab); // Replace 'new_tab_value' with your desired value
+                }
+                else if(tab != ''){
+                    searchParams.set('tab', tab); // Replace 'new_tab_value' with your desired value
+                }
+
+                // Optionally, update other parameters (e.g., 'total')
+                searchParams.set('total', selectedTotal); // Replace '30' with your desired value
+
+                // Construct the new URL with the updated query string
+                url.search = searchParams.toString();
+
+                // Redirect to the new URL (or use it as needed)
                 window.location.href = url.toString();
             });
+
+
+
+
 
         });
     </script>

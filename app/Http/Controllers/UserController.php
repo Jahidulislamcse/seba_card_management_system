@@ -430,7 +430,8 @@ class UserController extends Controller
 
         $smsSent = $this->smsService->sendSMS($user->phone, $message);
 
-        return redirect()->route('user.list')->with('success', 'User status updated and SMS sent successfully');
+        return redirect()->to(route('super-admin.user.manage').'?tab=pending_admins')->with('success', 'User status updated and SMS sent successfully');
+        // return redirect()->back()->with('success', 'User status updated and SMS sent successfully');
 
 
 
@@ -461,12 +462,61 @@ class UserController extends Controller
         setPageMeta('User Manage');
 
         $tab = $request->query('tab', 'ward_admins');
-        $total = $request->query('total', 10);
+        $total = $request->query('total', 2);
+        $search = $request->query('search');
 
+        //approved admins
         $approved_ward_admins = User::where('role', User::USER_ROLE_WARD_ADMIN)
-        // ->where('status', User::STATUS_APPROVED)
-        ->paginate($total, ['*'], 'ward_admins');
-        // dd($approved_ward_admins);
-        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total'));
+        ->where('status', User::STATUS_APPROVED)
+        ->when(isset($search) && $tab == 'ward_admins', function ($query) use ($search) {
+            return $query->where('phone', 'like', '%' . $search . '%')
+            ->orWhere('id_no', 'like', '%' . $search . '%');
+        })
+        ->paginate($total, ['*'], 'ward_admins_page');
+
+        $approved_district_admins = User::where('role', User::USER_ROLE_DIS_ADMIN)
+        ->where('status', User::STATUS_APPROVED)
+        ->when(isset($search) && $tab == 'district_admins', function ($query) use ($search) {
+            return $query->where('phone', 'like', '%' . $search . '%')
+            ->orWhere('id_no', 'like', '%' . $search . '%');
+        })
+        ->with(['division:id,name','district:id,name','upazila:id,name'])
+        ->paginate($total, ['*'], 'district_admins_page');
+
+        $approved_upozila_admins = User::where('role', User::USER_ROLE_UPO_ADMIN)
+        ->where('status', User::STATUS_APPROVED)
+        ->when(isset($search) && $tab == 'upozila_admins', function ($query) use ($search) {
+            return $query->where('phone', 'like', '%' . $search . '%')
+            ->orWhere('id_no', 'like', '%' . $search . '%');
+        })
+        ->with(['division:id,name','district:id,name','upazila:id,name'])
+        ->paginate($total, ['*'], 'upozila_admins_page');
+
+        $approved_union_admins = User::where('role', User::USER_ROLE_UNI_ADMIN)
+        ->where('status', User::STATUS_APPROVED)
+        ->when(isset($search) && $tab == 'union_admins', function ($query) use ($search) {
+            return $query->where('phone', 'like', '%' . $search . '%')
+            ->orWhere('id_no', 'like', '%' . $search . '%');
+        })
+        ->with(['division:id,name','district:id,name','upazila:id,name','union:id,name'])
+        ->paginate($total, ['*'], 'union_admins_page');
+
+        //pending users
+        $pending_admins = User::query()
+        ->where('status', User::STATUS_PENDING)
+        ->latest()
+        ->get();
+
+        // dd($pending_admins);
+
+        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total','search','approved_district_admins','approved_upozila_admins','approved_union_admins','pending_admins'));
+    }
+
+    public function activeStatusUpdate(Request $request){
+
+        $user = User::find($request->user_id);
+        $user->active_status = $request->active_status;
+        $user->save();
+        return response()->json(['success' => true]);
     }
 }
