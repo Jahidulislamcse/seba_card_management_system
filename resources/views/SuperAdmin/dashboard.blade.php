@@ -103,7 +103,7 @@
         <p>এডমা‌নি</p>
     </div>
     <div class="cards">
-        <a class="card-links" href="IncomeExpense.html">
+        <a class="card-links" href="{{ route('super-admin.income-expense') }}">
             <div>
                 <img src="{{ asset('SuperAdmin/assets/img/income.png') }}" alt="income icon">
             </div>
@@ -135,7 +135,7 @@
         <p>নো‌টিশ সে‌টিং</p>
     </div>
     <div class="cards">
-        <a class="card-links" href="">
+        <a class="card-links" href="{{ route('super-admin.report.summery') }}">
             <div>
                 <img src="{{ asset('SuperAdmin/assets/img/report.png') }}" alt="user report icon">
             </div>

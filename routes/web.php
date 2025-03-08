@@ -18,6 +18,8 @@ use App\Http\Controllers\UpozilaAdmin\UpozilaAdminDashboardController;
 use App\Http\Controllers\DistrictAdmin\DistrictAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\NoticeSettingController;
 use App\Http\Controllers\SuperAdmin\OfferSettingController;
+use App\Http\Controllers\SuperAdmin\SuperAdminIncomeAndExpenseController;
+use App\Http\Controllers\SuperAdmin\SuperAdminReportController;
 
 Route::get('/', function () {
     return view('front.index');
@@ -80,8 +82,11 @@ Route::middleware(['role:super_admin'])->group(function () {
                 Route::get('/{id}/details', 'restBalanceDetails')->name('details');
                 Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
                 Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
-            });
         });
+
+        Route::get('/report-at-a-glance', [SuperAdminReportController::class, 'reportGlance'])->name('report.summery');
+        Route::get('/income-expense', [SuperAdminIncomeAndExpenseController::class, 'incomeExpense'])->name('income-expense');
+    });
 });
 
 Route::middleware(['role:admin'])->group(function () {
