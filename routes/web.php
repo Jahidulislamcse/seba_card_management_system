@@ -85,7 +85,10 @@ Route::middleware(['role:super_admin'])->group(function () {
         });
 
         Route::get('/report-at-a-glance', [SuperAdminReportController::class, 'reportGlance'])->name('report.summery');
+        Route::get('/report-user', [SuperAdminReportController::class, 'reportUser'])->name('report.user');
+        Route::get('/search-admin-report', [SuperAdminReportController::class, 'searchAdmin'])->name('admin.report.search');
         Route::get('/income-expense', [SuperAdminIncomeAndExpenseController::class, 'incomeExpense'])->name('income-expense');
+        Route::post('/income-expense', [SuperAdminIncomeAndExpenseController::class, 'store'])->name('income-expense.store');
     });
 });
 

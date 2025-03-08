@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->hasMany(Balance::class, 'admin_id')->where('status', 'approved');
     }
 
+    public function incomeAndExpense()
+    {
+        return $this->hasMany(IncomeAndExpense::class, 'user_id');
+    }
+
     public function totalBalance()
     {
         return $this->balance()->sum('amount');

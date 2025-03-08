@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('income_and_expenses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->decimal('amount', 10, 2)->nullable();
+            $table->string('invoice_id')->nullable();
+            $table->date('date')->nullable();
+            $table->string('purpose')->nullable();
+            $table->enum('type', ['income', 'expense']);
             $table->timestamps();
         });
     }

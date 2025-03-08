@@ -418,7 +418,9 @@ class UserController extends Controller
     public function status($id)
     {
         $user = User::findOrFail($id);
-        $user->update(['status' => 'approved']);
+        $user->update(['status' => 'approved',
+            'activation_date' => now()
+        ]);
 
         $password = $user->raw_password ?? "Your set password";
         $message = "Dear {$user->name}, your admin account has been approved!\n";

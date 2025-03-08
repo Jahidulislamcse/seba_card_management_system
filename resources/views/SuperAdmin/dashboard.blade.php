@@ -111,7 +111,7 @@
         <p>আয় ব‌্যায়</p>
     </div>
     <div class="cards">
-        <a class="card-links" href="UserReport.html">
+        <a class="card-links" href="{{ route('super-admin.report.user') }}">
             <div>
                 <img src="{{ asset('SuperAdmin/assets/img/report.png') }}" alt="user report icon">
             </div>
