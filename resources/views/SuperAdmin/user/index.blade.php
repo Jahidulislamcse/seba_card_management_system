@@ -56,7 +56,14 @@
                         <td>
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
-                                <button type="button" class="delete-btn">Delete</button>
+                                <!-- Delete Button -->
+                                <form action="{{ route('user.destroy', $ward_admin->id) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                                    {{-- <button type="button" class="delete-btn">Delete</button> --}}
+                                </form>
+
                                 <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $ward_admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>
@@ -132,7 +139,13 @@
                         <td>
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
-                                <button type="button" class="delete-btn">Delete</button>
+                                <!-- Delete Button -->
+                                <form action="{{ route('user.destroy', $admin->id) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                                    {{-- <button type="button" class="delete-btn">Delete</button> --}}
+                                </form>
                                 <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>
@@ -205,7 +218,13 @@
                         <td>
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
-                                <button type="button" class="delete-btn">Delete</button>
+                                <!-- Delete Button -->
+                                <form action="{{ route('user.destroy', $admin->id) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                                    {{-- <button type="button" class="delete-btn">Delete</button> --}}
+                                </form>
                                 <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>
@@ -278,7 +297,13 @@
                         <td>
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
-                                <button type="button" class="delete-btn">Delete</button>
+                                <!-- Delete Button -->
+                                <form action="{{ route('user.destroy', $admin->id) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                                    {{-- <button type="button" class="delete-btn">Delete</button> --}}
+                                </form>
                                 <button type="button"  onclick="window.location.href = '{{ route('super-admin.users.show', $admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>

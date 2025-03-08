@@ -405,7 +405,7 @@ class UserController extends Controller
         $user->delete();
 
 
-        return redirect()->route('user.list')->with('success', 'User deleted successfully');
+        return redirect()->back()->with('success', 'User deleted successfully');
     }
 
     protected $smsService;
