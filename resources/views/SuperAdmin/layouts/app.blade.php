@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    @include('SuperAdmin.layouts.partials._scripts')
+    {{-- @include('SuperAdmin.layouts.partials._scripts') --}}
 
 
 </body>

@@ -57,6 +57,7 @@
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
                                 <button type="button" class="delete-btn">Delete</button>
+                                <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $ward_admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>
                         <td>
@@ -132,6 +133,7 @@
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
                                 <button type="button" class="delete-btn">Delete</button>
+                                <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>
                         <td>
@@ -204,6 +206,7 @@
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
                                 <button type="button" class="delete-btn">Delete</button>
+                                <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>
                         <td>
@@ -276,6 +279,7 @@
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
                                 <button type="button" class="delete-btn">Delete</button>
+                                <button type="button"  onclick="window.location.href = '{{ route('super-admin.users.show', $admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>
                         <td>
