@@ -73,6 +73,7 @@ Route::middleware(['role:super_admin'])->group(function () {
         Route::get('/get-union-admins/{upozila_id}', [UserController::class, 'getUnionAdmins']);
         Route::get('/get-upozila-admins/{district_id}', [UserController::class, 'getUpozilaAdmins']);
         Route::get('/user-manage', [UserController::class, 'userManage'])->name('user.manage');
+        Route::post('/users/active-status-update', [UserController::class, 'activeStatusUpdate'])->name('user.active-status-update');
 
         Route::controller(RestBalanceController::class)
             ->prefix('rest-balance')->as('rest-balance.')->group(function () {

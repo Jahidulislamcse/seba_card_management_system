@@ -472,4 +472,12 @@ class UserController extends Controller
         // dd($approved_ward_admins);
         return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total','search'));
     }
+
+    public function activeStatusUpdate(Request $request){
+
+        $user = User::find($request->user_id);
+        $user->active_status = $request->active_status;
+        $user->save();
+        return response()->json(['success' => true]);
+    }
 }

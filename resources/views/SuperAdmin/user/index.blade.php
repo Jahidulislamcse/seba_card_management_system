@@ -37,7 +37,7 @@
                         <th>মোবাইল নং</th>
                         <th>ওয়ার্ড</th>
                         <th>ইডিট/ডিলিট</th>
-                        <th>অনুমোদিত/মুলতুবি</th>
+                        <th>এক্টিভ/ডিএক্টিভ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +63,7 @@
                         <td>
                             <div class="status-btn">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="day" {{$ward_admin->status == \App\Models\User::STATUS_APPROVED ? 'checked' : ''}}>
+                                    <input class="form-check-input active_status_switch" data-userid="{{$ward_admin->id}}" type="checkbox" role="switch"  {{$ward_admin->active_status == STATUS_ACTIVE ? 'checked' : ''}}>
                                 </div>
                             </div>
                         </td>
@@ -390,9 +390,40 @@
 
 @endpush
 @push('scripts')
-    <script>
-        $(document).ready(function () {
-
+<script>
+    $(document).ready(function () {
+         // Include CSRF token in AJAX headers
+         $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
-    </script>
+
+        $(document).on('change', '.active_status_switch', function() {
+            var id = $(this).data('userid');
+            var active_status = $(this).prop('checked') == true ? 'active' : 'inactive'; // This will return true if checked, false if unchecked
+             // Send AJAX POST request
+            $.ajax({
+                url: "{!! route('super-admin.user.active-status-update')!!}", // Replace with your route URL
+                type: 'POST',
+                data: {
+                    user_id: id,
+                    active_status: active_status
+                },
+                success: function(response) {
+                    console.log('Response:', response);
+                    if (response.success) {
+                        alert('Status updated successfully!');
+                    } else {
+                        alert('Failed to update status.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating the status.');
+                }
+            });
+        });
+    });
+</script>
 @endpush
