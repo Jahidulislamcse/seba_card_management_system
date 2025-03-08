@@ -26,7 +26,7 @@
                 $('#my-form').parsley();
             }
 
-            $('#total-select-paginate').on('change', function () {
+            $('.total-select-paginate').on('change', function () {
                 var selectedTotal = $(this).val();
 
                 // Get the current URL and query parameters
