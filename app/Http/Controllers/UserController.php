@@ -462,7 +462,7 @@ class UserController extends Controller
         setPageMeta('User Manage');
 
         $tab = $request->query('tab', 'ward_admins');
-        $total = $request->query('total', 2);
+        $total = $request->query('total', 10);
         $search = $request->query('search');
 
         //approved admins
