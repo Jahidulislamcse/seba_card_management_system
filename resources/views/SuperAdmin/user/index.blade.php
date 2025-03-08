@@ -316,7 +316,7 @@
                 </div>
             </div>
             <div class="user-profile-btn">
-                <button type="button" class="view-more-btn">View More</button>
+                <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $admin->id) }}'" class="view-more-btn">View More</button>
                 <button onclick="window.location.href = '{{ route('user.status', $admin->id) }}'" type="button" class="approved-btn">Approved</button>
             </div>
         </div>

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $guarded = ['id'];
-    protected $appends = ['photo_url'];
+    protected $appends = ['photo_url','nid_front_url','nid_back_url','cv_url','certificate_url'];
 
     // ---------------- const ----------------
     const USER_ROLE_SUPERADMIN = 'superadmin';
@@ -58,6 +58,22 @@ class User extends Authenticatable
     public function getPhotoUrlAttribute()
     {
         return !is_null($this->photo) ? asset($this->photo) : asset('SuperAdmin/assets/img/profile.png');
+    }
+    public function getNidFrontUrlAttribute()
+    {
+        return !is_null($this->nid_front) ? asset($this->nid_front) : asset('images/default/not_available.jpg');
+    }
+    public function getNidBackUrlAttribute()
+    {
+        return !is_null($this->nid_back) ? asset($this->nid_back) : asset('images/default/not_available.jpg');
+    }
+    public function getCvUrlAttribute()
+    {
+        return !is_null($this->cv) ? asset($this->cv) : asset('images/default/not_available.jpg');
+    }
+    public function getCertificateUrlAttribute()
+    {
+        return !is_null($this->certificate) ? asset($this->certificate) : asset('images/default/not_available.jpg');
     }
 
     public function upazila()
@@ -106,5 +122,69 @@ class User extends Authenticatable
             self::USER_ROLE_WARD_ADMIN => 'ওর্য়াড এডমিন',
             default => '',
         };
+    }
+
+     // Upozila Admin has many Union Admins
+     public function upozila_admins()
+     {
+         return $this->hasMany(User::class, 'parent_id')->where('role', self::USER_ROLE_UPO_ADMIN);
+     }
+     public function union_admins()
+     {
+         return $this->hasMany(User::class, 'parent_id')->where('role', self::USER_ROLE_UNI_ADMIN);
+     }
+     public function ward_admins()
+     {
+         return $this->hasMany(User::class, 'parent_id')->where('role', self::USER_ROLE_WARD_ADMIN);
+     }
+
+     // Get parent admin (for union admins -> upozila admin, for ward admins -> union admin)
+    public function parent_admin()
+    {
+        return $this->belongsTo(User::class, 'parent_id');
+    }
+    public function children()
+    {
+        return $this->hasMany(User::class, 'parent_id')->with('children');
+    }
+
+    public function getDistrictAdminName(): string
+    {
+        if ($this->role === self::USER_ROLE_WARD_ADMIN) {
+            $user = $this->parent_admin?->parent_admin?->parent_admin ?? null;
+            return !is_null($user)? $user->name .' (Id No: '. $user->id_no .')' : '';
+        }
+        if ($this->role === self::USER_ROLE_UNI_ADMIN) {
+            $user = $this->parent_admin?->parent_admin ?? null;
+            return !is_null($user)? $user->name .' (Id No: '. $user->id_no .')' : '';
+
+        }
+        if ($this->role === self::USER_ROLE_UPO_ADMIN) {
+            $user = $this->parent_admin ?? null;
+            return !is_null($user)? $user->name .' (Id No: '. $user->id_no .')' : '';
+        }
+        return '';
+    }
+
+    public function getUpazilaAdminName(): string
+    {
+        if ($this->role === self::USER_ROLE_WARD_ADMIN) {
+            $user = $this->parent_admin?->parent_admin ?? null;
+            return !is_null($user)? $user->name .' (Id No: '. $user->id_no .')' : '';
+        }
+        if ($this->role === self::USER_ROLE_UNI_ADMIN) {
+            $user = $this->parent_admin ?? null;
+            return !is_null($user)? $user->name .' (Id No: '. $user->id_no .')' : '';
+        }
+        return '';
+    }
+
+    public function getUnionAdminName(): string
+    {
+        if ($this->role === self::USER_ROLE_WARD_ADMIN) {
+            $user = $this->parent_admin ?? null;
+            return !is_null($user)? $user->name .' (Id No: '. $user->id_no .')' : '';
+        }
+        return '';
     }
 }

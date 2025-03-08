@@ -164,9 +164,9 @@
         @csrf
         <input type="hidden" name="role" value="{{\App\Models\User::USER_ROLE_DIS_ADMIN}}">
         <h6 class="text-center fw-bold">জেলা এডমিন</h6>
-        <button type="button" class="up-profile-photo profile-photo" id="dis_profile_input">
+        <button type="button" class="dis-profile-photo profile-photo" id="dis_profile_input">
             <img src="{{ asset('SuperAdmin/assets/img/profile.png')}}" alt="profile icon" id="dis_profile_photo">
-            <input type="file" name="photo" class="up-profile-inp file-hide">
+            <input type="file" name="photo" class="dis-profile-inp file-hide">
         </button>
 
         <label class="input-label" for="name">নাম (বাংলা)</label>
@@ -292,26 +292,26 @@
         <div class="nid-card-area">
             <div>
                 <label class="input-label" for="nid1">এনআইডি ফ্রন্ট</label>
-                <button type="button" class="up-nid-card1 nid-card1" id="dis_nid_front_input">
+                <button type="button" class="dis-nid-card1 nid-card1" id="dis_nid_front_input">
                     <img src="{{ asset('SuperAdmin/assets/img/NID-1.jpg')}}" alt="nid card" id="dis_nid_front_photo">
                     <div class="upload-icon">
                         <div>
                             <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="">
                         </div>
                     </div>
-                    <input type="file" name="nid_front" class="up-nid1 file-hide" id="nid1" accept="image/*">
+                    <input type="file" name="nid_front" class="dis-nid1 file-hide" id="nid1" accept="image/*">
                 </button>
             </div>
             <div>
                 <label class="input-label" for="nid2">এনআইডি ব্যাক</label>
-                <button type="button" class="up-nid-card2 nid-card2" id="dis_nid_back_input">
+                <button type="button" class="dis-nid-card2 nid-card2" id="dis_nid_back_input">
                     <img src="{{ asset('SuperAdmin/assets/img/NID-2.jpg')}}" alt="nid card" id="dis_nid_back_photo">
                     <div class="upload-icon">
                         <div>
                             <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="">
                         </div>
                     </div>
-                    <input type="file" name="nid_back" class="up-nid2 file-hide" id="nid2" accept="image/*">
+                    <input type="file" name="nid_back" class="dis-nid2 file-hide" id="nid2" accept="image/*">
                 </button>
             </div>
         </div>
@@ -319,9 +319,9 @@
             <label class="input-label" for="cv">সিভি আপলোড</label>
             <div>
                 <div>
-                    <button type="button" class="up-cv-upload cv-upload">
+                    <button type="button" class="dis-cv-upload cv-upload">
                         <img src="{{ asset('SuperAdmin/assets/img/cv upload.webp')}}" alt="nid card">
-                        <input type="file" name="cv" class="up-cv file-hide" id="cv" accept="application/pdf">
+                        <input type="file" name="cv" class="dis-cv file-hide" id="cv" accept="application/pdf">
                     </button>
                 </div>
                 <div class="demo-cv">Demo CV</div>
@@ -329,7 +329,7 @@
         </div>
         <div class="certificate-upload-area">
             <label class="input-label" for="certificate">সার্টিফিকেট আপলোড</label>
-            <button type="button" class="up-certificate-upload certificate-upload" id="dis_cartificate_front_input">
+            <button type="button" class="dis-certificate-upload certificate-upload" id="dis_cartificate_front_input">
                 <img src="{{ asset('SuperAdmin/assets/img/certificate.jpg')}}" alt="certificate img"
                     id="dis_cartificate_front_photo">
                 <div class="upload-icon">
@@ -337,7 +337,7 @@
                         <img src="{{ asset('SuperAdmin/assets/img/uploads.png')}}" alt="">
                     </div>
                 </div>
-                <input type="file" name="certificate" class="up-certificate file-hide" id="certificate" accept="image/*">
+                <input type="file" name="certificate" class="dis-certificate file-hide" id="certificate" accept="image/*">
             </button>
         </div>
 

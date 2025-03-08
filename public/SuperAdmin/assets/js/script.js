@@ -25,6 +25,12 @@ input_file('.admin-nid-card2', '.admin-nid2');
 input_file('.admin-cv-upload', '.admin-cv');
 input_file('.admin-certificate-upload', '.admin-certificate');
 
+input_file('.dis-profile-photo', '.dis-profile-inp');
+input_file('.dis-nid-card1', '.dis-nid1');
+input_file('.dis-nid-card2', '.dis-nid2');
+input_file('.dis-cv-upload', '.dis-cv');
+input_file('.dis-certificate-upload', '.dis-certificate');
+
 input_file('.up-profile-photo', '.up-profile-inp');
 input_file('.up-nid-card1', '.up-nid1');
 input_file('.up-nid-card2', '.up-nid2');
@@ -93,9 +99,9 @@ if(editIcons){
         icon.addEventListener("click", function () {
             const inputField = this.previousElementSibling;
             if (inputField) {
-                inputField.removeAttribute("disabled"); 
-                inputField.focus(); 
-                saveButton.removeAttribute("disabled"); 
+                inputField.removeAttribute("disabled");
+                inputField.focus();
+                saveButton.removeAttribute("disabled");
                 saveButton.classList.remove('disable-btn');
             }
         });

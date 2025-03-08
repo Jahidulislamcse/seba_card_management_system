@@ -519,4 +519,14 @@ class UserController extends Controller
         $user->save();
         return response()->json(['success' => true]);
     }
+
+    public function show($id){
+        setPageMeta('User Details');
+        $user = User::query()
+        ->with(['division:id,name','district:id,name','upazila:id,name','union:id,name','parent_admin'])
+        ->findOrFail($id);
+
+        // dd($user->parent_admin->parent_admin->parent_admin);
+        return view('SuperAdmin.user.show', compact('user'));
+    }
 }
