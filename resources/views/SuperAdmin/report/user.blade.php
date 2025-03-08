@@ -23,7 +23,7 @@
     <div class="search-admin">
         <form action="{{ route('super-admin.admin.report.search') }}" method="GET">
             <input type="text" name="query" id="search" placeholder="আইডি বা ফোন নম্বর লিখুন" required>
-            <button type="submit" class="search-button">Search</button>
+            <button type="submit" id="search-btn" class="search-button">Search</button>
         </form>
     </div>
 </div>
@@ -57,3 +57,9 @@
 </div>
 @endif
 @endsection
+
+<style>
+    #search {
+        height: 40px;
+    }
+</style>
