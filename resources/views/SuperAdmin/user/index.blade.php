@@ -12,7 +12,7 @@
     <div class="tab-btns">
         <button type="button" class="user-list-btn  {{$tab == 'ward_admins' ? 'active-btn' : ''}} ">ওর্য়াড ইউজার</button>
         <button type="button" class="user-list-btn">ইউনিয়ন ইউজার</button>
-        <button type="button" class="user-list-btn">উপজেলা ইউজার</button>
+        <button type="button" class="user-list-btn {{$tab == 'upozila_admins' ? 'active-btn' : ''}} ">উপজেলা ইউজার</button>
         <button type="button" class="user-list-btn  {{$tab == 'district_admins' ? 'active-btn' : ''}}" >জেলা ইউজার</button>
     </div>
 
@@ -167,10 +167,11 @@
     </div>
 
     <!-- উপজেলা এডমিন -->
-    <div class="user-content">
-        <h6 class="all-user">মোট - ৮৭৯০ জন</h6>
-        <form action="#" class="search-user-area">
-            <input type="text" name="search-user" id="search-user" placeholder="mobile number/id">
+    <div class="user-content {{$tab == 'upozila_admins' ? 'active_user_section' : ''}}">
+        <h6 class="all-user">মোট - {{$approved_upozila_admins->total()}} জন</h6>
+        <form action="{{route('super-admin.user.manage')}}"  class="search-user-area"  method="GET">
+            <input type="hidden" name="tab" value="upozila_admins">
+            <input type="text" name="search" id="search-user" placeholder="mobile number/id" value="{{$tab == 'upozila_admins' ? $search ?? '' : ''}}">
             <button type="submit" class="button">Submit</button>
         </form>
 
@@ -183,27 +184,30 @@
                         <th>ছবি</th>
                         <th>ইউজার নাম ও আইডি</th>
                         <th>মোবাইল নং</th>
-                        <th>ওয়ার্ড</th>
-                        <th>ইউনিয়ন</th>
+                        <th>বিভাগ</th>
+                        <th>জেলা</th>
                         <th>উপজেলা</th>
                         <th>ইডিট/ডিলিট</th>
                         <th>এক্টিভ/ডিএক্টিভ</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @if($approved_upozila_admins->count() > 0)
+                    @foreach($approved_upozila_admins as $admin)
                     <tr>
-                        <td><div class="center-item">০১</div></td>
+                        <td><div class="center-item">{{$loop->iteration}}</div></td>
                         <td class="user-picture">
-                            <img src="{{ asset('assets/img/men 1.jpg')}}" alt="Profile Picture">
+                            <img src="{{ $admin->photo_url }}" alt="{{$admin->name}}">
                         </td>
                         <td class="user-name-id">
-                            <h6>মো: রিমন শেখ</h6>
-                            <p>০২৮৫৪৬</p>
+                            <h6>{{$admin->name}}</h6>
+                            <p>{{$admin->id_no}}</p>
                         </td>
-                        <td><div class="center-item">০১৪০২৮৬০৬১৭</div></td>
-                        <td><div class="center-item">গোবিন্দপুর</div></tdr>
-                        <td><div class="center-item">যদুবয়রা</div></td>
-                        <td><div class="center-item">কুমারখালী</div></td>
+                        <td><div class="center-item">{{$admin->phone}}</div></td>
+
+                        <td><div class="center-item">{{$admin?->division->name ?? ''}}</div></td>
+                        <td><div class="center-item">{{$admin?->district->name ?? ''}}</div></td>
+                        <td><div class="center-item">{{$admin?->upazila->name ?? ''}}</div></td>
                         <td>
                             <div class="edit-delete-btn">
                                 <button type="button" class="edit-btn">Edit</button>
@@ -213,40 +217,24 @@
                         <td>
                             <div class="status-btn">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="day" checked>
+
+                                    <input class="form-check-input active_status_switch" data-userid="{{$admin->id}}" type="checkbox" role="switch"  {{$admin->active_status == STATUS_ACTIVE ? 'checked' : ''}}>
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td><div class="center-item">০১</div></td>
-                        <td class="user-picture">
-                            <img src="{{ asset('assets/img/men 1.jpg')}}" alt="Profile Picture">
-                        </td>
-                        <td class="user-name-id">
-                            <h6>মো: রিমন শেখ</h6>
-                            <p>০২৮৫৪৬</p>
-                        </td>
-                        <td><div class="center-item">০১৪০২৮৬০৬১৭</div></td>
-                        <td><div class="center-item">গোবিন্দপুর</div></tdr>
-                        <td><div class="center-item">যদুবয়রা</div></td>
-                        <td><div class="center-item">কুমারখালী</div></td>
-                        <td>
-                            <div class="edit-delete-btn">
-                                <button type="button" class="edit-btn">Edit</button>
-                                <button type="button" class="delete-btn">Delete</button>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="status-btn">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="day" checked>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforeach
+                    @endif
                 </tbody>
             </table>
+            <div style="margin-bottom:20%; margin-top:10px;">
+                @php $total_page = !request('total') ?  $approved_upozila_admins->total() : $total; @endphp
+                {!! $approved_upozila_admins->appends([
+                    'upozila_admins_page' => request('upozila_admins_page'),
+                    'tab' => 'upozila_admins',
+                    'total' => $total
+                ])->links('vendor.pagination.bootstrap-5', ['total' => $total_page]) !!}
+                </div>
         </div>
     </div>
 

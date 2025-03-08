@@ -480,9 +480,18 @@ class UserController extends Controller
         ->with(['division:id,name','district:id,name','upazila:id,name'])
         ->paginate($total, ['*'], 'district_admins_page');
 
-        // dd($approved_district_admins);
+        $approved_upozila_admins = User::where('role', User::USER_ROLE_UPO_ADMIN)
+        ->where('status', User::STATUS_APPROVED)
+        ->when(isset($search) && $tab == 'upozila_admins', function ($query) use ($search) {
+            return $query->where('phone', 'like', '%' . $search . '%')
+            ->orWhere('id_no', 'like', '%' . $search . '%');
+        })
+        ->with(['division:id,name','district:id,name','upazila:id,name'])
+        ->paginate($total, ['*'], 'upozila_admins_page');
 
-        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total','search','approved_district_admins'));
+
+
+        return view('SuperAdmin.user.index', compact('approved_ward_admins','tab','total','search','approved_district_admins','approved_upozila_admins'));
     }
 
     public function activeStatusUpdate(Request $request){
