@@ -53,6 +53,7 @@ Route::get('/get-unions/{upozila_id}', [LocationController::class, 'getUnions'])
 Route::middleware(['role:super_admin'])->group(function () {
     Route::prefix('super-admin')->name('super-admin.')->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
+        Route::get('/profile', [ProfileController::class, 'profileEdit'])->name('profile.index');
         Route::resource('/transactions', TransactionController::class);
         Route::get('/transaction-number-search/{search}', [TransactionController::class, 'searchNumber']);
         Route::get('/add-money', [TransactionController::class, 'addMoney'])->name('add-money');

@@ -21,6 +21,13 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function profileEdit(Request $request): View
+    {
+        return view('SuperAdmin.profile.index', [
+            'user' => Auth::user(),
+        ]);
+    }
+
     /**
      * Update the user's profile information.
      */

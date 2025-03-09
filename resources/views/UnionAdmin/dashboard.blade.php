@@ -143,7 +143,7 @@
             <p>মাই টিম লিস্ট</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="Profile.html">
+            <a class="card-links" href="">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/profile-.png') }}" alt="profile icon">
                 </div>

@@ -1,7 +1,6 @@
-
 <header>
     <div class="header-profile">
-        <a href="Profile.html">
+        <a href="{{ route('super-admin.profile.index') }}">
             <img src="{{auth()->user()->photo_url}}" alt="profile icon">
         </a>
         <div class="profile-details">

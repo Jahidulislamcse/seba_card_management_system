@@ -1,6 +1,6 @@
  <header>
      <div class="header-profile">
-         <a href="Profile.html">
+         <a href="">
              <img src="{{ asset('UpazilaAdmin/assets/img/profile.png') }}" alt="profile icon">
          </a>
          <div class="profile-details">
