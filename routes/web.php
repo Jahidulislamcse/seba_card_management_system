@@ -83,7 +83,7 @@ Route::middleware(['role:super_admin'])->group(function () {
                 Route::get('/{id}/details', 'restBalanceDetails')->name('details');
                 Route::get('/{id}/collect', 'restBalanceCollect')->name('collect');
                 Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
-        });
+            });
 
         Route::get('/report-at-a-glance', [SuperAdminReportController::class, 'reportGlance'])->name('report.summery');
         Route::get('/report-user', [SuperAdminReportController::class, 'reportUser'])->name('report.user');
@@ -107,13 +107,13 @@ Route::middleware(['role:dis_admin'])->group(function () {
 
 Route::middleware(['role:upo_admin'])->group(function () {
     Route::prefix('upozila')->name('upozila.')->group(function () {
-        Route::get('/dashboard', [UpozilaAdminDashboardController::class, 'index']);
+        Route::get('/dashboard', [UpozilaAdminDashboardController::class, 'index'])->name('dashboard');
     });
 });
 
 Route::middleware(['role:uni_admin'])->group(function () {
     Route::prefix('union')->name('union.')->group(function () {
-        Route::get('/dashboard', [UnionAdminDashboardController::class, 'index']);
+        Route::get('/dashboard', [UnionAdminDashboardController::class, 'index'])->name('dashboard');
     });
 });
 

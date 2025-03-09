@@ -38,8 +38,10 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->intended(route('dashboard', absolute: false));
             } elseif ($userRole === USER_ROLE_WARD_ADMIN) {
                 return redirect()->intended(route('ward.dashboard', absolute: false));
+            } elseif ($userRole === USER_ROLE_UNI_ADMIN) {
+                return redirect()->intended(route('union.dashboard', absolute: false));
             } else {
-                return redirect()->intended(route('investor.dashboard', absolute: false));
+                return redirect()->intended(route('upozila.dashboard', absolute: false));
             }
         } catch (ValidationException $e) {
             // Handle validation exceptions (e.g., inactive or invalid credentials)
