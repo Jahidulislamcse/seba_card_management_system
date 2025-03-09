@@ -5,11 +5,25 @@
     <div class="admin-details">
         @if(isset($user))
         <h4><b>নাম:</b> <span>{{ $user->name }}</span></h4>
-        <p><b>ডেজিগনেশন:</b> <span>{{ $user->role ?? 'N/A' }}</span></p>
+        <p><b>ডেজিগনেশন:</b>
+            <span>@if($user->role === 'super_admin')
+                Admin
+                @elseif($user->role === 'district_admin')
+                District Admin
+                @elseif($user->role === 'upo_admin')
+                Upozila Admin
+                @elseif($user->role === 'union_admin')
+                Union Admin
+                @elseif($user->role === 'ward_admin')
+                Ward Admin
+                @else
+                {{ ucfirst($user->role) }}
+                @endif
+            </span></p>
         <p><b>জয়িন ডেট:</b> <span>{{ convertToBangla(date('d-m-Y', strtotime($user->activation_date))) }}</span></p>
-        <p><b>জেলা:</b> <span>{{ $user->district->bn_name ?? 'N/A' }}</span></p>
-        <p><b>উপজেলা:</b> <span>{{ $user->upazila->bn_name ?? 'N/A' }}</span></p>
-        <p><b>ইউনিয়ন:</b> <span>{{ $user->union->bn_name ?? 'N/A' }}</span></p>
+        <p><b>জেলা:</b> <span>{{ $user->district->bn_name ?? 'পাওয়া যায়নি' }}</span></p>
+        <p><b>উপজেলা:</b> <span>{{ $user->upazila->bn_name ?? 'পাওয়া যায়নি' }}</span></p>
+        <p><b>ইউনিয়ন:</b> <span>{{ $user->union->bn_name ?? 'পাওয়া যায়নি' }}</span></p>
         @else
         <h4><b>নাম:</b> <span></span></h4>
         <p><b>ডেজিগনেশন:</b> <span></span></p>
@@ -45,12 +59,12 @@
         <tbody>
             <tr>
                 <td>1</td>
-                <td>{{ now()->format('d/m/Y') }}</td>
-                <td>{{ $cardsAdded ?? 0 }}</td>
-                <td>{{ $activeCards ?? 0 }}</td>
-                <td>{{ $cardStock ?? 0 }}</td>
-                <td>{{ $activeCards * 1000 ?? 0 }}</td>
-                <td>{{ $activeCards * 50000 ?? 0 }}</td>
+                <td>{{ convertToBangla(now()->format('d/m/Y')) }}</td>
+                <td>{{ convertToBangla($cardsAdded ?? 0) }}</td>
+                <td>{{ convertToBangla($activeCards ?? 0) }}</td>
+                <td>{{ convertToBangla($cardStock ?? 0) }}</td>
+                <td>{{ convertToBangla($activeCards * 1000 ?? 0) }}</td>
+                <td>{{ convertToBangla($activeCards * 50000 ?? 0) }}</td>
             </tr>
         </tbody>
     </table>
