@@ -43,7 +43,7 @@ const tab_btns = document.querySelector('.tab-btns');
 const btns = document.querySelector('.btns');
 if(tab_btns){
     tab_btns.addEventListener("click", ((event) =>{
-        btns.classList.toggle('active-tab-btn');        
+        btns.classList.toggle('active-tab-btn');
     }))
 }
 
@@ -71,7 +71,7 @@ function tabBtn(element1, element2, operation1){
                 elem1[index].classList.add('active-btn');
                 // class add
 
-                btn.classList.remove('active-tab-btn');  
+                btn.classList.remove('active-tab-btn');
                 tab_btn.innerHTML = btns.innerText + `<img src="assets/img/arrow down.png" alt="arrow icon">`;
             }));
         });

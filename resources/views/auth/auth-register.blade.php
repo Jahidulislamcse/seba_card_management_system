@@ -176,12 +176,12 @@
                     <select name="division" id="division" class="input-box form-control shadow-none" required>
                         <option value="">বিভাগ</option>
                         @foreach ($division as $div)
-                        <option value="{{ $div->id }}">{{ $div->name }}</option>
+                        <option value="{{ $div->id }}">{{ $div->bn_name }}</option>
                         @endforeach
                     </select>
                 </div>
 
-                <label class="input-label" for="dristrick">জেলা</label>
+                <label class="input-label" for="district">জেলা</label>
                 <div class="input-group mb-2">
                     <span class="input-box-icon input-group-text rounded-end-0" id="dristrick">
                         <img src="{{ asset('front/assets/img/city.png') }}" alt="city icon">
@@ -219,6 +219,14 @@
                     <input type="text" name="ward" id="ward" class="input-box form-control shadow-none"
                         placeholder="ওর্য়াড">
 
+                </div>
+
+                <div>
+                    <label for="photo">ছবি</label>
+                    <input type="file" name="photo" id="photo" accept="image/*" onchange="previewImage(event)">
+                    <div>
+                        <img id="photoPreview" src="{{ asset('front/assets/img/photo.png') }}" alt="photo" style="width: 150px; height: 150px; object-fit: cover;">
+                    </div>
                 </div>
 
                 <div class="nid-card-area">
@@ -290,7 +298,16 @@
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('photoPreview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 
     <script src="{{ asset('front/assets/js/main.js') }}"></script>
 
@@ -308,21 +325,22 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#district').empty().append(
-                                '<option value="">Select District</option>');
+                                '<option value="">জেলা নির্বাচন করুন</option>');
                             $.each(data, function(key, value) {
                                 $('#district').append('<option value="' + value.id +
-                                    '">' + value.name + '</option>');
+                                    '">' + value.bn_name + '</option>');
                             });
                             $('#upozila').empty().append(
-                                '<option value="">Select Upozila</option>'
+                                '<option value="">উপ‌জেলা নির্বাচন করুন</option>'
                             ); // Reset upozila dropdown
                         }
                     });
                 } else {
-                    $('#district').empty().append('<option value="">Select District</option>');
-                    $('#upozila').empty().append('<option value="">Select Upozila</option>');
+                    $('#district').empty().append('<option value="">জেলা নির্বাচন করুন</option>');
+                    $('#upozila').empty().append('<option value="">উপ‌জেলা নির্বাচন করুন</option>');
                 }
             });
+
 
             // Fetch upozilas based on district selection
 
@@ -335,15 +353,15 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#upozila').empty().append(
-                                '<option value="">Select Upozila</option>');
+                                '<option value="">উপ‌জেলা নির্বাচন করুন</option>');
                             $.each(data, function(key, value) {
                                 $('#upozila').append('<option value="' + value.id +
-                                    '">' + value.name + '</option>');
+                                    '">' + value.bn_name + '</option>');
                             });
                         }
                     });
                 } else {
-                    $('#upozila').empty().append('<option value="">Select Upozila</option>');
+                    $('#upozila').empty().append('<option value="">উপ‌জেলা নির্বাচন করুন</option>');
                 }
             });
             // Fetch Union based on upozila selection
@@ -357,15 +375,15 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#union').empty().append(
-                                '<option value="">Select union</option>');
+                                '<option value="">ইউনিয়ন নির্বাচন করুন</option>');
                             $.each(data, function(key, value) {
                                 $('#union').append('<option value="' + value.id + '">' +
-                                    value.name + '</option>');
+                                    value.bn_name + '</option>');
                             });
                         }
                     });
                 } else {
-                    $('#union').empty().append('<option value="">Select union</option>');
+                    $('#union').empty().append('<option value="">ইউনিয়ন নির্বাচন করুন</option>');
                 }
             });
         });
@@ -383,7 +401,7 @@
         for (let year = endYear; year >= startYear; year--) {
             let option = document.createElement("option");
             option.value = year;
-            option.textContent = toBengaliNumber(year); 
+            option.textContent = toBengaliNumber(year);
             yearSelect.appendChild(option);
         }
     </script>

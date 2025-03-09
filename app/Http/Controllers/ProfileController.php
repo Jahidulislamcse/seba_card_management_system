@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     /**
@@ -42,6 +42,46 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required|same:new_password',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return back()->with('success', 'Password updated successfully.');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        // Validate request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+        ]);
+
+        // Update user data
+        $user->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+        ]);
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
     /**
