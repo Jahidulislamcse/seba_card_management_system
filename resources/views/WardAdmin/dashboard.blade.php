@@ -86,7 +86,7 @@
             <p>ব‌্যা‌লেন্স এড</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="BalanceStatement.html">
+            <a class="card-links" href="{{ route('ward.balance-statement') }}">
                 <div>
                     <img src="{{ asset('assets/img/balance statement.png') }}" alt="balance statement icon">
                 </div>
@@ -102,7 +102,7 @@
             <p>মাই কার্ড তা‌লিকা</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="Report.html">
+            <a class="card-links" href="{{ route('ward.report') }}">
                 <div>
                     <img src="{{ asset('assets/img/report.png') }}" alt="report icon">
                 </div>
@@ -110,7 +110,7 @@
             <p>রি‌পোর্ট</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="MobileRecharge.html">
+            <a class="card-links" href="{{ route('ward.mobile-recharge') }}">
                 <div>
                     <img src="{{ asset('assets/img/mobile recherge.png') }}" alt="mobile recherge icon">
                 </div>
@@ -118,7 +118,7 @@
             <p>মোবাইল রিচার্জ</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="CashOut.html">
+            <a class="card-links" href="{{ route('ward.cashout') }}">
                 <div>
                     <img src="{{ asset('assets/img/cash out.png') }}" alt="cash out icon">
                 </div>

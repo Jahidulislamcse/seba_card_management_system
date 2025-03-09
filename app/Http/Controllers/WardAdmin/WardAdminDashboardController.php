@@ -20,4 +20,21 @@ class WardAdminDashboardController extends Controller
         // dd($offers);
         return view('WardAdmin.offer', $data);
     }
+
+    public function balanceStateMent()
+    {
+        return view('WardAdmin.balance-statement');
+    }
+    public function report()
+    {
+        return view('WardAdmin.report');
+    }
+    public function mobileRecharge()
+    {
+        return view('WardAdmin.mobile-recharge');
+    }
+    public function cashout()
+    {
+        return view('WardAdmin.cach-out');
+    }
 }

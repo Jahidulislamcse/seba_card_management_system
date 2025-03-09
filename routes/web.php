@@ -117,11 +117,20 @@ Route::middleware(['role:upo_admin'])->group(function () {
 Route::middleware(['role:uni_admin'])->group(function () {
     Route::prefix('union')->name('union.')->group(function () {
         Route::get('/dashboard', [UnionAdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/add-money', [UnionAdminDashboardController::class, 'addMoney'])->name('addmoney');
+        Route::get('/send-money', [UnionAdminDashboardController::class, 'sendMoney'])->name('sendmoney');
+        Route::get('/send-money-report', [UnionAdminDashboardController::class, 'sendMoneyReport'])->name('sendmoneyReport');
+        Route::get('/cash-out', [UnionAdminDashboardController::class, 'cashOut'])->name('cashOut');
+        Route::get('/summary-report', [UnionAdminDashboardController::class, 'summaryReport'])->name('summaryReport');
+        Route::get('/user-manage', [UnionAdminDashboardController::class, 'userManage'])->name('userManage');
+        Route::get('/ward-admin-report', [UnionAdminDashboardController::class, 'wardAdminReport'])->name('wardAdminReport');
+        Route::get('/team-list', [UnionAdminDashboardController::class, 'teamList'])->name('teamList');
+        Route::get('/my-profile', [UnionAdminDashboardController::class, 'myProfile'])->name('myProfile');
+        Route::get('/help-line', [UnionAdminDashboardController::class, 'helpLine'])->name('helpLine');
     });
 });
 
 Route::middleware(['role:ward_admin'])->group(function () {
-
     Route::controller(App\Http\Controllers\WardAdmin\CardController::class)
         ->prefix('ward-admin-cards')->as('ward_admin.cards.')->group(function () {
             Route::get('/', 'index')->name('list');
@@ -146,6 +155,10 @@ Route::prefix('ward-admin')->name('ward.')->group(function () {
     Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/new-members', NewMemberController::class);
     Route::get('/offer', [WardAdminDashboardController::class, 'offer'])->name('offer');
+    Route::get('/balance-statement', [WardAdminDashboardController::class, 'balanceStateMent'])->name('balance-statement');
+    Route::get('/report', [WardAdminDashboardController::class, 'report'])->name('report');
+    Route::get('/mobile-recharge', [WardAdminDashboardController::class, 'mobileRecharge'])->name('mobile-recharge');
+    Route::get('/cash-out', [WardAdminDashboardController::class, 'cashout'])->name('cashout');
 });
 
 Route::controller(CardController::class)

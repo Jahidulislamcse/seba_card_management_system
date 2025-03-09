@@ -9,7 +9,22 @@
     <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/index.css') }}">
     <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/common.css') }}">
+    <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/AddMoney.css') }}">
+    <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/SendMoney.css') }}">
+    <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/Table.css') }}">
+    <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/Cashout.css') }}">
+    <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/UserManage.css') }}">
+    <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/Tab.css') }}">
+    <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/Profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('UnionAdmin/assets/css/Helpline.css') }}">
+
+
+
+
+
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <title>Home | Sheba Card Portal</title>
 </head>
 
@@ -23,7 +38,7 @@
             @yield('content')
 
             <!-- footer start -->
-            @include('UnionAdmin.layouts.partials._footer') 
+            @include('UnionAdmin.layouts.partials._footer')
             <!-- footer end -->
         </div>
     </div>

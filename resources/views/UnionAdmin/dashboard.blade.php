@@ -79,7 +79,7 @@
     <!-- balance add & add card alada page hobe -->
     <div class="all-cards">
         <div class="cards">
-            <a class="card-links" href="AddMoney.html">
+            <a class="card-links" href="{{ route('union.addmoney') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/cash out.png') }}" alt="send-money icon">
                 </div>
@@ -87,7 +87,7 @@
             <p>এডমা‌নি</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="SendMoney.html">
+            <a class="card-links" href="{{ route('union.sendmoney') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/send-money.png') }}" alt="send-money icon">
                 </div>
@@ -95,7 +95,7 @@
             <p>সেন্ড মা‌নি</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="SendMoneyReport.html">
+            <a class="card-links" href="{{ route('union.sendmoneyReport') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/money report.png') }}" alt="user report icon">
                 </div>
@@ -103,7 +103,7 @@
             <p>সেন্ড মা‌নি রি‌পোর্ট</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="Cashout.html">
+            <a class="card-links" href="{{ route('union.cashOut') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/cash out.png') }}" alt="cash out icon">
                 </div>
@@ -111,7 +111,7 @@
             <p>ক্যাশ আউট</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="SummeryReport.html">
+            <a class="card-links" href="{{ route('union.summaryReport') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/report.png') }}" alt="user report icon">
                 </div>
@@ -119,7 +119,7 @@
             <p>সামারি রি‌পোর্ট</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="UserManage.html">
+            <a class="card-links" href="{{ route('union.userManage') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/user.png') }}" alt="user icon">
                 </div>
@@ -127,7 +127,7 @@
             <p>ইউজার ম্যানেজ</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="WardAdminReport.html">
+            <a class="card-links" href="{{ route('union.wardAdminReport') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/admin report.png') }}" alt="user report icon">
                 </div>
@@ -135,7 +135,7 @@
             <p>ওয়ার্ড এড‌মিন রি‌পোর্ট</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="MyTeamList.html">
+            <a class="card-links" href="{{ route('union.teamList') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/team.png') }}" alt="team icon">
                 </div>
@@ -143,7 +143,7 @@
             <p>মাই টিম লিস্ট</p>
         </div>
         <div class="cards">
-            <a class="card-links" href="">
+            <a class="card-links" href="{{ route('union.myProfile') }}">
                 <div>
                     <img src="{{ asset('UnionAdmin/assets/img/profile-.png') }}" alt="profile icon">
                 </div>
