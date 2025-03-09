@@ -75,6 +75,7 @@ Route::middleware(['role:super_admin'])->group(function () {
         //user
         Route::resource('/users', UserController::class);
         Route::post('/user/store', [UserController::class, 'userDatastore'])->name('user.store');
+        Route::put('/user/{id}/update', [UserController::class, 'userDataUpdate'])->name('user.update');
         Route::get('/get-union-admins/{upozila_id}', [UserController::class, 'getUnionAdmins']);
         Route::get('/get-upozila-admins/{district_id}', [UserController::class, 'getUpozilaAdmins']);
         Route::get('/user-manage', [UserController::class, 'userManage'])->name('user.manage');

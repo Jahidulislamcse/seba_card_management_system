@@ -41,36 +41,36 @@
                 </thead>
                 <tbody>
                     @if($approved_ward_admins->count() > 0)
-                    @foreach($approved_ward_admins as $ward_admin)
+                    @foreach($approved_ward_admins as $admin)
                     <tr>
                         <td><div class="center-item">{{$loop->iteration}}</div></td>
                         <td class="user-picture">
-                            <img src="{{ $ward_admin->photo_url }}" alt="{{$ward_admin->name}}">
+                            <img src="{{ $admin->photo_url }}" alt="{{$admin->name}}">
                         </td>
                         <td class="user-name-id">
-                            <h6>{{$ward_admin->name}}</h6>
-                            <p>{{$ward_admin->id_no}}</p>
+                            <h6>{{$admin->name}}</h6>
+                            <p>{{$admin->id_no}}</p>
                         </td>
-                        <td><div class="center-item">{{$ward_admin->phone}}</div></td>
-                        <td><div class="center-item">{{$ward_admin->ward}}</div></td>
+                        <td><div class="center-item">{{$admin->phone}}</div></td>
+                        <td><div class="center-item">{{$admin->ward}}</div></td>
                         <td>
                             <div class="edit-delete-btn">
-                                <button type="button" class="edit-btn">Edit</button>
+                                <button type="button" onclick="window.location.href='{{ route('super-admin.users.edit', $admin->id) }}'" class="edit-btn">Edit</button>
                                 <!-- Delete Button -->
-                                <form action="{{ route('user.destroy', $ward_admin->id) }}" method="POST" style="display: inline-block;">
+                                <form action="{{ route('user.destroy', $admin->id) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
                                     {{-- <button type="button" class="delete-btn">Delete</button> --}}
                                 </form>
 
-                                <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $ward_admin->id) }}'" class="edit-btn">View More</button>
+                                <button type="button" onclick="window.location.href = '{{ route('super-admin.users.show', $admin->id) }}'" class="edit-btn">View More</button>
                             </div>
                         </td>
                         <td>
                             <div class="status-btn">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input active_status_switch" data-userid="{{$ward_admin->id}}" type="checkbox" role="switch"  {{$ward_admin->active_status == STATUS_ACTIVE ? 'checked' : ''}}>
+                                    <input class="form-check-input active_status_switch" data-userid="{{$admin->id}}" type="checkbox" role="switch"  {{$admin->active_status == STATUS_ACTIVE ? 'checked' : ''}}>
                                 </div>
                             </div>
                         </td>
@@ -138,7 +138,7 @@
                         <td><div class="center-item">{{$admin?->union->name ?? ''}}</div></td>
                         <td>
                             <div class="edit-delete-btn">
-                                <button type="button" class="edit-btn">Edit</button>
+                                <button type="button" onclick="window.location.href='{{ route('super-admin.users.edit', $admin->id) }}'" class="edit-btn">Edit</button>
                                 <!-- Delete Button -->
                                 <form action="{{ route('user.destroy', $admin->id) }}" method="POST" style="display: inline-block;">
                                     @csrf
@@ -217,7 +217,8 @@
                         <td><div class="center-item">{{$admin?->upazila->name ?? ''}}</div></td>
                         <td>
                             <div class="edit-delete-btn">
-                                <button type="button" class="edit-btn">Edit</button>
+
+                                <button type="button" onclick="window.location.href='{{ route('super-admin.users.edit', $admin->id) }}'" class="edit-btn">Edit</button>
                                 <!-- Delete Button -->
                                 <form action="{{ route('user.destroy', $admin->id) }}" method="POST" style="display: inline-block;">
                                     @csrf
@@ -296,7 +297,7 @@
                         <td><div class="center-item">{{$admin?->upazila->name ?? ''}}</div></td>
                         <td>
                             <div class="edit-delete-btn">
-                                <button type="button" class="edit-btn">Edit</button>
+                                <button type="button" onclick="window.location.href='{{ route('super-admin.users.edit', $admin->id) }}'" class="edit-btn">Edit</button>
                                 <!-- Delete Button -->
                                 <form action="{{ route('user.destroy', $admin->id) }}" method="POST" style="display: inline-block;">
                                     @csrf

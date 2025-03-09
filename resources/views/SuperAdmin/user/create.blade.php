@@ -1351,6 +1351,10 @@
             $(document).on('change', '.district_admin', function () {
                 let tab  = $(this).data('tab')
                 var district_id = $(this).val();
+
+                $('.upozila_admin_'+tab).empty();
+                $('.union_admin_'+tab).empty();
+
                 if (district_id) {
                     $.ajax({
                         url: '/super-admin/get-upozila-admins/' + district_id,
@@ -1378,6 +1382,9 @@
             $(document).on('change', '.upozila_admin', function () {
                 let tab  = $(this).data('tab')
                 var upozila_id = $(this).val();
+
+                (('.union_admin_'+tab).empty();
+
                 if (upozila_id) {
                     $.ajax({
                         url: '/super-admin/get-union-admins/' + upozila_id,

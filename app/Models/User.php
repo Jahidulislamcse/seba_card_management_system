@@ -187,4 +187,46 @@ class User extends Authenticatable
         }
         return '';
     }
+
+    public function getDistrictAdmin()
+    {
+        if ($this->role === self::USER_ROLE_WARD_ADMIN) {
+            $user = $this->parent_admin?->parent_admin?->parent_admin ?? null;
+            return $user;
+        }
+        if ($this->role === self::USER_ROLE_UNI_ADMIN) {
+            $user = $this->parent_admin?->parent_admin ?? null;
+            return $user;
+
+        }
+        if ($this->role === self::USER_ROLE_UPO_ADMIN) {
+            $user = $this->parent_admin ?? null;
+            return $user;
+        }
+        return '';
+    }
+
+    public function getUpazilaAdmin()
+    {
+        if ($this->role === self::USER_ROLE_WARD_ADMIN) {
+            $user = $this->parent_admin?->parent_admin ?? null;
+                    return $user;
+        }
+        if ($this->role === self::USER_ROLE_UNI_ADMIN) {
+            $user = $this->parent_admin ?? null;
+                    return $user;
+        }
+        return '';
+    }
+
+    public function getUnionAdmin()
+    {
+        if ($this->role === self::USER_ROLE_WARD_ADMIN) {
+            $user = $this->parent_admin ?? null;
+            return $user;
+        }
+        return '';
+    }
+
+
 }
