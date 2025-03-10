@@ -4,6 +4,13 @@
 <link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/common.css') }}">
 <link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/AddBalance.css') }}">
 <link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/Offer.css') }}">
+<link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/BalanceStatement.css') }}">
+<link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/Report.css') }}">
+<link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/MobileRecharge.css') }}">
+<link rel="stylesheet" href="{{ asset('WardAdmin/assets/css/Cashout.css') }}">
+
+
+
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
