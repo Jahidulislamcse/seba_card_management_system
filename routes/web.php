@@ -31,24 +31,30 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
-    Route::put('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+        Route::put('/profile/update', 'updateProfile')->name('profile.update');
+        Route::put('/profile/update-password', 'updatePassword')->name('profile.updatePassword');
+    });
 });
 
-Route::get('user/list', [UserController::class, 'userList'])->name('user.list');
-Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
-Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
-Route::put('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
-Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
-Route::get('user/{id}/status', [UserController::class, 'status'])->name('user.status');
+Route::controller(UserController::class)->group(function () {
+    Route::get('user/list', 'userList')->name('user.list');
+    Route::post('user/store', 'store')->name('user.store');
+    Route::get('user/{id}/edit', 'edit')->name('user.edit');
+    Route::put('user/{id}/update', 'update')->name('user.update');
+    Route::delete('user/{id}', 'destroy')->name('user.destroy');
+    Route::get('user/{id}/status', 'status')->name('user.status');
+});
 
 
-Route::get('/get-districts/{division_id}', [LocationController::class, 'getDistricts']);
-Route::get('/get-upozilas/{district_id}', [LocationController::class, 'getUpozilas']);
-Route::get('/get-unions/{upozila_id}', [LocationController::class, 'getUnions']);
+Route::controller(LocationController::class)->group(function () {
+    Route::get('/get-districts/{division_id}', 'getDistricts');
+    Route::get('/get-upozilas/{district_id}', 'getUpozilas');
+    Route::get('/get-unions/{upozila_id}', 'getUnions');
+});
 
 
 
@@ -56,15 +62,17 @@ Route::middleware(['role:super_admin'])->group(function () {
     Route::prefix('super-admin')->name('super-admin.')->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
         Route::get('/profile', [ProfileController::class, 'profileEdit'])->name('profile.index');
-        Route::resource('/transactions', TransactionController::class);
-        Route::get('/transaction-number-search/{search}', [TransactionController::class, 'searchNumber']);
-        Route::get('/add-money', [TransactionController::class, 'addMoney'])->name('add-money');
-        Route::post('/add-money', [TransactionController::class, 'addMoneyStore'])->name('add-money.store');
+
+        Route::controller(TransactionController::class)->group(function () {
+            Route::resource('/transactions', TransactionController::class); // Resource routes
+            Route::get('/transaction-number-search/{search}', 'searchNumber');
+            Route::get('/add-money', 'addMoney')->name('add-money');
+            Route::post('/add-money', 'addMoneyStore')->name('add-money.store');
+        });
         Route::resource('/notice', NoticeSettingController::class);
         Route::resource('/offer', OfferSettingController::class);
         Route::get('/download-notice/{file}', function ($file) {
             $filePath = public_path("upload/notices/{$file}");
-
             if (File::exists($filePath)) {
                 return Response::download($filePath);
             } else {
@@ -72,14 +80,15 @@ Route::middleware(['role:super_admin'])->group(function () {
             }
         })->name('notice.download');
 
-        //user
-        Route::resource('/users', UserController::class);
-        Route::post('/user/store', [UserController::class, 'userDatastore'])->name('user.store');
-        Route::put('/user/{id}/update', [UserController::class, 'userDataUpdate'])->name('user.update');
-        Route::get('/get-union-admins/{upozila_id}', [UserController::class, 'getUnionAdmins']);
-        Route::get('/get-upozila-admins/{district_id}', [UserController::class, 'getUpozilaAdmins']);
-        Route::get('/user-manage', [UserController::class, 'userManage'])->name('user.manage');
-        Route::post('/users/active-status-update', [UserController::class, 'activeStatusUpdate'])->name('user.active-status-update');
+        Route::controller(UserController::class)->group(function () {
+            Route::resource('/users', UserController::class);  // Resource routes
+            Route::post('/user/store', 'userDatastore')->name('user.store');
+            Route::put('/user/{id}/update', 'userDataUpdate')->name('user.update');
+            Route::get('/get-union-admins/{upozila_id}', 'getUnionAdmins');
+            Route::get('/get-upozila-admins/{district_id}', 'getUpozilaAdmins');
+            Route::get('/user-manage', 'userManage')->name('user.manage');
+            Route::post('/users/active-status-update', 'activeStatusUpdate')->name('user.active-status-update');
+        });
 
         Route::controller(RestBalanceController::class)
             ->prefix('rest-balance')->as('rest-balance.')->group(function () {
@@ -89,11 +98,16 @@ Route::middleware(['role:super_admin'])->group(function () {
                 Route::post('/{id}/collect', 'restBalanceStore')->name('collect.store');
             });
 
-        Route::get('/report-at-a-glance', [SuperAdminReportController::class, 'reportGlance'])->name('report.summery');
-        Route::get('/report-user', [SuperAdminReportController::class, 'reportUser'])->name('report.user');
-        Route::get('/search-admin-report', [SuperAdminReportController::class, 'searchAdmin'])->name('admin.report.search');
-        Route::get('/income-expense', [SuperAdminIncomeAndExpenseController::class, 'incomeExpense'])->name('income-expense');
-        Route::post('/income-expense', [SuperAdminIncomeAndExpenseController::class, 'store'])->name('income-expense.store');
+        Route::controller(SuperAdminReportController::class)->group(function () {
+            Route::get('/report-at-a-glance', 'reportGlance')->name('report.summery');
+            Route::get('/report-user', 'reportUser')->name('report.user');
+            Route::get('/search-admin-report', 'searchAdmin')->name('admin.report.search');
+        });
+
+        Route::controller(SuperAdminIncomeAndExpenseController::class)->group(function () {
+            Route::get('/income-expense', 'incomeExpense')->name('income-expense');
+            Route::post('/income-expense', 'store')->name('income-expense.store');
+        });
     });
 });
 
@@ -117,17 +131,19 @@ Route::middleware(['role:upo_admin'])->group(function () {
 
 Route::middleware(['role:uni_admin'])->group(function () {
     Route::prefix('union')->name('union.')->group(function () {
-        Route::get('/dashboard', [UnionAdminDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/add-money', [UnionAdminDashboardController::class, 'addMoney'])->name('addmoney');
-        Route::get('/send-money', [UnionAdminDashboardController::class, 'sendMoney'])->name('sendmoney');
-        Route::get('/send-money-report', [UnionAdminDashboardController::class, 'sendMoneyReport'])->name('sendmoneyReport');
-        Route::get('/cash-out', [UnionAdminDashboardController::class, 'cashOut'])->name('cashOut');
-        Route::get('/summary-report', [UnionAdminDashboardController::class, 'summaryReport'])->name('summaryReport');
-        Route::get('/user-manage', [UnionAdminDashboardController::class, 'userManage'])->name('userManage');
-        Route::get('/ward-admin-report', [UnionAdminDashboardController::class, 'wardAdminReport'])->name('wardAdminReport');
-        Route::get('/team-list', [UnionAdminDashboardController::class, 'teamList'])->name('teamList');
-        Route::get('/my-profile', [UnionAdminDashboardController::class, 'myProfile'])->name('myProfile');
-        Route::get('/help-line', [UnionAdminDashboardController::class, 'helpLine'])->name('helpLine');
+        Route::controller(UnionAdminDashboardController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('dashboard');
+            Route::get('/add-money', 'addMoney')->name('addmoney');
+            Route::get('/send-money', 'sendMoney')->name('sendmoney');
+            Route::get('/send-money-report', 'sendMoneyReport')->name('sendmoneyReport');
+            Route::get('/cash-out', 'cashOut')->name('cashOut');
+            Route::get('/summary-report', 'summaryReport')->name('summaryReport');
+            Route::get('/user-manage', 'userManage')->name('userManage');
+            Route::get('/ward-admin-report', 'wardAdminReport')->name('wardAdminReport');
+            Route::get('/team-list', 'teamList')->name('teamList');
+            Route::get('/my-profile', 'myProfile')->name('myProfile');
+            Route::get('/help-line', 'helpLine')->name('helpLine');
+        });
     });
 });
 
@@ -153,13 +169,15 @@ Route::middleware(['role:ward_admin'])->group(function () {
 
 
 Route::prefix('ward-admin')->name('ward.')->group(function () {
-    Route::get('/dashboard', [WardAdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/new-members', NewMemberController::class);
-    Route::get('/offer', [WardAdminDashboardController::class, 'offer'])->name('offer');
-    Route::get('/balance-statement', [WardAdminDashboardController::class, 'balanceStateMent'])->name('balance-statement');
-    Route::get('/report', [WardAdminDashboardController::class, 'report'])->name('report');
-    Route::get('/mobile-recharge', [WardAdminDashboardController::class, 'mobileRecharge'])->name('mobile-recharge');
-    Route::get('/cash-out', [WardAdminDashboardController::class, 'cashout'])->name('cashout');
+    Route::controller(WardAdminDashboardController::class)->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard');
+        Route::get('/offer', 'offer')->name('offer');
+        Route::get('/balance-statement', 'balanceStateMent')->name('balance-statement');
+        Route::get('/report', 'report')->name('report');
+        Route::get('/mobile-recharge', 'mobileRecharge')->name('mobile-recharge');
+        Route::get('/cash-out', 'cashout')->name('cashout');
+    });
 });
 
 Route::controller(CardController::class)
