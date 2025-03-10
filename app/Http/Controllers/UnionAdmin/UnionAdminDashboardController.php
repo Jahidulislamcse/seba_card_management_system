@@ -4,6 +4,8 @@ namespace App\Http\Controllers\UnionAdmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class UnionAdminDashboardController extends Controller
 {
@@ -46,7 +48,9 @@ class UnionAdminDashboardController extends Controller
     }
     public function myProfile()
     {
-        return view('UnionAdmin.my-profile');
+        return view('UnionAdmin.my-profile', [
+            'user' => Auth::user(),
+        ]);
     }
     public function helpLine()
     {
