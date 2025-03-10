@@ -13,7 +13,8 @@ use App\Http\Requests\SuperAdmin\TransactionRequest;
 class TransactionController extends Controller
 {
     public $transactionService;
-    public function __construct(TransactionService $transactionService){
+    public function __construct(TransactionService $transactionService)
+    {
         $this->transactionService = $transactionService;
     }
     /**
@@ -38,11 +39,12 @@ class TransactionController extends Controller
      */
     public function store(TransactionRequest $request)
     {
+        // dd($request->validated());
         $data = $request->validated();
 
         try {
             $this->transactionService->createTransaction($data);
-            return redirect()->route('super-admin.transactions.create')->with('success', 'Send Money Created Successfully');
+            return redirect()->back()->with('success', 'Send Money Created Successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -80,21 +82,34 @@ class TransactionController extends Controller
         //
     }
 
-    public function searchNumber(Request $request){
+    public function searchNumber(Request $request)
+    {
         $search = $request->search;
         $user = User::where('phone', 'like', '%' . $search . '%')
-        ->whereNotIn('role', [User::USER_ROLE_SUPERADMIN, User::USER_ROLE_ADMIN])
-        ->where('status', User::STATUS_APPROVED)
-        ->first();
+            ->whereNotIn('role', [User::USER_ROLE_SUPERADMIN, User::USER_ROLE_ADMIN])
+            ->where('status', User::STATUS_APPROVED)
+            ->first();
         return response()->json($user);
     }
 
-    public function addMoney(){
+    public function UnionSearchNumber(Request $request)
+    {
+        $search = $request->search;
+        $user = User::where('phone', 'like', '%' . $search . '%')
+            ->whereNotIn('role', [User::USER_ROLE_SUPERADMIN, User::USER_ROLE_ADMIN, User::USER_ROLE_DIS_ADMIN, User::USER_ROLE_UPO_ADMIN,])
+            ->where('status', User::STATUS_APPROVED)
+            ->first();
+        return response()->json($user);
+    }
+
+    public function addMoney()
+    {
         setPageMeta('Add Money');
         return view('SuperAdmin.transaction.add-money');
     }
 
-    public function addMoneyStore(Request $request){
+    public function addMoneyStore(Request $request)
+    {
 
         $request->validate([
             'amount' => 'required|numeric',
@@ -104,5 +119,4 @@ class TransactionController extends Controller
         $user->save();
         return redirect()->back()->with('success', 'Money Added Successfully');
     }
-
 }

@@ -58,7 +58,7 @@ Route::controller(LocationController::class)->group(function () {
 
 
 
-Route::middleware(['role:super_admin'])->group(function () {
+// Route::middleware(['role:super_admin'])->group(function () {
     Route::prefix('super-admin')->name('super-admin.')->group(function () {
         Route::get('/dashboard', [SuperAdminDashboardController::class, 'index']);
         Route::get('/profile', [ProfileController::class, 'profileEdit'])->name('profile.index');
@@ -109,7 +109,7 @@ Route::middleware(['role:super_admin'])->group(function () {
             Route::post('/income-expense', 'store')->name('income-expense.store');
         });
     });
-});
+// });
 
 Route::middleware(['role:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
@@ -129,7 +129,7 @@ Route::middleware(['role:upo_admin'])->group(function () {
     });
 });
 
-Route::middleware(['role:uni_admin'])->group(function () {
+// Route::middleware(['role:uni_admin'])->group(function () {
     Route::prefix('union')->name('union.')->group(function () {
         Route::controller(UnionAdminDashboardController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
@@ -144,10 +144,15 @@ Route::middleware(['role:uni_admin'])->group(function () {
             Route::get('/my-profile', 'myProfile')->name('myProfile');
             Route::get('/help-line', 'helpLine')->name('helpLine');
         });
+    Route::resource('/transactions', TransactionController::class);
+    Route::controller(TransactionController::class)->group(function () {
+            Route::post('/add-money/store', 'addMoneyStore')->name('add-money.store');
+            Route::get('/transaction-number-search/{search}', 'UnionSearchNumber');
     });
-});
+    });
+// });
 
-Route::middleware(['role:ward_admin'])->group(function () {
+// Route::middleware(['role:ward_admin'])->group(function () {
     Route::controller(App\Http\Controllers\WardAdmin\CardController::class)
         ->prefix('ward-admin-cards')->as('ward_admin.cards.')->group(function () {
             Route::get('/', 'index')->name('list');
@@ -165,7 +170,7 @@ Route::middleware(['role:ward_admin'])->group(function () {
             Route::get('/request', 'create')->name('create');
             Route::post('store', 'store')->name('store');
         });
-});
+// });
 
 
 Route::prefix('ward-admin')->name('ward.')->group(function () {
